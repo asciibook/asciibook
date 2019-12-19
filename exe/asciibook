@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+require "asciibook"
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: asciibook [options] source.adoc"
+
+  opts.on("-v", "--version", "Show version") do |v|
+    puts("Asciibook #{Asciibook::VERSION}")
+    exit
+  end
+
+  opts.on("-h", "--help", "Prints this help") do
+    puts opts
+    exit
+  end
+end.parse!(into: options)
+
+Asciibook::Book.new(source: ARGV[0], options: options).build

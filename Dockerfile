@@ -9,3 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN gem install bundler -v 2.0.2
 
 WORKDIR /asciibook
+
+COPY . /asciibook
+
+RUN bundler install
