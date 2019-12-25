@@ -3,8 +3,33 @@
   <head>
     <meta charset="utf-8">
     <title>{{ page.title }} - {{ book.title }}</title>
+    <link rel="stylesheet" href="default.css">
+    <script src="default.js" defer></script>
   </head>
   <body>
-    {{ page.content }}
+    <div id="toc" class="toc">
+      <div class="heading">
+        {{ book.title }}
+      </div>
+      <div class="nav">
+        {% if book.toc[0] %}
+          {% for item in book.toc %}
+            <a href="{{ item.url }}" class="nav-item">{{ item.title }}</a>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    <div class="main">
+      <div class="toolbar">
+        <div class="toolbar-action">
+          <button id="toc-button" type="button" class="button button-icon">
+            <img src="icons/menu-24px.svg">
+          </button>
+        </div>
+      </div>
+      <div class="content">
+        {{ page.content }}
+      </div>
+    </div>
   </body>
 </html>
