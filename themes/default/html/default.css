@@ -34,7 +34,13 @@ body {
 .toc .nav {
 }
 
-.toc .nav-item {
+.toc .nav ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc .nav-item a {
   display: block;
   padding: 16px;
   line-height: 1;
@@ -42,12 +48,16 @@ body {
   text-decoration: none;
 }
 
-.toc .nav-item:hover {
+.toc .nav-item a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
-.toc .nav-item.active {
+.toc .nav-item a.active {
   background: rgba(0, 0, 0, 0.1);
+}
+
+.toc .nav-item .nav-item a {
+  padding-left: 32px;
 }
 
 .main {
