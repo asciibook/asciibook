@@ -7,35 +7,30 @@
     <script src="default.js" defer></script>
   </head>
   <body>
-    <div id="toc" class="toc">
-      <div class="heading">
-        {{ book.title }}
+    <div id="drawer" class="drawer">
+      <div class="drawer-content">
+        <div class="heading">
+          {{ book.title }}
+        </div>
+        <div class="nav">
+          {% if book.toc[0] %}
+            <ol>
+              {% for item in book.toc %}
+                <li class="nav-item">
+                  <a href="{{ item.url }}">{{ item.title }}</a>
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
+        </div>
       </div>
-      <div class="nav">
-        {% if book.toc[0] %}
-          <ol>
-            {% for item in book.toc %}
-              <li class="nav-item">
-                <a href="{{ item.url }}">{{ item.title }}</a>
-                {% if item.items %}
-                  <ol>
-                    {% for subitem in item.items %}
-                      <li class="nav-item">
-                        <a href="{{ subitem.url }}">{{ subitem.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ol>
-                {% endif %}
-              </li>
-            {% endfor %}
-          </ol>
-        {% endif %}
+      <div id="drawer-backdrop" class="drawer-backdrop">
       </div>
     </div>
     <div class="main">
       <div class="toolbar">
         <div class="toolbar-action">
-          <button id="toc-button" type="button" class="button button-icon">
+          <button id="drawer-button" type="button" class="button button-icon">
             <img src="icons/menu-24px.svg">
           </button>
         </div>

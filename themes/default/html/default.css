@@ -4,7 +4,10 @@ body {
   color: #333;
 }
 
-.toc {
+.drawer {
+}
+
+.drawer-content {
   position: fixed;
   top: 0;
   left: -240px;
@@ -13,34 +16,33 @@ body {
   background: rgba(0, 0, 0, 0.05);
   padding: 0;
   margin: 0;
-  transition: left 0.3s;
 }
 
-.toc.active {
+.drawer.active .drawer-content {
   left: 0;
 }
 
-.toc.active + .main {
+.drawer.active + .main {
   margin-left: 240px;
 }
 
-.toc .heading {
+.drawer .heading {
   padding: 16px;
   font-size: 16px;
   line-height: 1;
   font-weight: bold;
 }
 
-.toc .nav {
+.drawer .nav {
 }
 
-.toc .nav ol {
+.drawer .nav ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.toc .nav-item a {
+.drawer .nav-item a {
   display: block;
   padding: 16px;
   line-height: 1;
@@ -48,20 +50,19 @@ body {
   text-decoration: none;
 }
 
-.toc .nav-item a:hover {
+.drawer .nav-item a:hover {
   background: rgba(0, 0, 0, 0.05);
 }
 
-.toc .nav-item a.active {
+.drawer .nav-item a.active {
   background: rgba(0, 0, 0, 0.1);
 }
 
-.toc .nav-item .nav-item a {
+.drawer .nav-item .nav-item a {
   padding-left: 32px;
 }
 
 .main {
-  transition: margin 0.3s;
 }
 
 .toolbar {
@@ -97,4 +98,25 @@ body {
   padding: 16px;
   max-width: 768px;
   margin: 0 auto;
+}
+
+@media (max-width: 1040px) {
+  .drawer-content {
+    background: white;
+    z-index: 32;
+  }
+
+  .drawer.active .drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 16;
+  }
+
+  .drawer.active + .main {
+    margin-left: 0;
+  }
 }
