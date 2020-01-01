@@ -5,6 +5,7 @@ require "fileutils"
 
 require "asciibook/version"
 require "asciibook/book"
+require "asciibook/builders/html_builder"
 
 module Asciibook
 end
