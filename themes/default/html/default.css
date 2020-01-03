@@ -104,6 +104,24 @@ img {
   margin: 0 auto;
 }
 
+.paginator {
+  padding: 16px;
+  max-width: 768px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.paginator a {
+  display: inline-flex;
+  color: #555;
+  text-decoration: none;
+}
+
+.paginator a:hover {
+  color: #333;
+}
+
 @media (max-width: 1040px) {
   .drawer-content {
     background: white;

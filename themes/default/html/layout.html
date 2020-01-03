@@ -38,6 +38,20 @@
       <div class="content">
         {{ page.content }}
       </div>
+      <div class="paginator">
+        {% if page.prev_page %}
+          <a href="{{ page.prev_page.url }}">
+            <img src="icons/navigate_before-24px.svg">
+            <span>{{ page.prev_page.title }}</span>
+          </a>
+        {% endif %}
+        {% if page.next_page %}
+          <a href="{{ page.next_page.url }}">
+            <span>{{ page.next_page.title }}</span>
+            <img src="icons/navigate_next-24px.svg">
+          </a>
+        {% endif %}
+      </div>
     </div>
   </body>
 </html>

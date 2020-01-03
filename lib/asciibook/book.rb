@@ -1,15 +1,22 @@
 module Asciibook
   class Book
-    def initialize(source:, options: {})
-      @source = source
+    attr_reader :data, :dir, :options
+
+    def initialize(data:, dir:, options: {})
+      @data = data
+      @dir = dir
       @options = options
     end
 
     def build
-      asciidoc = Asciidoctor.load_file @source, backend: 'htmlbook'
-      doc = REXML::Document.new asciidoc.convert(header_footer: true)
-      dir = File.dirname(File.expand_path @source)
-      Builders::HtmlBuilder.new(doc, dir).build
+      Builders::HtmlBuilder.new(self).build
+    end
+
+    def doc
+      @doc ||= begin
+        asciidoc = Asciidoctor.load @data, backend: 'htmlbook'
+        REXML::Document.new asciidoc.convert(header_footer: true)
+      end
     end
   end
 end

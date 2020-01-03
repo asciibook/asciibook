@@ -1,44 +1,61 @@
 module Asciibook
   module Builders
     class HtmlBuilder
-      def initialize(doc, dir)
-        @doc = doc
-        @dir = dir
+      def initialize(book)
+        @book = book
+        @build_dir = File.join(@book.dir, 'build/html')
+        @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
       end
 
       def build
-        build_dir = File.join(@dir, 'build/html')
-        FileUtils.rm_r build_dir
-        FileUtils.mkdir_p build_dir
+        FileUtils.rm_r @build_dir
+        FileUtils.mkdir_p @build_dir
 
-        theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
-        layout = Liquid::Template.parse(File.read(File.join(theme_dir, 'layout.html')))
-        @doc.elements['/html/body'].elements.each do |section|
-          case section['data-type']
-          when 'part'
-            # Todo
-          else
-            File.open(File.join(build_dir, "#{section['id']}.html"), 'w') do |file|
-              file.write layout.render({
-                'book' => book_data,
-                'page' => {
-                  'title' => section.elements['h1']&.text,
-                  'content' => section.to_s
-                }
-              })
-            end
+        split_pages
+        generate_pages
+        copy_assets
+      end
+
+      def split_pages
+        @pages = []
+        @page_index = {}
+        @book.doc.elements.each('/html/body/*[self::section or self::nav or self::div]') do |element|
+          page = Asciibook::Page.new(
+            id: element['id'],
+            title: element.elements['h1']&.text,
+            content: element.to_s
+          )
+          if @pages.last
+            page.prev_page = @pages.last
+            @pages.last.next_page = page
+          end
+          @pages << page
+          @page_index[page.id] = page
+        end
+      end
+
+      def generate_pages
+        layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
+        @pages.each do |page|
+          File.open(File.join(@build_dir, "#{page.id}.html"), 'w') do |file|
+            file.write layout.render({
+              'book' => book_data,
+              'page' => page.to_hash
+            })
           end
         end
+      end
 
-        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @dir).each do |path|
+      def copy_assets
+        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @book.dir).each do |path|
           # ignore build dir assets
-          if !File.join(@dir, path).start_with?(build_dir)
-            copy_file(path, @dir, build_dir)
+          if !File.join(@book.dir, path).start_with?(@build_dir)
+            copy_file(path, @book.dir, @build_dir)
           end
         end
 
-        Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: theme_dir).each do |path|
-          copy_file(path, theme_dir, build_dir)
+        Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
+          copy_file(path, @theme_dir, @build_dir)
         end
       end
 
@@ -46,13 +63,13 @@ module Asciibook
         src_path = File.join(src_dir, path)
         dest_path = File.join(dest_dir, path)
         FileUtils.mkdir_p File.dirname(dest_path)
-        FileUtils.cp src_path, dest_path, verbose: true
+        FileUtils.cp src_path, dest_path
       end
 
       def book_data
         @book_data ||= {
-          'title' => @doc.elements['html/head/title'].text,
-          'toc' => toc_data(@doc.elements['html/body/nav'])
+          'title' => @book.doc.elements['html/head/title'].text,
+          'toc' => toc_data(@book.doc.elements['html/body/nav'])
         }
       end
 
@@ -73,7 +90,7 @@ module Asciibook
       # Todo: support data-type="part"
       def find_anchor(anchor)
         _, id = anchor.split('#')
-        element = @doc.elements["//*[@id='#{id}']"]
+        element = @book.doc.elements["//*[@id='#{id}']"]
         page_element = element
 
         if page_element.parent.name == 'body'
