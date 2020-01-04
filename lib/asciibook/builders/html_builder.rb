@@ -5,6 +5,9 @@ module Asciibook
         @book = book
         @build_dir = File.join(@book.dir, 'build/html')
         @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
+
+        @pages = []
+        @refs = {}
       end
 
       def build
@@ -12,25 +15,47 @@ module Asciibook
         FileUtils.mkdir_p @build_dir
 
         split_pages
+        create_refs
+        replace_links
         generate_pages
         copy_assets
       end
 
       def split_pages
-        @pages = []
-        @page_index = {}
         @book.doc.elements.each('/html/body/*[self::section or self::nav or self::div]') do |element|
           page = Asciibook::Page.new(
             id: element['id'],
             title: element.elements['h1']&.text,
-            content: element.to_s
+            element: element
           )
           if @pages.last
             page.prev_page = @pages.last
             @pages.last.next_page = page
           end
           @pages << page
-          @page_index[page.id] = page
+        end
+      end
+
+      def create_refs
+        @pages.each do |page|
+          @refs[page.id] = page.url
+
+          page.element.elements.each('.//*[@id]') do |element|
+            @refs[element['id']] = "#{page.url}##{element['id']}"
+          end
+
+          page.element.elements.each('.//*[@name]') do |element|
+            @refs[element['name']] = "#{page.url}##{element['name']}"
+          end
+        end
+      end
+
+      def replace_links
+        @book.doc.elements.each('/html/body/nav//a | /html/body//a[@data-type="xref"]') do |element|
+          if element['href'].start_with?('#')
+            _, id = element['href'].split('#')
+            element.attributes['href'] = @refs[id]
+          end
         end
       end
 
@@ -78,29 +103,13 @@ module Asciibook
         toc.elements.each('ol/li') do |element|
           item = {}
           anchor = element.elements['a']
-          item = { 'title' => anchor.text, 'url' => find_anchor(anchor['href']) }
+          item = { 'title' => anchor.text, 'url' => anchor['href'] }
           if element.elements['ol/li']
             item['items'] = toc_data(element)
           end
           data << item
         end
         data
-      end
-
-      # Todo: support data-type="part"
-      def find_anchor(anchor)
-        _, id = anchor.split('#')
-        element = @book.doc.elements["//*[@id='#{id}']"]
-        page_element = element
-
-        if page_element.parent.name == 'body'
-          "#{id}.html"
-        else
-          while page_element.parent.name != 'body'
-            page_element = page_element.parent
-          end
-          "#{page_element['id']}.html##{id}"
-        end
       end
     end
   end
