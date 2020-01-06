@@ -21,19 +21,50 @@ module Asciibook
         copy_assets
       end
 
+      PAGE_LEVEL = 2
+
       def split_pages
-        @book.doc.elements.each('/html/body/*[self::section or self::nav or self::div]') do |element|
-          page = Asciibook::Page.new(
+        split_page(@book.doc.elements['html/body'], 0)
+      end
+
+      PAGE_XPATH = './*[self::section or @data-type="toc" or @data-type="part"]'
+
+      def split_page(element, level)
+        if level < PAGE_LEVEL
+          element_clone = element.deep_clone
+          element_clone.elements.delete_all(PAGE_XPATH)
+          append_page(
+            id: element_clone['id'],
+            title: element_clone.elements['h1']&.text,
+            element: element_clone
+          )
+
+          level += 1
+          element.elements.each(PAGE_XPATH) do |subelement|
+            split_page(subelement, level)
+          end
+        else
+          append_page(
             id: element['id'],
             title: element.elements['h1']&.text,
             element: element
           )
-          if @pages.last
-            page.prev_page = @pages.last
-            @pages.last.next_page = page
-          end
-          @pages << page
         end
+      end
+
+      def append_page(id:, title:, element:)
+        page = Asciibook::Page.new(
+          id: id,
+          title: title,
+          element: element
+        )
+
+        if @pages.last
+          page.prev_page = @pages.last
+          @pages.last.next_page = page
+        end
+
+        @pages << page
       end
 
       def create_refs
