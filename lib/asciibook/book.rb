@@ -1,22 +1,53 @@
 module Asciibook
   class Book
-    attr_reader :data, :dir, :options
+    attr_reader :data, :options, :pages
 
-    def initialize(data:, dir:, options: {})
+    def initialize(data, options = {})
       @data = data
-      @dir = dir
       @options = options
+
+      @page_level = @options[:page_level] || 1
     end
 
     def build
+      process
       Builders::HtmlBuilder.new(self).build
     end
 
-    def doc
-      @doc ||= begin
-        asciidoc = Asciidoctor.load @data, backend: 'htmlbook'
-        REXML::Document.new asciidoc.convert(header_footer: true)
+    def process
+      process_pages
+    end
+
+    def process_pages
+      @pages = []
+      process_page(doc)
+      @pages
+    end
+
+    def process_page(node)
+      append_page(node)
+
+      if node.level < @page_level
+        node.sections.each do |section|
+          process_page(section)
+        end
       end
+    end
+
+    def append_page(node)
+      page = Page.new(node)
+
+      if last_page = @pages.last
+        page.prev_page = last_page
+        last_page.next_page = page
+      end
+
+      node.page = page
+      @pages << page
+    end
+
+    def doc
+      @doc ||= Asciidoctor.load(@data, backend: 'asciibook')
     end
   end
 end
