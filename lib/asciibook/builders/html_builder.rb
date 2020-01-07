@@ -21,7 +21,7 @@ module Asciibook
         copy_assets
       end
 
-      PAGE_LEVEL = 2
+      PAGE_LEVEL = 1
 
       def split_pages
         split_page(@book.doc.elements['html/body'], 0)

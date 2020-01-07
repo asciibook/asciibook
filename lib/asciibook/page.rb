@@ -1,26 +1,31 @@
 module Asciibook
   class Page
-    attr_accessor :id, :title, :element, :parent, :children, :prev_page, :next_page
+    attr_accessor :node, :prev_page, :next_page
 
-    def initialize(id:, title:, element:)
-      @id = id
-      @title = title
-      @element = element
+    def initialize(node)
+      @node = node
+    end
+
+    def path
+      "#{node.id}.html"
+    end
+
+    def title
+      node.title
+    end
+
+    def content
+      node.convert
     end
 
     def to_hash
       {
-        'id' => id,
+        'path' => path,
         'title' => title,
-        'content' => element.to_s,
-        'url' => url,
-        'prev_page' => prev_page && { 'id' => prev_page.id, 'title' => prev_page.title, 'url' => prev_page.url },
-        'next_page' => next_page && { 'id' => next_page.id, 'title' => next_page.id, 'url' => next_page.url }
+        'content' => content,
+        'prev_page' => prev_page && { 'path' => prev_page.path, 'title' => prev_page.title },
+        'next_page' => next_page && { 'path' => next_page.path, 'title' => next_page.title }
       }
-    end
-
-    def url
-      "#{id}.html"
     end
   end
 end
