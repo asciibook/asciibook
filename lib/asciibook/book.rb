@@ -1,21 +1,26 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :pages
+    attr_reader :data, :options, :doc, :pages
 
     def initialize(data, options = {})
       @data = data
       @options = options
 
       @page_level = @options[:page_level] || 1
+      @doc = Asciidoctor.load(@data, backend: 'asciibook')
+      process_pages
+    end
+
+    def title
+      doc.attributes['doctitle']
+    end
+
+    def toc
+      doc.converter.outline doc
     end
 
     def build
-      process
       Builders::HtmlBuilder.new(self).build
-    end
-
-    def process
-      process_pages
     end
 
     def process_pages
@@ -44,10 +49,6 @@ module Asciibook
 
       node.page = page
       @pages << page
-    end
-
-    def doc
-      @doc ||= Asciidoctor.load(@data, backend: 'asciibook')
     end
   end
 end

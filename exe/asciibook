@@ -18,4 +18,4 @@ OptionParser.new do |opts|
   end
 end.parse!(into: options)
 
-Asciibook::Book.new(data: File.read(ARGV[0]), dir: File.dirname(ARGV[0]), options: options).build
+Asciibook::Book.new(File.read(ARGV[0]), base_dir: File.dirname(ARGV[0])).build

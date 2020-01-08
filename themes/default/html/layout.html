@@ -13,15 +13,7 @@
           {{ book.title }}
         </div>
         <div class="nav">
-          {% if book.toc[0] %}
-            <ol>
-              {% for item in book.toc %}
-                <li class="nav-item">
-                  <a href="{{ item.url }}">{{ item.title }}</a>
-                </li>
-              {% endfor %}
-            </ol>
-          {% endif %}
+          {{ book.toc }}
         </div>
       </div>
       <div id="drawer-backdrop" class="drawer-backdrop">
@@ -40,13 +32,13 @@
       </div>
       <div class="paginator">
         {% if page.prev_page %}
-          <a href="{{ page.prev_page.url }}">
+          <a href="{{ page.prev_page.path }}">
             <img src="icons/navigate_before-24px.svg">
             <span>{{ page.prev_page.title }}</span>
           </a>
         {% endif %}
         {% if page.next_page %}
-          <a href="{{ page.next_page.url }}">
+          <a href="{{ page.next_page.path }}">
             <span>{{ page.next_page.title }}</span>
             <img src="icons/navigate_next-24px.svg">
           </a>

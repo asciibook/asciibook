@@ -3,7 +3,8 @@ module Asciibook
     class HtmlBuilder
       def initialize(book)
         @book = book
-        @build_dir = File.join(@book.dir, 'build/html')
+        @base_dir = @book.options[:base_dir]
+        @build_dir = File.join(@base_dir, 'build/html')
         @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
 
         @pages = []
@@ -14,86 +15,14 @@ module Asciibook
         FileUtils.rm_r @build_dir
         FileUtils.mkdir_p @build_dir
 
-        split_pages
-        create_refs
-        replace_links
         generate_pages
         copy_assets
       end
 
-      PAGE_LEVEL = 1
-
-      def split_pages
-        split_page(@book.doc.elements['html/body'], 0)
-      end
-
-      PAGE_XPATH = './*[self::section or @data-type="toc" or @data-type="part"]'
-
-      def split_page(element, level)
-        if level < PAGE_LEVEL
-          element_clone = element.deep_clone
-          element_clone.elements.delete_all(PAGE_XPATH)
-          append_page(
-            id: element_clone['id'],
-            title: element_clone.elements['h1']&.text,
-            element: element_clone
-          )
-
-          level += 1
-          element.elements.each(PAGE_XPATH) do |subelement|
-            split_page(subelement, level)
-          end
-        else
-          append_page(
-            id: element['id'],
-            title: element.elements['h1']&.text,
-            element: element
-          )
-        end
-      end
-
-      def append_page(id:, title:, element:)
-        page = Asciibook::Page.new(
-          id: id,
-          title: title,
-          element: element
-        )
-
-        if @pages.last
-          page.prev_page = @pages.last
-          @pages.last.next_page = page
-        end
-
-        @pages << page
-      end
-
-      def create_refs
-        @pages.each do |page|
-          @refs[page.id] = page.url
-
-          page.element.elements.each('.//*[@id]') do |element|
-            @refs[element['id']] = "#{page.url}##{element['id']}"
-          end
-
-          page.element.elements.each('.//*[@name]') do |element|
-            @refs[element['name']] = "#{page.url}##{element['name']}"
-          end
-        end
-      end
-
-      def replace_links
-        @book.doc.elements.each('/html/body/nav//a | /html/body//a[@data-type="xref"]') do |element|
-          if element['href'].start_with?('#')
-            _, id = element['href'].split('#')
-            element.attributes['href'] = @refs[id]
-          end
-        end
-      end
-
       def generate_pages
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
-        @pages.each do |page|
-          File.open(File.join(@build_dir, "#{page.id}.html"), 'w') do |file|
+        @book.pages.each do |page|
+          File.open(File.join(@build_dir, page.path), 'w') do |file|
             file.write layout.render({
               'book' => book_data,
               'page' => page.to_hash
@@ -103,10 +32,10 @@ module Asciibook
       end
 
       def copy_assets
-        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @book.dir).each do |path|
+        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).each do |path|
           # ignore build dir assets
-          if !File.join(@book.dir, path).start_with?(@build_dir)
-            copy_file(path, @book.dir, @build_dir)
+          if !File.join(@base_dir, path).start_with?(@build_dir)
+            copy_file(path, @base_dir, @build_dir)
           end
         end
 
@@ -124,23 +53,9 @@ module Asciibook
 
       def book_data
         @book_data ||= {
-          'title' => @book.doc.elements['html/head/title'].text,
-          'toc' => toc_data(@book.doc.elements['html/body/nav'])
+          'title' => @book.title,
+          'toc' => @book.toc
         }
-      end
-
-      def toc_data(toc)
-        data = []
-        toc.elements.each('ol/li') do |element|
-          item = {}
-          anchor = element.elements['a']
-          item = { 'title' => anchor.text, 'url' => anchor['href'] }
-          if element.elements['ol/li']
-            item['items'] = toc_data(element)
-          end
-          data << item
-        end
-        data
       end
     end
   end

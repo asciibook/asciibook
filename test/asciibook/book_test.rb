@@ -17,7 +17,6 @@ class Asciibook::BookTest < Minitest::Test
     EOF
 
     book = Asciibook::Book.new adoc
-    book.process
     assert_equal 3, book.pages.count
     assert_equal 'Book Name', book.pages[0].title
     assert_equal 'Chapter 1', book.pages[1].title
@@ -36,11 +35,25 @@ class Asciibook::BookTest < Minitest::Test
     EOF
 
     book = Asciibook::Book.new(adoc, page_level: 2)
-    book.process
     assert_equal 4, book.pages.count
     assert_equal 'Book Name', book.pages[0].title
     assert_equal 'Chapter 1', book.pages[1].title
     assert_equal 'Chapter 1.1', book.pages[2].title
     assert_equal 'Chapter 2', book.pages[3].title
+  end
+
+  def test_toc
+    adoc = <<~EOF
+      = Book Name
+
+      == Chapter 1
+
+      === Chapter 1.1
+
+      == Chapter 2
+    EOF
+
+    book = Asciibook::Book.new(adoc)
+    #assert_equal nil, book.toc
   end
 end
