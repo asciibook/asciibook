@@ -2,6 +2,31 @@ module Asciibook
   class Converter < Asciidoctor::Htmlbook::Converter
     register_for "asciibook"
 
+    def initialize(backend, options = {})
+      super
+    end
+
+    def abstract_block_to_hash(node)
+      abstract_node_to_hash(node).merge!({
+        'level' => node.level,
+        'title' => node.title,
+        'caption' => node.caption,
+        'captioned_title' => node.captioned_title,
+        'style' => node.style,
+        'content' => node_content(node),
+        'xreftext' => node.xreftext
+      })
+    end
+
+    def node_content(node)
+      case node
+      when Asciidoctor::Document, Asciidoctor::Section
+        node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
+      else
+        node.content
+      end
+    end
+
     def inline_to_hash(node)
       if (node.type == :xref) && (target_node = node.document.references[:refs][node.attributes['refid']])
         if target_node.page

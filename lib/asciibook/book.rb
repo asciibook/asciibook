@@ -7,7 +7,11 @@ module Asciibook
       @options = options
 
       @page_level = @options[:page_level] || 1
+    end
+
+    def process
       @doc = Asciidoctor.load(@data, backend: 'asciibook')
+      @toc = nil
       process_pages
     end
 
@@ -16,7 +20,7 @@ module Asciibook
     end
 
     def toc
-      outline(doc)
+      @toc ||= outline(doc)
     end
 
     def outline(node)
@@ -26,7 +30,7 @@ module Asciibook
           'title' => section.xreftext,
           'path' => section.page ? section.page.path : "#{find_page_node(section).page.path}##{section.id}"
         }
-        if section.level < (doc.attributes['toclevels'] || 2).to_i
+        if section.sections.count > 0 and section.level < (doc.attributes['toclevels'] || 2).to_i
           section_data['items'] = outline(section)
         end
         data << section_data
@@ -53,13 +57,13 @@ module Asciibook
     end
 
     def build
+      process
       Builders::HtmlBuilder.new(self).build
     end
 
     def process_pages
       @pages = []
       process_page(doc)
-      @pages
     end
 
     def process_page(node)

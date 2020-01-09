@@ -17,14 +17,20 @@ class Asciibook::ConverterTest < Minitest::Test
       <<Chapter 1.1>>
     EOF
 
-    html = <<~EOF
+    document_html = <<~EOF
       <h1>Book Title</h1>
+    EOF
+
+    section_1_html = <<~EOF
       <section id='_chapter_1' data-type='chapter'>
         <h1>Chapter 1</h1>
         <section id='_chapter_1_1' data-type='sect1'>
           <h1>Chapter 1.1</h1>
         </section>
       </section>
+    EOF
+
+    section_2_html = <<~EOF
       <section id='_chapter_2' data-type='chapter'>
         <h1>Chapter 2</h1>
         <p>
@@ -34,10 +40,11 @@ class Asciibook::ConverterTest < Minitest::Test
       </section>
     EOF
 
+
     book = Asciibook::Book.new doc
-    book.doc.sections.each do |section|
-      section.page = Asciibook::Page.new(section)
-    end
-    assert_equal_html html, book.doc.convert
+    book.process
+    assert_equal_html document_html, book.doc.convert
+    assert_equal_html section_1_html, book.doc.sections[0].convert
+    assert_equal_html section_2_html, book.doc.sections[1].convert
   end
 end
