@@ -3,6 +3,8 @@ module Asciibook
     register_for "asciibook"
 
     def initialize(backend, options = {})
+      options[:template_dirs] ||= []
+      options[:template_dirs].unshift(File.expand_path('../../../templates', __FILE__))
       super
     end
 

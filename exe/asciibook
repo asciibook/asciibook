@@ -18,4 +18,7 @@ OptionParser.new do |opts|
   end
 end.parse!(into: options)
 
-Asciibook::Book.new(File.read(ARGV[0]), base_dir: File.dirname(ARGV[0])).build
+Asciibook::Book.new(
+  File.open(ARGV[0], 'r:utf-8').read,
+  base_dir: File.dirname(ARGV[0]), safe: Asciidoctor::SafeMode::UNSAFE
+).build

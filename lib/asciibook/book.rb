@@ -10,7 +10,7 @@ module Asciibook
     end
 
     def process
-      @doc = Asciidoctor.load(@data, backend: 'asciibook')
+      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook'))
       @toc = nil
       process_pages
     end
@@ -63,7 +63,17 @@ module Asciibook
 
     def process_pages
       @pages = []
-      process_page(doc)
+
+      page = Page.new(
+        path: 'index.html',
+        node: doc
+      )
+      doc.page = page
+      @pages << page
+
+      doc.sections.each do |section|
+        process_page(section)
+      end
     end
 
     def process_page(node)
@@ -77,7 +87,10 @@ module Asciibook
     end
 
     def append_page(node)
-      page = Page.new(node)
+      page = Page.new(
+        path: "#{node.id}.html",
+        node: node
+      )
 
       if last_page = @pages.last
         page.prev_page = last_page

@@ -1,13 +1,10 @@
 module Asciibook
   class Page
-    attr_accessor :node, :prev_page, :next_page
+    attr_accessor :path, :node, :prev_page, :next_page
 
-    def initialize(node)
+    def initialize(path:, node:)
+      @path = path
       @node = node
-    end
-
-    def path
-      "#{node.id}.html"
     end
 
     def title

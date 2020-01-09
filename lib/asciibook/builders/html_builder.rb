@@ -12,8 +12,8 @@ module Asciibook
       end
 
       def build
-        FileUtils.rm_r @build_dir
         FileUtils.mkdir_p @build_dir
+        FileUtils.rm_r Dir.glob("#{@build_dir}/*")
 
         generate_pages
         copy_assets
