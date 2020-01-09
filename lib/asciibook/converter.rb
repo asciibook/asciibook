@@ -33,8 +33,6 @@ module Asciibook
       if node.sections.any? && node.level < (node.document.attributes['toclevels'] || 2).to_i
         result << "<ol>"
         node.sections.each do |section|
-          next if section.sectname == 'toc'
-
           result << "<li>"
           target = if section.page
             "#{section.page.path}"

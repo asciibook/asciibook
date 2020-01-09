@@ -24,7 +24,7 @@ module Asciibook
         @book.pages.each do |page|
           File.open(File.join(@build_dir, page.path), 'w') do |file|
             file.write layout.render({
-              'book' => book_data,
+              'book' => @book.to_hash,
               'page' => page.to_hash
             })
           end
@@ -49,13 +49,6 @@ module Asciibook
         dest_path = File.join(dest_dir, path)
         FileUtils.mkdir_p File.dirname(dest_path)
         FileUtils.cp src_path, dest_path
-      end
-
-      def book_data
-        @book_data ||= {
-          'title' => @book.title,
-          'toc' => @book.toc
-        }
       end
     end
   end

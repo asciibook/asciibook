@@ -13,7 +13,24 @@
           {{ book.title }}
         </div>
         <div class="nav">
-          {{ book.toc }}
+          {% if book.toc[0] %}
+            <ol>
+              {% for item in book.toc %}
+                <li class="nav-item">
+                  <a href="{{ item.path }}">{{ item.title }}</a>
+                  {% if item.items %}
+                    <ol>
+                      {% for subitem in item.items %}
+                        <li class="nav-item">
+                          <a href="{{ subitem.path }}">{{ subitem.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ol>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
         </div>
       </div>
       <div id="drawer-backdrop" class="drawer-backdrop">

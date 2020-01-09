@@ -16,7 +16,40 @@ module Asciibook
     end
 
     def toc
-      doc.converter.outline doc
+      outline(doc)
+    end
+
+    def outline(node)
+      data = []
+      node.sections.each do |section|
+        section_data = {
+          'title' => section.xreftext,
+          'path' => section.page ? section.page.path : "#{find_page_node(section).page.path}##{section.id}"
+        }
+        if section.level < (doc.attributes['toclevels'] || 2).to_i
+          section_data['items'] = outline(section)
+        end
+        data << section_data
+      end
+      data
+    end
+
+    def find_page_node(node)
+      page_node = node
+
+      until page_node.page or page_node.parent.nil?
+        page_node = page_node.parent
+      end
+
+      page_node
+    end
+
+    def to_hash
+      {
+        'title' => doc.attributes['doctitle'],
+        'attributes' => doc.attributes,
+        'toc' => toc
+      }
     end
 
     def build
