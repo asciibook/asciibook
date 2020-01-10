@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "asciidoctor", "~> 2.0"
-  spec.add_runtime_dependency "asciidoctor-htmlbook", "~> 0.0.5"
+  spec.add_runtime_dependency "asciidoctor-htmlbook", "~> 0.0.6"
   spec.add_runtime_dependency "liquid", "~> 4.0"
 end
