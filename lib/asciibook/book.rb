@@ -64,20 +64,17 @@ module Asciibook
     def process_pages
       @pages = []
 
-      page = Page.new(
-        path: 'index.html',
-        node: doc
-      )
-      doc.page = page
-      @pages << page
+      append_page('index.html', doc)
 
-      doc.sections.each do |section|
-        process_page(section)
+      if @page_level > 0
+        doc.sections.each do |section|
+          process_page(section)
+        end
       end
     end
 
     def process_page(node)
-      append_page(node)
+      append_page("#{node.id}.html", node)
 
       if node.level < @page_level
         node.sections.each do |section|
@@ -86,9 +83,9 @@ module Asciibook
       end
     end
 
-    def append_page(node)
+    def append_page(path, node)
       page = Page.new(
-        path: "#{node.id}.html",
+        path: path,
         node: node
       )
 
