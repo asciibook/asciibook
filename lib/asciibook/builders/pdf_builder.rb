@@ -1,11 +1,11 @@
 module Asciibook
   module Builders
-    class HtmlBuilder
+    class PdfBuilder
       def initialize(book)
         @book = book
         @base_dir = @book.options[:base_dir]
-        @build_dir = File.join(@base_dir, 'build/html')
-        @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
+        @build_dir = File.join(@base_dir, 'build/pdf')
+        @theme_dir = File.expand_path('../../../../themes/default/pdf', __FILE__)
       end
 
       def build
@@ -14,6 +14,7 @@ module Asciibook
 
         generate_pages
         copy_assets
+        generate_pdf
       end
 
       def generate_pages
@@ -46,6 +47,15 @@ module Asciibook
         dest_path = File.join(dest_dir, path)
         FileUtils.mkdir_p File.dirname(dest_path)
         FileUtils.cp src_path, dest_path
+      end
+
+      def generate_pdf
+        command = ['wkhtmltopdf']
+        command << '--load-error-handling' << 'ignore'
+        command += @book.pages.map(&:path)
+        command << 'output.pdf'
+        command << { chdir: @build_dir }
+        system *command
       end
     end
   end

@@ -60,7 +60,8 @@ module Asciibook
 
     def build
       process
-      Builders::HtmlBuilder.new(self).build
+      #Builders::HtmlBuilder.new(self).build
+      Builders::PdfBuilder.new(self).build
     end
 
     def process_pages
