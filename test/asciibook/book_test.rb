@@ -74,4 +74,21 @@ class Asciibook::BookTest < Minitest::Test
       }
     ], book.toc
   end
+
+  def test_page_path
+    adoc = <<~EOF
+      = Book Name
+
+      == Preface
+
+      == Chapter
+
+      [[afterward]]
+      == Afterward
+    EOF
+
+    book = Asciibook::Book.new(adoc)
+    book.process
+    assert_equal %w(index.html _preface.html _chapter.html afterward.html), book.pages.map(&:path)
+  end
 end

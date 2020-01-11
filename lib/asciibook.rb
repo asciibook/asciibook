@@ -3,6 +3,7 @@ require 'asciidoctor-htmlbook'
 require "rexml/document"
 require "fileutils"
 require "liquid"
+require "logger"
 
 require "asciibook/version"
 require "asciibook/converter"

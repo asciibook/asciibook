@@ -7,10 +7,12 @@ module Asciibook
       @options = options
 
       @page_level = @options[:page_level] || 1
+
+      @logger = @options[:logger] || Logger.new(STDERR, level: :warn)
     end
 
     def process
-      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook'))
+      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook', logger: @logger))
       @toc = nil
       process_pages
     end
@@ -84,6 +86,10 @@ module Asciibook
     end
 
     def append_page(path, node)
+      if @pages.map(&:path).include?(path)
+        @logger.warn("Page path already in use: #{path}")
+      end
+
       page = Page.new(
         path: path,
         node: node
