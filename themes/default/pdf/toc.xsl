@@ -12,50 +12,63 @@
         <title>Table of Contents</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
-          h1 {
-            text-align: center;
-            font-size: 20px;
-            font-family: arial;
+          ol {
+            padding: 0;
           }
-          div {border-bottom: 1px dashed rgb(200,200,200);}
-          span {float: right;}
-          li {list-style: none;}
-          ul {
-            font-size: 20px;
-            font-family: arial;
+
+          ol ol {
+            padding-left: 1em;
           }
-          ul ul {font-size: 80%; }
-          ul {padding-left: 0em;}
-          ul ul {padding-left: 1em;}
-          a {text-decoration:none; color: black;}
+
+          ol ol ol {
+            display: none;
+          }
+
+          li {
+            list-style: none;
+          }
+
+          a {
+            display: -webkit-box;
+            display: flex;
+            color: #333;
+            text-decoration: none;
+            margin: 8px 0;
+          }
+
+          a .dotted {
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            border-bottom: 2px dotted #333;
+            margin: 8px;
+          }
         </style>
       </head>
       <body>
         <h1>Table of Contents</h1>
-        <ul><xsl:apply-templates select="outline:item/outline:item"/></ul>
+        <ol><xsl:apply-templates select="outline:item/outline:item"/></ol>
       </body>
     </html>
   </xsl:template>
   <xsl:template match="outline:item">
     <li>
       <xsl:if test="@title!=''">
-        <div>
-          <a>
-            <xsl:if test="@link">
-              <xsl:attribute name="href"><xsl:value-of select="@link"/></xsl:attribute>
-            </xsl:if>
-            <xsl:if test="@backLink">
-              <xsl:attribute name="name"><xsl:value-of select="@backLink"/></xsl:attribute>
-            </xsl:if>
-            <xsl:value-of select="@title" />
-          </a>
-          <span> <xsl:value-of select="@page" /> </span>
-        </div>
+        <a>
+          <xsl:if test="@link">
+            <xsl:attribute name="href"><xsl:value-of select="@link"/></xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@backLink">
+            <xsl:attribute name="name"><xsl:value-of select="@backLink"/></xsl:attribute>
+          </xsl:if>
+          <div class="title"><xsl:value-of select="@title" /></div>
+          <div class="dotted"><xsl:comment>added to prevent self-closing tags in QtXmlPatterns</xsl:comment></div>
+          <div class="page"><xsl:value-of select="@page" /></div>
+        </a>
       </xsl:if>
-      <ul>
+      <ol>
         <xsl:comment>added to prevent self-closing tags in QtXmlPatterns</xsl:comment>
         <xsl:apply-templates select="outline:item"/>
-      </ul>
+      </ol>
     </li>
   </xsl:template>
 </xsl:stylesheet>
