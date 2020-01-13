@@ -51,8 +51,13 @@ module Asciibook
 
       def generate_pdf
         command = ['wkhtmltopdf']
-        command << '--load-error-handling' << 'ignore'
-        command += @book.pages.map(&:path)
+        @book.pages.each do |page|
+          if page.node.is_a?(Asciidoctor::Section) && page.node.sectname == 'toc'
+            command << 'toc' << '--xsl-style-sheet' << File.join(@theme_dir, 'toc.xsl')
+          else
+            command << page.path
+          end
+        end
         command << 'output.pdf'
         command << { chdir: @build_dir }
         system *command

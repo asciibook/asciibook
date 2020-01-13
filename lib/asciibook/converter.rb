@@ -8,25 +8,6 @@ module Asciibook
       super
     end
 
-    def convert(node, transform = node.node_name, options = {})
-      case transform
-      when 'toc'
-        convert_toc(node)
-      else
-        super
-      end
-    end
-
-    def convert_toc(node)
-      doc = node.document
-      result = '<nav data-type="toc">'
-      if !doc.attributes['toc-title'].empty?
-        result << "<h1>#{doc.attributes['toc-title']}</h1>"
-      end
-      result << outline(doc)
-      result << '</nav>'
-    end
-
     def abstract_block_to_hash(node)
       abstract_node_to_hash(node).merge!({
         'level' => node.level,
@@ -42,7 +23,11 @@ module Asciibook
     def node_content(node)
       case node
       when Asciidoctor::Document, Asciidoctor::Section
-        node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
+        if node.node_name == 'section' && node.sectname == 'toc'
+          outline(node.document)
+        else
+          node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
+        end
       else
         node.content
       end
@@ -72,6 +57,16 @@ module Asciibook
       end
 
       page_node
+    end
+
+    def toc_content(node)
+      doc = node.document
+      result = '<nav data-type="toc">'
+      if !doc.attributes['toc-title'].empty?
+        result << "<h1>#{doc.attributes['toc-title']}</h1>"
+      end
+      result << outline(doc)
+      result << '</nav>'
     end
 
     def outline(node)

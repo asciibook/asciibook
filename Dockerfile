@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   ruby \
   ruby-dev
 
-RUN curl -L https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb -o wkhtmltox_0.12.5-1.bionic_amd64.deb && \
-  apt-get install -y ./wkhtmltox_0.12.5-1.bionic_amd64.deb && \
-  rm wkhtmltox_0.12.5-1.bionic_amd64.deb
+RUN curl -L https://builds.wkhtmltopdf.org/0.12.6-dev/wkhtmltox_0.12.6-0.20180618.3.dev.e6d6f54.bionic_amd64.deb -o wkhtmltox.deb && \
+  apt-get install -y ./wkhtmltox.deb && \
+  rm wkhtmltox.deb
 
 RUN gem install bundler -v 2.0.2
 
