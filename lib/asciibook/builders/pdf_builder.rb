@@ -14,6 +14,7 @@ module Asciibook
 
         generate_pages
         copy_assets
+        generate_header_footer
         generate_pdf
       end
 
@@ -49,8 +50,63 @@ module Asciibook
         FileUtils.cp src_path, dest_path
       end
 
+      def generate_header_footer
+        layout = Liquid::Template.parse <<~EOF
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <script>
+                function subst() {
+                    var vars = {};
+                    var query_strings_from_url = document.location.search.substring(1).split('&');
+                    for (var query_string in query_strings_from_url) {
+                        if (query_strings_from_url.hasOwnProperty(query_string)) {
+                            var temp_var = query_strings_from_url[query_string].split('=', 2);
+                            vars[temp_var[0]] = decodeURI(temp_var[1]);
+                        }
+                    }
+                    var css_selector_classes = ['page', 'frompage', 'topage', 'webpage', 'section', 'subsection', 'date', 'isodate', 'time', 'title', 'doctitle', 'sitepage', 'sitepages'];
+                    for (var css_class in css_selector_classes) {
+                        if (css_selector_classes.hasOwnProperty(css_class)) {
+                            var element = document.getElementsByClassName(css_selector_classes[css_class]);
+                            for (var j = 0; j < element.length; ++j) {
+                                element[j].textContent = vars[css_selector_classes[css_class]];
+                            }
+                        }
+                    }
+                }
+              </script>
+              <style>
+                html, body {
+                  margin: 0;
+                  padding: 0;
+                }
+              </style>
+            </head>
+            <body onload="subst()">
+              {{ content }}
+            </body>
+          </html>
+        EOF
+
+        File.open(File.join(@build_dir, 'header.html'), 'w') do |file|
+          file.write layout.render('content' => File.read(File.join(@theme_dir, 'header.html')))
+        end
+
+        File.open(File.join(@build_dir, 'footer.html'), 'w') do |file|
+          file.write layout.render('content' => File.read(File.join(@theme_dir, 'footer.html')))
+        end
+      end
+
       def generate_pdf
         command = ['wkhtmltopdf']
+        command << '--header-html' << File.expand_path('header.html', @build_dir)
+        command << '--footer-html' << File.expand_path('footer.html', @build_dir)
+        command << '--margin-top' << '10'
+        command << '--margin-left' << '10'
+        command << '--margin-right' << '10'
+        command << '--margin-bottom' << '10'
+
         @book.pages.each do |page|
           if page.node.is_a?(Asciidoctor::Section) && page.node.sectname == 'toc'
             command << 'toc' << '--xsl-style-sheet' << File.join(@theme_dir, 'toc.xsl')
