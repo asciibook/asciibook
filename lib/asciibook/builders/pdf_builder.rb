@@ -6,6 +6,7 @@ module Asciibook
         @base_dir = @book.options[:base_dir]
         @build_dir = File.join(@base_dir, 'build/pdf')
         @theme_dir = File.expand_path('../../../../themes/default/pdf', __FILE__)
+        @theme_config = YAML.safe_load(File.read(File.join(@theme_dir, 'config.yml')))
       end
 
       def build
@@ -102,10 +103,12 @@ module Asciibook
         command = ['wkhtmltopdf']
         command << '--header-html' << File.expand_path('header.html', @build_dir)
         command << '--footer-html' << File.expand_path('footer.html', @build_dir)
-        command << '--margin-top' << '10'
-        command << '--margin-left' << '10'
-        command << '--margin-right' << '10'
-        command << '--margin-bottom' << '10'
+        command << '--margin-top' << @theme_config.fetch('margin_top', 10).to_s
+        command << '--margin-left' << @theme_config.fetch('margin_left', 10).to_s
+        command << '--margin-right' << @theme_config.fetch('margin_right', 10).to_s
+        command << '--margin-bottom' << @theme_config.fetch('margin_bottom', 10).to_s
+        command << '--header-spacing' << @theme_config.fetch('header_spacing', 0).to_s
+        command << '--footer-spacing' << @theme_config.fetch('footer_spacing', 0).to_s
 
         @book.pages.each do |page|
           if page.node.is_a?(Asciidoctor::Section) && page.node.sectname == 'toc'

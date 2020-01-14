@@ -4,6 +4,7 @@ require "rexml/document"
 require "fileutils"
 require "liquid"
 require "logger"
+require 'yaml'
 
 require "asciibook/version"
 require "asciibook/asciidoctor_ext/abstract_node"
