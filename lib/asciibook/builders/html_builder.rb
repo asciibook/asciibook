@@ -4,8 +4,10 @@ module Asciibook
       def initialize(book)
         @book = book
         @base_dir = @book.options[:base_dir]
-        @build_dir = File.join(@base_dir, 'build/html')
+        @build_dir = File.expand_path('build/html', @base_dir)
         @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
+
+        @exclude_patterns = ["build/**/*"]
       end
 
       def build
@@ -30,14 +32,19 @@ module Asciibook
 
       def copy_assets
         Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).each do |path|
-          # ignore build dir assets
-          if !File.join(@base_dir, path).start_with?(@build_dir)
+          if !exclude_file?(path)
             copy_file(path, @base_dir, @build_dir)
           end
         end
 
         Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
           copy_file(path, @theme_dir, @build_dir)
+        end
+      end
+
+      def exclude_file?(path)
+        @exclude_patterns.any? do |pattern|
+          File.fnmatch?(pattern, path)
         end
       end
 
