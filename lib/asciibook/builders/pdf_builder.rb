@@ -1,14 +1,11 @@
 module Asciibook
   module Builders
-    class PdfBuilder
+    class PdfBuilder < BaseBuilder
       def initialize(book)
         @book = book
-        @base_dir = @book.options[:base_dir]
-        @build_dir = File.expand_path('build/pdf', @base_dir)
+        @build_dir = File.join(@book.build_dir, 'pdf')
         @theme_dir = File.expand_path('../../../../themes/default/pdf', __FILE__)
         @theme_config = YAML.safe_load(File.read(File.join(@theme_dir, 'config.yml')))
-
-        @exclude_patterns = ["build/**/*"]
       end
 
       def build
@@ -34,28 +31,13 @@ module Asciibook
       end
 
       def copy_assets
-        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).each do |path|
-          if !exclude_file?(path)
-            copy_file(path, @base_dir, @build_dir)
-          end
+        @book.assets.each do |path|
+          copy_file(path, @book.base_dir, @build_dir)
         end
 
         Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
           copy_file(path, @theme_dir, @build_dir)
         end
-      end
-
-      def exclude_file?(path)
-        @exclude_patterns.any? do |pattern|
-          File.fnmatch?(pattern, path)
-        end
-      end
-
-      def copy_file(path, src_dir, dest_dir)
-        src_path = File.join(src_dir, path)
-        dest_path = File.join(dest_dir, path)
-        FileUtils.mkdir_p File.dirname(dest_path)
-        FileUtils.cp src_path, dest_path
       end
 
       def generate_header_footer

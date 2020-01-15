@@ -1,14 +1,18 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :doc, :pages
+    attr_reader :data, :options, :doc, :pages, :base_dir, :build_dir
 
     def initialize(data, options = {})
       @data = data
       @options = options
+      @base_dir = options.fetch(:base_dir, '.')
+      @build_dir = options.fetch(:build_dir, File.join(@base_dir, 'build'))
 
       @page_level = @options[:page_level] || 1
 
       @logger = @options[:logger] || Logger.new(STDERR, level: :warn)
+
+      @exclude_patterns = ["build/**/*"]
     end
 
     def process
@@ -103,6 +107,14 @@ module Asciibook
 
       node.page = page
       @pages << page
+    end
+
+    def assets
+      Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).reject do |path|
+        @exclude_patterns.any? do |pattern|
+          File.fnmatch?(pattern, path)
+        end
+      end
     end
   end
 end

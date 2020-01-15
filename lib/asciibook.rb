@@ -11,6 +11,7 @@ require "asciibook/asciidoctor_ext/abstract_node"
 require "asciibook/converter"
 require "asciibook/book"
 require "asciibook/page"
+require "asciibook/builders/base_builder"
 require "asciibook/builders/html_builder"
 require "asciibook/builders/pdf_builder"
 

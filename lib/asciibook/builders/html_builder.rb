@@ -1,13 +1,10 @@
 module Asciibook
   module Builders
-    class HtmlBuilder
+    class HtmlBuilder < BaseBuilder
       def initialize(book)
-        @book = book
-        @base_dir = @book.options[:base_dir]
-        @build_dir = File.expand_path('build/html', @base_dir)
+        super
+        @build_dir = File.join(@book.build_dir, 'html')
         @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
-
-        @exclude_patterns = ["build/**/*"]
       end
 
       def build
@@ -31,28 +28,13 @@ module Asciibook
       end
 
       def copy_assets
-        Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).each do |path|
-          if !exclude_file?(path)
-            copy_file(path, @base_dir, @build_dir)
-          end
+        @book.assets.each do |path|
+          copy_file(path, @book.base_dir, @build_dir)
         end
 
         Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
           copy_file(path, @theme_dir, @build_dir)
         end
-      end
-
-      def exclude_file?(path)
-        @exclude_patterns.any? do |pattern|
-          File.fnmatch?(pattern, path)
-        end
-      end
-
-      def copy_file(path, src_dir, dest_dir)
-        src_path = File.join(src_dir, path)
-        dest_path = File.join(dest_dir, path)
-        FileUtils.mkdir_p File.dirname(dest_path)
-        FileUtils.cp src_path, dest_path
       end
     end
   end
