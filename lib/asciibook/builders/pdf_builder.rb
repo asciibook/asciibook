@@ -4,24 +4,27 @@ module Asciibook
       def initialize(book)
         @book = book
         @build_dir = File.join(@book.build_dir, 'pdf')
+        @tmp_dir = File.join(@build_dir, 'tmp')
         @theme_dir = File.expand_path('../../../../themes/default/pdf', __FILE__)
         @theme_config = YAML.safe_load(File.read(File.join(@theme_dir, 'config.yml')))
       end
 
       def build
-        FileUtils.mkdir_p @build_dir
-        FileUtils.rm_r Dir.glob("#{@build_dir}/*")
+        FileUtils.mkdir_p @tmp_dir
+        FileUtils.rm_r Dir.glob("#{@tmp_dir}/*")
 
         generate_pages
         copy_assets
         generate_header_footer
         generate_pdf
+
+        FileUtils.rm_r @tmp_dir
       end
 
       def generate_pages
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
         @book.pages.each do |page|
-          File.open(File.join(@build_dir, page.path), 'w') do |file|
+          File.open(File.join(@tmp_dir, page.path), 'w') do |file|
             file.write layout.render({
               'book' => @book.to_hash,
               'page' => page.to_hash
@@ -32,11 +35,11 @@ module Asciibook
 
       def copy_assets
         @book.assets.each do |path|
-          copy_file(path, @book.base_dir, @build_dir)
+          copy_file(path, @book.base_dir, @tmp_dir)
         end
 
         Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
-          copy_file(path, @theme_dir, @build_dir)
+          copy_file(path, @theme_dir, @tmp_dir)
         end
       end
 
@@ -79,19 +82,19 @@ module Asciibook
           </html>
         EOF
 
-        File.open(File.join(@build_dir, 'header.html'), 'w') do |file|
+        File.open(File.join(@tmp_dir, 'header.html'), 'w') do |file|
           file.write layout.render('content' => File.read(File.join(@theme_dir, 'header.html')))
         end
 
-        File.open(File.join(@build_dir, 'footer.html'), 'w') do |file|
+        File.open(File.join(@tmp_dir, 'footer.html'), 'w') do |file|
           file.write layout.render('content' => File.read(File.join(@theme_dir, 'footer.html')))
         end
       end
 
       def generate_pdf
         command = ['wkhtmltopdf']
-        command << '--header-html' << File.expand_path('header.html', @build_dir)
-        command << '--footer-html' << File.expand_path('footer.html', @build_dir)
+        command << '--header-html' << File.expand_path('header.html', @tmp_dir)
+        command << '--footer-html' << File.expand_path('footer.html', @tmp_dir)
         command << '--margin-top' << @theme_config.fetch('margin_top', 10).to_s
         command << '--margin-left' << @theme_config.fetch('margin_left', 10).to_s
         command << '--margin-right' << @theme_config.fetch('margin_right', 10).to_s
@@ -107,8 +110,10 @@ module Asciibook
           end
         end
         command << 'output.pdf'
-        command << { chdir: @build_dir }
+        command << { chdir: @tmp_dir }
         system *command
+
+        FileUtils.cp File.join(@tmp_dir, 'output.pdf'), @build_dir
       end
     end
   end
