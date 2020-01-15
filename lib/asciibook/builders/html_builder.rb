@@ -4,7 +4,7 @@ module Asciibook
       def initialize(book)
         super
         @build_dir = File.join(@book.build_dir, 'html')
-        @theme_dir = File.expand_path('../../../../themes/default/html', __FILE__)
+        @theme_dir = File.join(@book.theme_dir, 'html')
       end
 
       def build

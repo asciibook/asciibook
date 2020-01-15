@@ -1,12 +1,13 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :doc, :pages, :base_dir, :build_dir
+    attr_reader :data, :options, :doc, :pages, :base_dir, :build_dir, :theme_dir
 
     def initialize(data, options = {})
       @data = data
       @options = options
       @base_dir = options.fetch(:base_dir, '.')
       @build_dir = options.fetch(:build_dir, File.join(@base_dir, 'build'))
+      @theme_dir = options.fetch(:theme_dir, File.expand_path('../../../theme', __FILE__))
 
       @page_level = @options[:page_level] || 1
 

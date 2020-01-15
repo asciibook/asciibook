@@ -5,7 +5,7 @@ module Asciibook
         @book = book
         @build_dir = File.join(@book.build_dir, 'pdf')
         @tmp_dir = File.join(@build_dir, 'tmp')
-        @theme_dir = File.expand_path('../../../../themes/default/pdf', __FILE__)
+        @theme_dir = File.join(@book.theme_dir, 'pdf')
         @theme_config = YAML.safe_load(File.read(File.join(@theme_dir, 'config.yml')))
       end
 
