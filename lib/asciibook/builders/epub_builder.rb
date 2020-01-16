@@ -12,6 +12,11 @@ module Asciibook
 
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
 
+        # Satisfy epub specifications
+        @book.pages.each do |page|
+          page.path = page.path.gsub(/.html$/, '.xhtml')
+        end
+
         epub = GEPUB::Book.new do |book|
           book.identifier = 'testid'
           book.title = @book.title
@@ -19,6 +24,10 @@ module Asciibook
 
           @book.assets.each do |path|
             book.add_item path, content: File.open(File.join(@book.base_dir, path))
+          end
+
+          Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
+            book.add_item path, content: File.open(File.join(@theme_dir, path))
           end
 
           book.ordered do
@@ -35,23 +44,27 @@ module Asciibook
         end
 
         epub.generate_epub(File.join(@build_dir, 'output.epub'))
+
+        # restore page path
+        @book.pages.each do |page|
+          page.path = page.path.gsub(/.xhtml$/, '.html')
+        end
       end
 
       def tocdata
-        flatten_toc_items @book.toc, 1
+        outline(@book.doc, 1)
       end
 
-      def flatten_toc_items(items, level)
+      def outline(node, level)
         data = []
-        items.each do |item|
+        node.sections.each do |section|
           data << {
-            link: item['path'],
-            text: item['title'],
+            text: section.xreftext,
+            link: section.page ? section.page.path : "#{@book.find_page_node(section).page.path}##{section.id}",
             level: level
           }
-
-          if item['items']
-            data += flatten_toc_items(item['items'], level + 1)
+          if section.sections.count > 0 and section.level < (@book.doc.attributes['toclevels'] || 2).to_i
+            data.concat outline(section, level + 1)
           end
         end
         data

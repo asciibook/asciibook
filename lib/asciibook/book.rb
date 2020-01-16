@@ -65,8 +65,8 @@ module Asciibook
 
     def build
       process
-      #Builders::HtmlBuilder.new(self).build
-      #Builders::PdfBuilder.new(self).build
+      Builders::HtmlBuilder.new(self).build
+      Builders::PdfBuilder.new(self).build
       Builders::EpubBuilder.new(self).build
     end
 
