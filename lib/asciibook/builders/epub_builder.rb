@@ -18,9 +18,9 @@ module Asciibook
         end
 
         epub = GEPUB::Book.new do |book|
-          book.identifier = 'testid'
           book.title = @book.title
-          book.language = 'zh'
+          book.identifier = @book.doc.attributes['identifier'] || 'undefined'
+          book.language = @book.doc.attributes['language'] || 'en'
 
           @book.assets.each do |path|
             book.add_item path, content: File.open(File.join(@book.base_dir, path))
