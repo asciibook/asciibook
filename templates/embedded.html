@@ -1,5 +1,5 @@
 {% if node.title %}
-  {% if node.subtitle or node.anthors.size > 0 %}<header>{% endif %}
+  {% if node.subtitle or node.authors.size > 0 %}<header>{% endif %}
     <h1>{{ node.title }}</h1>
     {% if node.subtitle %}<p data-type="subtitle">{{ node.subtitle }}</p>{% endif %}
     {% if node.authors.size > 0 %}
