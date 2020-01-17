@@ -16,6 +16,7 @@ require "asciibook/builders/base_builder"
 require "asciibook/builders/html_builder"
 require "asciibook/builders/pdf_builder"
 require "asciibook/builders/epub_builder"
+require "asciibook/builders/mobi_builder"
 
 module Asciibook
 end

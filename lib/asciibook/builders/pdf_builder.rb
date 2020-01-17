@@ -2,7 +2,7 @@ module Asciibook
   module Builders
     class PdfBuilder < BaseBuilder
       def initialize(book)
-        @book = book
+        super
         @build_dir = File.join(@book.build_dir, 'pdf')
         @tmp_dir = File.join(@build_dir, 'tmp')
         @theme_dir = File.join(@book.theme_dir, 'pdf')

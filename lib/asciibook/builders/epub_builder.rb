@@ -22,12 +22,14 @@ module Asciibook
           book.identifier = @book.doc.attributes['identifier'] || 'undefined'
           book.language = @book.doc.attributes['language'] || 'en'
 
+          id_pool = GEPUB::Package::IDPool.new
+
           @book.assets.each do |path|
-            book.add_item path, content: File.open(File.join(@book.base_dir, path))
+            book.add_item path, content: File.open(File.join(@book.base_dir, path)), id: id_pool.generate_key(prefix: 'asset_')
           end
 
           Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
-            book.add_item path, content: File.open(File.join(@theme_dir, path))
+            book.add_item path, content: File.open(File.join(@theme_dir, path)), id: id_pool.generate_key(prefix: 'theme_asset_')
           end
 
           book.ordered do
@@ -36,7 +38,7 @@ module Asciibook
                 'book' => @book.to_hash,
                 'page' => page.to_hash
               )
-              book.add_item(page.path, content: StringIO.new(html))
+              book.add_item page.path, content: StringIO.new(html), id: id_pool.generate_key(prefix: 'page_')
             end
           end
 
