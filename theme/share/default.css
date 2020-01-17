@@ -1,0 +1,14 @@
+section[data-type="toc"] ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+section[data-type="toc"] ol ol {
+  padding-left: 16px;
+}
+
+section[data-type="toc"] a {
+  display: block;
+  padding: 8px 0;
+}

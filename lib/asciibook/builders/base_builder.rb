@@ -3,6 +3,7 @@ module Asciibook
     class BaseBuilder
       def initialize(book)
         @book = book
+        @theme_share_dir = File.join(@book.theme_dir, 'share')
       end
 
       def build
