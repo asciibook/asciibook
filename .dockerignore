@@ -1,3 +1,4 @@
 Gemfile.lock
+.git/
 tmp/
 pkg/
