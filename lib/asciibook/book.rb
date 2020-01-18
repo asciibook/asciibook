@@ -1,10 +1,11 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :doc, :pages, :base_dir, :dest_dir, :theme_dir
+    attr_reader :data, :options, :doc, :pages, :basename, :base_dir, :dest_dir, :theme_dir
 
     def initialize(data, options = {})
       @data = data
       @options = options
+      @basename = options[:basename] || 'output'
       @base_dir = options[:base_dir] || '.'
       @dest_dir = options[:dest_dir] || File.join(@base_dir, 'build')
       @theme_dir = options[:theme_dir] || File.expand_path('../../../theme', __FILE__)
@@ -18,7 +19,11 @@ module Asciibook
     end
 
     def self.load_file(path, options = {})
-      options.merge!(base_dir: File.dirname(path))
+      options.merge!(
+        basename: File.basename(path, '.*'),
+        base_dir: File.dirname(path)
+      )
+
       if File.exist?(path)
         new(File.open(path, 'r:utf-8').read, options)
       else

@@ -49,7 +49,7 @@ module Asciibook
           book.add_tocdata tocdata
         end
 
-        epub.generate_epub(File.join(@dest_dir, 'output.epub'))
+        epub.generate_epub(File.join(@dest_dir, "#{@book.basename}.epub"))
 
         # restore page path
         @book.pages.each do |page|

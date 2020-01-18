@@ -11,7 +11,7 @@ module Asciibook
       def build
         super
 
-        epub_file = File.join(@dest_dir, 'output.epub')
+        epub_file = File.join(@dest_dir, "#{@book.basename}.epub")
         system 'kindlegen', epub_file
 
         FileUtils.rm epub_file

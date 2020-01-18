@@ -7,8 +7,11 @@ class Asciibook::BookTest < Asciibook::Test
     assert Dir.exist?(fixture_path('example/build'))
     assert Dir.exist?(fixture_path('example/build/html'))
     assert Dir.exist?(fixture_path('example/build/pdf'))
+    assert File.exist?(fixture_path('example/build/pdf/source.pdf'))
     assert Dir.exist?(fixture_path('example/build/epub'))
+    assert File.exist?(fixture_path('example/build/epub/source.epub'))
     assert Dir.exist?(fixture_path('example/build/mobi'))
+    assert File.exist?(fixture_path('example/build/mobi/source.mobi'))
   end
 
   def test_build_only_html

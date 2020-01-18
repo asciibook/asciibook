@@ -113,11 +113,12 @@ module Asciibook
             command << page.path
           end
         end
-        command << 'output.pdf'
+        filename = "#{@book.basename}.pdf"
+        command << filename
         command << { chdir: @tmp_dir }
         system(*command)
 
-        FileUtils.cp File.join(@tmp_dir, 'output.pdf'), @dest_dir
+        FileUtils.cp File.join(@tmp_dir, filename), @dest_dir
       end
     end
   end

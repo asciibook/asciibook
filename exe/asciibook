@@ -27,7 +27,6 @@ Mercenary.program(:asciibook) do |p|
     c.action do |args, options|
       source = args[0]
       Asciibook::Book.load_file(source, {
-        base_dir: File.dirname(source),
         formats: options['formats'],
         theme_dir: options['theme_dir'],
         dest_dir: options['dest_dir']
