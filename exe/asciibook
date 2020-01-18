@@ -1,24 +1,38 @@
 #!/usr/bin/env ruby
 
-require "optparse"
+require "mercenary"
 require "asciibook"
 
-options = {}
-OptionParser.new do |opts|
-  opts.banner = "Usage: asciibook [options] source.adoc"
+Mercenary.program(:asciibook) do |p|
+  p.version Asciibook::VERSION
+  p.description 'Asciibook is a ebook generator from Asciidoc to html/pdf/epub/mobi'
+  p.syntax 'asciibook <command> [options]'
 
-  opts.on("-v", "--version", "Show version") do |v|
-    puts("Asciibook #{Asciibook::VERSION}")
-    exit
+  p.command(:new) do |c|
+    c.description 'Create a new book scaffold in PATH'
+    c.syntax 'new PATH'
+    c.action do |args, options|
+      puts 'TODO'
+    end
   end
 
-  opts.on("-h", "--help", "Prints this help") do
-    puts opts
-    exit
-  end
-end.parse!(into: options)
+  p.command(:build) do |c|
+    c.description 'Build book by SOURCE'
+    c.syntax 'build [SOURCE]'
+    c.action do |args, options|
+      source = args[0]
+      if File.file? source
+        dir = File.dirname source
 
-Asciibook::Book.new(
-  File.open(ARGV[0], 'r:utf-8').read,
-  base_dir: File.dirname(ARGV[0]), safe: Asciidoctor::SafeMode::UNSAFE
-).build
+        Asciibook::Book.new(
+          File.open(source, 'r:utf-8').read,
+          base_dir: dir, safe: Asciidoctor::SafeMode::UNSAFE
+        ).build
+      end
+    end
+  end
+
+  p.action do |args, _|
+    puts p
+  end
+end
