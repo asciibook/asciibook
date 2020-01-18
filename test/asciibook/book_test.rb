@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Asciibook::BookTest < Asciibook::Test
   def test_build
-    FileUtils.rm_r fixture_path('example/build')
+    FileUtils.rm_rf fixture_path('example/build')
     Asciibook::Book.load_file(fixture_path('example/source.adoc')).build
     assert Dir.exist?(fixture_path('example/build'))
     assert Dir.exist?(fixture_path('example/build/html'))
@@ -12,7 +12,7 @@ class Asciibook::BookTest < Asciibook::Test
   end
 
   def test_build_only_html
-    FileUtils.rm_r fixture_path('example/build')
+    FileUtils.rm_rf fixture_path('example/build')
     Asciibook::Book.load_file(fixture_path('example/source.adoc'), formats: ['html']).build
     assert Dir.exist?(fixture_path('example/build'))
     assert Dir.exist?(fixture_path('example/build/html'))
@@ -22,10 +22,16 @@ class Asciibook::BookTest < Asciibook::Test
   end
 
   def test_build_with_custom_theme
-    FileUtils.rm_r fixture_path('example/build')
+    FileUtils.rm_rf fixture_path('example/build')
     Asciibook::Book.load_file(fixture_path('example/source.adoc'), formats: ['html'], theme_dir: fixture_path('theme')).build
     assert Dir.exist?(fixture_path('example/build'))
     assert File.read(fixture_path('example/build/html/index.html')).include?('Custom Theme')
+  end
+
+  def test_build_with_custom_dest
+    FileUtils.rm_rf fixture_path('example/tmp/build')
+    Asciibook::Book.load_file(fixture_path('example/source.adoc'), formats: ['html'], dest_dir: fixture_path('example/tmp/build')).build
+    assert Dir.exist?(fixture_path('example/tmp/build'))
   end
 
   def test_that_it_has_a_version_number

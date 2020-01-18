@@ -3,12 +3,12 @@ module Asciibook
     class EpubBuilder < BaseBuilder
       def initialize(book)
         super
-        @build_dir = File.join(@book.build_dir, 'epub')
+        @dest_dir = File.join(@book.dest_dir, 'epub')
         @theme_dir = File.join(@book.theme_dir, 'epub')
       end
 
       def build
-        FileUtils.mkdir_p @build_dir
+        FileUtils.mkdir_p @dest_dir
 
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
 
@@ -49,7 +49,7 @@ module Asciibook
           book.add_tocdata tocdata
         end
 
-        epub.generate_epub(File.join(@build_dir, 'output.epub'))
+        epub.generate_epub(File.join(@dest_dir, 'output.epub'))
 
         # restore page path
         @book.pages.each do |page|

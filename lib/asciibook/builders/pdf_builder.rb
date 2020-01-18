@@ -3,8 +3,8 @@ module Asciibook
     class PdfBuilder < BaseBuilder
       def initialize(book)
         super
-        @build_dir = File.join(@book.build_dir, 'pdf')
-        @tmp_dir = File.join(@build_dir, 'tmp')
+        @dest_dir = File.join(@book.dest_dir, 'pdf')
+        @tmp_dir = File.join(@dest_dir, 'tmp')
         @theme_dir = File.join(@book.theme_dir, 'pdf')
         @theme_config = YAML.safe_load(File.read(File.join(@theme_dir, 'config.yml')))
       end
@@ -117,7 +117,7 @@ module Asciibook
         command << { chdir: @tmp_dir }
         system(*command)
 
-        FileUtils.cp File.join(@tmp_dir, 'output.pdf'), @build_dir
+        FileUtils.cp File.join(@tmp_dir, 'output.pdf'), @dest_dir
       end
     end
   end

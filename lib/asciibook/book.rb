@@ -1,14 +1,14 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :doc, :pages, :base_dir, :build_dir, :theme_dir
+    attr_reader :data, :options, :doc, :pages, :base_dir, :dest_dir, :theme_dir
 
     def initialize(data, options = {})
       @data = data
       @options = options
-      @base_dir = options.fetch(:base_dir, '.')
-      @build_dir = options.fetch(:build_dir, File.join(@base_dir, 'build'))
-      @theme_dir = options.fetch(:theme_dir, File.expand_path('../../../theme', __FILE__))
-      @formats = options.fetch(:formats, %w(html pdf epub mobi))
+      @base_dir = options[:base_dir] || '.'
+      @dest_dir = options[:dest_dir] || File.join(@base_dir, 'build')
+      @theme_dir = options[:theme_dir] || File.expand_path('../../../theme', __FILE__)
+      @formats = options[:formats] || %w(html pdf epub mobi)
 
       @page_level = @options[:page_level] || 1
 
