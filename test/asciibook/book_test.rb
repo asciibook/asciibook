@@ -1,6 +1,16 @@
 require 'test_helper'
 
-class Asciibook::BookTest < Minitest::Test
+class Asciibook::BookTest < Asciibook::Test
+  def test_build
+    FileUtils.rm_r fixture_path('example/build')
+    Asciibook::Book.load_file(fixture_path('example/source.adoc')).build
+    assert Dir.exist?(fixture_path('example/build'))
+    assert Dir.exist?(fixture_path('example/build/html'))
+    assert Dir.exist?(fixture_path('example/build/pdf'))
+    assert Dir.exist?(fixture_path('example/build/epub'))
+    assert Dir.exist?(fixture_path('example/build/mobi'))
+  end
+
   def test_that_it_has_a_version_number
     refute_nil ::Asciibook::VERSION
   end

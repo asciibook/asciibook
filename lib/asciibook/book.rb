@@ -16,6 +16,15 @@ module Asciibook
       @exclude_patterns = ["build/**/*"]
     end
 
+    def self.load_file(path, options = {})
+      options.merge!(base_dir: File.dirname(path))
+      if File.exist?(path)
+        new(File.open(path, 'r:utf-8').read, options)
+      else
+        raise "File not exists #{path}"
+      end
+    end
+
     def process
       @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook', logger: @logger))
       @toc = nil

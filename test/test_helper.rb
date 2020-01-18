@@ -3,6 +3,12 @@ require 'asciibook'
 
 require 'minitest/autorun'
 
+class Asciibook::Test < Minitest::Test
+  def fixture_path(path)
+    File.join File.expand_path('../fixtures', __FILE__), path
+  end
+end
+
 module ConverterTestHelper
   def assert_convert_body(html, doc, options = {})
     except_html = <<~EOF

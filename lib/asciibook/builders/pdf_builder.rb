@@ -115,7 +115,7 @@ module Asciibook
         end
         command << 'output.pdf'
         command << { chdir: @tmp_dir }
-        system *command
+        system(*command)
 
         FileUtils.cp File.join(@tmp_dir, 'output.pdf'), @build_dir
       end

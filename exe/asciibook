@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+$LOAD_PATH.unshift File.expand_path '../../lib', __FILE__
+
 require "mercenary"
 require "asciibook"
 
@@ -19,16 +21,13 @@ Mercenary.program(:asciibook) do |p|
   p.command(:build) do |c|
     c.description 'Build book by SOURCE'
     c.syntax 'build [SOURCE]'
+    c.option 'formats', '-f', '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'ebook formats you want to build, allow: html,pdf,epub,mobi, default is all.'
     c.action do |args, options|
       source = args[0]
-      if File.file? source
-        dir = File.dirname source
-
-        Asciibook::Book.new(
-          File.open(source, 'r:utf-8').read,
-          base_dir: dir, safe: Asciidoctor::SafeMode::UNSAFE
-        ).build
-      end
+      Asciibook::Book.load_file(source, {
+        base_dir: File.dirname(source),
+        formats: options[:formats]
+      }).build
     end
   end
 
