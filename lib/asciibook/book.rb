@@ -8,6 +8,7 @@ module Asciibook
       @base_dir = options.fetch(:base_dir, '.')
       @build_dir = options.fetch(:build_dir, File.join(@base_dir, 'build'))
       @theme_dir = options.fetch(:theme_dir, File.expand_path('../../../theme', __FILE__))
+      @formats = options.fetch(:formats, %w(html pdf epub mobi))
 
       @page_level = @options[:page_level] || 1
 
@@ -74,10 +75,22 @@ module Asciibook
 
     def build
       process
-      Builders::HtmlBuilder.new(self).build
-      Builders::PdfBuilder.new(self).build
-      Builders::EpubBuilder.new(self).build
-      Builders::MobiBuilder.new(self).build
+
+      if @formats.include?('html')
+        Builders::HtmlBuilder.new(self).build
+      end
+
+      if @formats.include?('pdf')
+        Builders::PdfBuilder.new(self).build
+      end
+
+      if @formats.include?('epub')
+        Builders::EpubBuilder.new(self).build
+      end
+
+      if @formats.include?('mobi')
+        Builders::MobiBuilder.new(self).build
+      end
     end
 
     def process_pages

@@ -21,12 +21,14 @@ Mercenary.program(:asciibook) do |p|
   p.command(:build) do |c|
     c.description 'Build book by SOURCE'
     c.syntax 'build [SOURCE]'
-    c.option 'formats', '-f', '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'ebook formats you want to build, allow: html,pdf,epub,mobi, default is all.'
+    c.option 'formats', '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub,mobi, default is all.'
+    c.option 'theme_dir', '--theme-dir DIR', 'Theme dir'
     c.action do |args, options|
       source = args[0]
       Asciibook::Book.load_file(source, {
         base_dir: File.dirname(source),
-        formats: options[:formats]
+        formats: options['formats'],
+        theme_dir: options['theme_dir']
       }).build
     end
   end
