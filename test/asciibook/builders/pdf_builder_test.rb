@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Asciibook::Builders::HtmlBuilderTest < Asciibook::Test
+class Asciibook::Builders::PdfBuilderTest < Asciibook::Test
   def test_process_footnotes
     adoc = <<~EOF
       footnote:foobar[footnote text]
@@ -11,7 +11,7 @@ class Asciibook::Builders::HtmlBuilderTest < Asciibook::Test
 
     book = Asciibook::Book.new adoc
     book.process
-    builder = Asciibook::Builders::HtmlBuilder.new(book)
+    builder = Asciibook::Builders::PdfBuilder.new(book)
 
     html = <<~EOF
       <p>

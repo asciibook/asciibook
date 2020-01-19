@@ -18,10 +18,10 @@ module Asciibook
       def generate_pages
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
         @book.pages.each do |page|
-          File.open(File.join(@dest_dir, page.path), 'w') do |file|
-            page_hash = page.to_hash
-            page_hash['content'] = process_content(page_hash['content'])
+          page_hash = page.to_hash
+          page_hash['content'] = postprocess(page_hash['content'])
 
+          File.open(File.join(@dest_dir, page.path), 'w') do |file|
             file.write layout.render({
               'book' => @book.to_hash,
               'page' => page_hash
@@ -30,7 +30,7 @@ module Asciibook
         end
       end
 
-      def process_content(xhtml)
+      def postprocess(xhtml)
         doc = Nokogiri::XML.fragment(xhtml)
 
         footnotes = []
