@@ -1,8 +1,6 @@
 require 'test_helper'
 
-class Asciibook::ConverterTest < Minitest::Test
-  include ConverterTestHelper
-
+class Asciibook::ConverterTest < Asciibook::Test
   def test_convert_xref_with_page
     doc = <<~EOF
       = Book Title

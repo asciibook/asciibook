@@ -32,7 +32,7 @@ module Asciibook
     end
 
     def process
-      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook', logger: @logger))
+      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook', logger: @logger, safe: :unsafe))
       @toc = nil
       process_pages
     end

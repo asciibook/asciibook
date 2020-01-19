@@ -1,6 +1,7 @@
 require "asciidoctor"
 require 'asciidoctor-htmlbook'
 require "rexml/document"
+require "nokogiri"
 require "fileutils"
 require "liquid"
 require "logger"

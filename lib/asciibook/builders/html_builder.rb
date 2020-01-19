@@ -19,12 +19,58 @@ module Asciibook
         layout = Liquid::Template.parse(File.read(File.join(@theme_dir, 'layout.html')))
         @book.pages.each do |page|
           File.open(File.join(@dest_dir, page.path), 'w') do |file|
+            page_hash = page.to_hash
+            page_hash['content'] = process_content(page_hash['content'])
+
             file.write layout.render({
               'book' => @book.to_hash,
-              'page' => page.to_hash
+              'page' => page_hash
             })
           end
         end
+      end
+
+      def process_content(xhtml)
+        doc = Nokogiri::XML.fragment(xhtml)
+
+        footnotes = []
+        doc.css('span[data-type="footnote"]').each do |node|
+          footnote = node.text
+
+          if footnotes.include?(footnote)
+            index = footnotes.index(footnote)
+            first = false
+          else
+            footnotes.push footnote
+            index = footnotes.index(footnote)
+            first = true
+          end
+          index += 1
+
+          node.inner_html = <<~EOF
+            <a href="#_footnotedef_#{index}">[#{index}]</a>
+          EOF
+
+          if first
+            node['id'] = "_footnoteref_#{index}"
+          end
+        end
+
+        if footnotes.any?
+          footnote_html = '<div class="footnotes">'
+          footnotes.each_with_index do |footnote, index|
+            index += 1
+            footnote_html << <<~EOF
+              <div id="_footnotedef_#{index}">
+                <a href="#_footnoteref_#{index}">#{index}</a>. #{footnote}
+              </div>
+            EOF
+          end
+          footnote_html << '</div>'
+          doc.add_child footnote_html
+        end
+
+        doc.to_s
       end
 
       def copy_assets
