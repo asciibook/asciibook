@@ -38,9 +38,12 @@ module Asciibook
 
           book.ordered do
             @book.pages.each do |page|
+              page_hash = page.to_hash
+              page_hash['content'] = postprocess(page_hash['content'])
+
               html = layout.render(
                 'book' => @book.to_hash,
-                'page' => page.to_hash
+                'page' => page_hash
               )
               book.add_item page.path, content: StringIO.new(html), id: id_pool.generate_key(prefix: 'page_')
             end
@@ -55,6 +58,49 @@ module Asciibook
         @book.pages.each do |page|
           page.path = page.path.gsub(/.xhtml$/, '.html')
         end
+      end
+
+      def postprocess(xhtml)
+        doc = Nokogiri::XML.fragment(xhtml)
+
+        footnotes = []
+        doc.css('span[data-type="footnote"]').each do |node|
+          footnote = node.text
+
+          if footnotes.include?(footnote)
+            index = footnotes.index(footnote)
+            first = false
+          else
+            footnotes.push footnote
+            index = footnotes.index(footnote)
+            first = true
+          end
+          index += 1
+
+          node.inner_html = <<~EOF
+            <a epub:type="noteref" href="#_footnotedef_#{index}">[#{index}]</a>
+          EOF
+
+          if first
+            node['id'] = "_footnoteref_#{index}"
+          end
+        end
+
+        if footnotes.any?
+          footnote_html = '<div class="footnotes">'
+          footnotes.each_with_index do |footnote, index|
+            index += 1
+            footnote_html << <<~EOF
+              <aside epub:type="footnote" id="_footnotedef_#{index}">
+                <a href="#_footnoteref_#{index}">#{index}</a>. #{footnote}
+              </aside>
+            EOF
+          end
+          footnote_html << '</div>'
+          doc.add_child footnote_html
+        end
+
+        doc.to_s
       end
 
       def tocdata

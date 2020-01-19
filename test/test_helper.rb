@@ -32,15 +32,15 @@ class Asciibook::Test < Minitest::Test
 
   def assert_equal_html(except, actual, options = {})
     except_html = <<~EOF
-      <body>
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
         #{except}
-      </body>
+      </html>
     EOF
 
     actual_html = <<~EOF
-      <body>
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
         #{actual}
-      </body>
+      </html>
     EOF
     assert_equal pretty_format(except_html), pretty_format(actual_html)
   end
