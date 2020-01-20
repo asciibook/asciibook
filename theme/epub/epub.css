@@ -1,0 +1,6 @@
+/* Epub reader use pop up show footnotes */
+footer {
+  border-top: none;
+  padding: 0;
+  margin: 0;
+}

@@ -1,3 +1,55 @@
+html {
+}
+
+body {
+  line-height: 1.5;
+  font-size: 16px;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5em 0 1em;
+  color: #c62828;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.75em;
+}
+
+h3 {
+  font-size: 1.5em;
+}
+
+h4 {
+  font-size: 1.25em;
+}
+
+h5, h6 {
+  font-size: 1em;
+}
+
+a {
+  color: #3f51b5;
+}
+
+a:hover {
+  color: #303f9f;
+}
+
+img {
+  max-width: 100%;
+  line-height: 1;
+}
+
+pre[data-type="programlisting"] {
+  line-height: 1;
+  margin: 1em 0;
+}
+
 section[data-type="toc"] ol {
   list-style: none;
   padding: 0;
@@ -5,10 +57,115 @@ section[data-type="toc"] ol {
 }
 
 section[data-type="toc"] ol ol {
-  padding-left: 16px;
+  padding-left: 1em;
 }
 
 section[data-type="toc"] a {
   display: block;
-  padding: 8px 0;
+  padding: 0.5em 0;
+}
+
+ul, ol {
+}
+
+a[data-type="callout"] {
+  display: inline-block;
+  background: #333;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 20px;
+  width: 20px;
+  text-decoration: none;
+  text-align: center;
+}
+
+ul[data-type="colist"] {
+  list-style: none;
+  padding: 0;
+  margin: 1em 0;
+}
+
+figure {
+  margin: 1em 0;
+}
+
+figcaption {
+  font-style: italic;
+}
+
+span[data-type="footnote"] a {
+  font-size: 0.75em;
+  vertical-align: super;
+}
+
+div[data-type="example"] {
+  margin: 1em 0;
+  padding: 1em;
+  background: #eee;
+}
+
+div[data-type="example"] > *:first-child {
+  margin-top: 0;
+}
+
+aside[data-type="example"] > *:last-child {
+  margin-bottom: 0;
+}
+
+aside[data-type="sidebar"] {
+  margin: 1em 0;
+  padding: 1em;
+  background: #eee;
+}
+
+aside[data-type="sidebar"] > *:first-child {
+  margin-top: 0;
+}
+
+aside[data-type="sidebar"] > *:last-child {
+  margin-bottom: 0;
+}
+
+table {
+  width: 100%;
+  margin: 1em 0;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+table caption {
+  text-align: left;
+  font-style: italic;
+}
+
+table thead th {
+  border-bottom: 2px solid #ccc;
+  padding: 0.75em;
+}
+
+table tbody td {
+  border-bottom: 1px solid #ccc;
+  padding: 0.75em;
+}
+
+blockquote {
+  padding: 1em;
+  margin: 1em 0;
+  border-left: 2px solid #ccc;
+  background: #eee;
+}
+
+blockquote > *:first-child {
+  margin-top: 0;
+}
+
+blockquote > *:last-child {
+  margin-bottom: 0;
+}
+
+footer {
+  border-top: 1px solid #ccc;
+  margin-top: 1.5em;
+  padding-top: 1em;
 }
