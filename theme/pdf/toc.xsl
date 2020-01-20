@@ -14,6 +14,7 @@
         <style>
           ol {
             padding: 0;
+            font-size: 120%;
           }
 
           ol ol {
@@ -33,14 +34,19 @@
             display: flex;
             color: #333;
             text-decoration: none;
-            margin: 8px 0;
+            margin: 0.5em 0;
+            page-break-inside: avoid;
           }
 
           a .dotted {
             -webkit-box-flex: 1;
             flex-grow: 1;
             border-bottom: 2px dotted #333;
-            margin: 8px;
+            margin: 0.5em;
+          }
+
+          .title, .page {
+            white-space: nowrap;
           }
         </style>
       </head>
