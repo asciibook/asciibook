@@ -45,7 +45,7 @@ img {
   line-height: 1;
 }
 
-pre[data-type="programlisting"] {
+pre {
   line-height: 1;
   margin: 1em 0;
 }

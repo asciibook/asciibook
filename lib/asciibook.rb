@@ -7,6 +7,7 @@ require "liquid"
 require "logger"
 require 'yaml'
 require "gepub"
+require "rouge"
 
 require "asciibook/version"
 require "asciibook/asciidoctor_ext/abstract_node"

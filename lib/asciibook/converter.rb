@@ -6,6 +6,7 @@ module Asciibook
       options[:template_dirs] ||= []
       options[:template_dirs].unshift(File.expand_path('../../../templates', __FILE__))
       super
+      init_backend_traits outfilesuffix: '.html', basebackend: 'html'
     end
 
     def abstract_block_to_hash(node)
@@ -29,7 +30,16 @@ module Asciibook
           node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
         end
       else
-        node.content
+        case node.node_name
+        when 'listing'
+          if node.style == 'source' && node.document.syntax_highlighter
+            node.document.syntax_highlighter.format node, node.attributes['language'], { css_mode: :class }
+          else
+            node.content
+          end
+        else
+          node.content
+        end
       end
     end
 

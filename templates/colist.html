@@ -1,0 +1,8 @@
+<ul {% if node.id %}id="{{ node.id }}"{% endif %} data-type="colist">
+  {% for item in node.items %}
+    <li>
+      <a data-type="callout" id="colist-{{ item.attributes.coids }}" href="#callout-{{ item.attributes.coids }}">{{ item.attributes.coids | split: '-' | last }}</a>
+      {{ item.text }}
+    </li>
+  {% endfor %}
+</ul>

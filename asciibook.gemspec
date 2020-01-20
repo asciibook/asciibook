@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "liquid", "~> 4.0"
   spec.add_runtime_dependency "gepub", "~> 1.0"
   spec.add_runtime_dependency "mercenary"
+  spec.add_runtime_dependency "rouge"
 end
