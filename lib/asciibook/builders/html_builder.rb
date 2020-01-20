@@ -57,16 +57,16 @@ module Asciibook
         end
 
         if footnotes.any?
-          footnote_html = '<div class="footnotes">'
+          footnote_html = '<footer>'
           footnotes.each_with_index do |footnote, index|
             index += 1
             footnote_html << <<~EOF
-              <div id="_footnotedef_#{index}">
+              <aside id="_footnotedef_#{index}">
                 <a href="#_footnoteref_#{index}">#{index}</a>. #{footnote}
-              </div>
+              </aside>
             EOF
           end
-          footnote_html << '</div>'
+          footnote_html << '</footer>'
           doc.add_child footnote_html
         end
 

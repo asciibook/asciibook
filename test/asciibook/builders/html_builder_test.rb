@@ -27,13 +27,13 @@ class Asciibook::Builders::HtmlBuilderTest < Asciibook::Test
           <a href='#_footnotedef_2'>[2]</a>
         </span>
       </p>
-      <div class='footnotes'>
-        <div id='_footnotedef_1'>
-          <a href='#_footnoteref_1'>1</a>. footnote text </div>
-        <div id='_footnotedef_2'>
+      <footer>
+        <aside id='_footnotedef_1'>
+          <a href='#_footnoteref_1'>1</a>. footnote text </aside>
+        <aside id='_footnotedef_2'>
           <a href='#_footnoteref_2'>2</a>. another footnote
-        </div>
-      </div>
+        </aside>
+      </footer>
     EOF
 
     assert_equal_html html, builder.postprocess(book.pages.first.content)

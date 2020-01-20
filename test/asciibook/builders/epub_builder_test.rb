@@ -27,14 +27,14 @@ class Asciibook::Builders::EpubBuilderTest < Asciibook::Test
           <a href='#_footnotedef_2' epub:type='noteref'>[2]</a>
         </span>
       </p>
-      <div class='footnotes'>
+      <footer>
         <aside epub:type='footnote' id='_footnotedef_1'>
           <a href='#_footnoteref_1'>1</a>. footnote text
         </aside>
         <aside epub:type='footnote' id='_footnotedef_2'>
           <a href='#_footnoteref_2'>2</a>. another footnote
         </aside>
-      </div>
+      </footer>
     EOF
 
     assert_equal_html html, builder.postprocess(book.pages.first.content)
