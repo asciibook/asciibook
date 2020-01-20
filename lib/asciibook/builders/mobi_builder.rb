@@ -14,7 +14,7 @@ module Asciibook
         epub_file = File.join(@dest_dir, "#{@book.basename}.epub")
         system 'kindlegen', epub_file
 
-        #FileUtils.rm epub_file
+        FileUtils.rm epub_file
       end
     end
   end
