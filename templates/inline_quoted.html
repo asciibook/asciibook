@@ -1,0 +1,24 @@
+{% case node.type %}
+{% when 'emphasis' %}
+  <em>{{ node.text }}</em>
+{% when 'strong' %}
+  <strong>{{ node.text }}</strong>
+{% when 'monospaced' %}
+  <code>{{ node.text }}</code>
+{% when 'superscript' %}
+  <sup>{{ node.text }}</sup>
+{% when 'subscript' %}
+  <sub>{{ node.text }}</sub>
+{% when 'double' %}
+  &#8220;{{ node.text }}&#8221;
+{% when 'single' %}
+  &#8216;{{ node.text }}&#8217;
+{% when 'mark' %}
+  <mark>{{ node.text }}</mark>
+{% when 'asciimath' %}
+  \\${{ node.text }}\\$
+{% when 'latexmath' %}
+  \\({{ node.text }}\\)
+{% else %}
+  <span>{{ node.text }}</span>
+{% endcase %}

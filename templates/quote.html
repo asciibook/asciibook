@@ -1,0 +1,9 @@
+<blockquote {% if node.id %}id="{{ node.id }}"{% endif %}>
+  {{ node.content }}
+  {% if node.attributes.attribution %}
+    <p data-type="attribution">{{ node.attributes.attribution }}</p>
+  {% endif %}
+  {% if node.attributes.citetitle %}
+    <p data-type="citetitle">{{ node.attributes.citetitle }}</p>
+  {% endif %}
+</blockquote>

@@ -1,0 +1,4 @@
+<div {% if node.id %}id="{{ node.id }}"{% endif %} data-type="example">
+  {% if node.title %}<h5>{{ node.captioned_title }}</h5>{% endif %}
+  {{ node.content }}
+</div>

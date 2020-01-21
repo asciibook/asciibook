@@ -1,0 +1,9 @@
+<div {% if node.id %}id="{{ node.id }}"{% endif %} data-type="equation">
+  {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
+  {% case node.style %}
+  {% when 'latexmath' %}
+    \\[{{ node.content }}\\]
+  {% when 'asciimath' %}
+    \\${{ node.content }}\\$
+  {% endcase %}
+</div>

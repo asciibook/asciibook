@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    {% if node.title %}<title>{{ node.title }}</title>{% endif %}
+  </head>
+  <body data-type="book">
+    {% if node.title %}
+      {% if node.subtitle or node.authors.size > 0 %}<header>{% endif %}
+        <h1>{{ node.title }}</h1>
+        {% if node.subtitle %}<p data-type="subtitle">{{ node.subtitle }}</p>{% endif %}
+        {% if node.authors.size > 0 %}
+          {% for author in node.authors %}
+            <p data-type="author">{{ author.name }}</p>
+          {% endfor %}
+        {% endif %}
+      {% if node.subtitle or node.authors.size > 0 %}</header>{% endif %}
+    {% endif %}
+
+    {% if node.attributes.toc %}
+      <nav data-type="toc">
+        <h1>{{ node.attributes.toc-title }}</h1>
+        {{ node.outline }}
+      </nav>
+    {% endif %}
+
+    {{ node.content }}
+  </body>
+</html>

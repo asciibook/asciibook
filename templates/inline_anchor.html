@@ -1,0 +1,12 @@
+{% case node.type %}
+{% when 'xref' %}
+    <a data-type="xref" href="{{ node.target }}">{{ node.text }}</a>
+{% when 'ref' %}
+  <a id="{{ node.id }}"></a>
+{% when 'link' %}
+  <a href="{{ node.target }}"
+     {% if node.attributes.title %}title="{{ node.attributes.title }}"{% endif %}
+     {% if node.attributes.window %}target="{{ node.attributes.window }}"{% endif %} >{{ node.text }}</a>
+{% when 'bibref' %}
+  <a id="{{ node.id }}"></a>[{{ node.xreftext | default: node.id }}]
+{% endcase %}

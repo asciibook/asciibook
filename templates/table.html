@@ -1,0 +1,41 @@
+<table {% if node.id %}id="{{ node.id }}"{% endif %}>
+  {% if node.title %}
+    <caption>{{ node.captioned_title }}</caption>
+  {% endif %}
+  {% if node.rows.head.size > 0 %}
+    <thead>
+      {% for row in node.rows.head %}
+        <tr>
+          {% for cell in row %}
+            <th {% if cell.colspan %}colspan="{{ cell.colspan }}"{% endif %}
+                {% if cell.rowspan %}rowspan="{{ cell.rowspan }}"{% endif %}>{{ cell.content }}</th>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </thead>
+  {% endif %}
+  {% if node.rows.body.size > 0 %}
+    <tbody>
+      {% for row in node.rows.body %}
+        <tr>
+          {% for cell in row %}
+            <td {% if cell.colspan %}colspan="{{ cell.colspan }}"{% endif %}
+                {% if cell.rowspan %}rowspan="{{ cell.rowspan }}"{% endif %}>{{ cell.content }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  {% endif %}
+  {% if node.rows.foot.size > 0 %}
+    <tfoot>
+      {% for row in node.rows.foot %}
+        <tr>
+          {% for cell in row %}
+            <td {% if cell.colspan %}colspan="{{ cell.colspan }}"{% endif %}
+                {% if cell.rowspan %}rowspan="{{ cell.rowspan }}"{% endif %}>{{ cell.content }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tfoot>
+  {% endif %}
+</table>

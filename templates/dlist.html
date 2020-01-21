@@ -1,0 +1,12 @@
+<dl {% if node.id %}id="{{ node.id }}"{% endif %}>
+  {% for item in node.items %}
+    {% for term in item.terms %}
+      <dt>{{ term.text }}</dt>
+    {% endfor %}
+    {% if item.description.text %}
+      <dd>{{ item.description.text }}</dd>
+    {% else %}
+      <dd>{{ item.description.content }}</dd>
+    {% endif %}
+  {% endfor %}
+</dl>
