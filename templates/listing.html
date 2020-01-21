@@ -1,5 +1,4 @@
 <figure {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% if node.title %}<figcaption>{{ node.title }}</figcaption>{% endif %}
-  <pre data-type="programlisting"
-       {% if node.attributes.language %}data-code-language="{{ node.attributes.language }}"{% endif %}>{{ node.content }}</pre>
+  {{ node.content }}
 </figure>

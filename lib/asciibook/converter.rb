@@ -89,7 +89,7 @@ module Asciibook
           if node.style == 'source' && node.document.syntax_highlighter
             node.document.syntax_highlighter.format node, node.attributes['language'], { css_mode: :class }
           else
-            node.content
+            "<pre>#{node.content}</pre>"
           end
         else
           node.content

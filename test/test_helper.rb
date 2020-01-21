@@ -17,7 +17,7 @@ class Asciibook::Test < Minitest::Test
 
     actual_html = <<~EOF
       <body data-type="book">
-        #{Asciidoctor.convert doc, options.merge(backend: 'asciibook')}
+        #{Asciidoctor.convert doc, options.merge(backend: 'asciibook', safe: :unsafe)}
       </body>
     EOF
 
