@@ -18,7 +18,7 @@ class Asciibook::Converter::InlineCalloutTest < Asciibook::Test
 
     html = <<~EOF
       <figure>
-        <pre data-type="programlisting" data-code-language="ruby">require "sinatra" <a data-type="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
+        <pre>require "sinatra" <a data-type="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
 
            get "/hi" do <a data-type="callout" id="callout-CO1-2" href="#colist-CO1-2">2</a> <a data-type="callout" id="callout-CO1-3" href="#colist-CO1-3">3</a>
              "Hello World!"

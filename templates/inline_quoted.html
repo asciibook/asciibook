@@ -1,24 +1,24 @@
-{% case node.type %}
-{% when 'emphasis' %}
+{%- case node.type -%}
+{%- when 'emphasis' -%}
   <em>{{ node.text }}</em>
-{% when 'strong' %}
+{%- when 'strong' -%}
   <strong>{{ node.text }}</strong>
-{% when 'monospaced' %}
+{%- when 'monospaced' -%}
   <code>{{ node.text }}</code>
-{% when 'superscript' %}
+{%- when 'superscript' -%}
   <sup>{{ node.text }}</sup>
-{% when 'subscript' %}
+{%- when 'subscript' -%}
   <sub>{{ node.text }}</sub>
-{% when 'double' %}
+{%- when 'double' -%}
   &#8220;{{ node.text }}&#8221;
-{% when 'single' %}
+{%- when 'single' -%}
   &#8216;{{ node.text }}&#8217;
-{% when 'mark' %}
+{%- when 'mark' -%}
   <mark>{{ node.text }}</mark>
-{% when 'asciimath' %}
+{%- when 'asciimath' -%}
   \\${{ node.text }}\\$
-{% when 'latexmath' %}
+{%- when 'latexmath' -%}
   \\({{ node.text }}\\)
-{% else %}
+{%- else -%}
   <span>{{ node.text }}</span>
-{% endcase %}
+{%- endcase -%}

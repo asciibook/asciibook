@@ -7,9 +7,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <em>text</em>
-      </p>
+      <p><em>text</em></p>
     EOF
 
     assert_convert_body html, doc
@@ -21,9 +19,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <strong>text</strong>
-      </p>
+      <p><strong>text</strong></p>
     EOF
 
     assert_convert_body html, doc
@@ -35,9 +31,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <code>text</code>
-      </p>
+      <p><code>text</code></p>
     EOF
 
     assert_convert_body html, doc
@@ -49,9 +43,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <sup>text</sup>
-      </p>
+      <p><sup>text</sup></p>
     EOF
 
     assert_convert_body html, doc
@@ -63,9 +55,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <sub>text</sub>
-      </p>
+      <p><sub>text</sub></p>
     EOF
 
     assert_convert_body html, doc
@@ -77,9 +67,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        &#8220;text&#8221;
-      </p>
+      <p>&#8220;text&#8221;</p>
     EOF
 
     assert_convert_body html, doc
@@ -91,9 +79,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        &#8216;text&#8217;
-      </p>
+      <p>&#8216;text&#8217;</p>
     EOF
 
     assert_convert_body html, doc
@@ -105,9 +91,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <mark>text</mark>
-      </p>
+      <p><mark>text</mark></p>
     EOF
 
     assert_convert_body html, doc
@@ -119,9 +103,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <p>
-        \\$math\\$
-      </p>
+      <p>\\$math\\$</p>
     EOF
 
     assert_convert_body html, doc
@@ -133,9 +115,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <p>
-        \\(math\\)
-      </p>
+      <p>\\(math\\)</p>
     EOF
 
     assert_convert_body html, doc

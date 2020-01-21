@@ -7,10 +7,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>
-        <a id="paragraph"></a>
-        paragraph content
-      </p>
+      <p><a id="paragraph"></a>paragraph content</p>
     EOF
 
     assert_convert_body html, doc

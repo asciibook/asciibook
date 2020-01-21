@@ -1,5 +1,4 @@
 require "asciidoctor"
-require 'asciidoctor-htmlbook'
 require "rexml/document"
 require "nokogiri"
 require "fileutils"
