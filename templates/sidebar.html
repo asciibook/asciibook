@@ -1,5 +1,4 @@
-<aside data-type="sidebar"
-       {% if node.id %}id="{{ node.id }}" {% endif %}>
+<aside class="sidebar" {% if node.id %}id="{{ node.id }}" {% endif %}>
   {% if node.title %}
     <h5>{{ node.title }}</h5>
   {% endif %}

@@ -1,42 +1,4 @@
-{% case node.sectname %}
-{% when 'part' %}
-  <div id="{{node.id}}" data-type="part">
-    <h1>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h1>
-    {{ node.content }}
-  </div>
-{% when 'sect1' %}
-  <section id="{{node.id}}" data-type="chapter">
-    <h1>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h1>
-    {{ node.content }}
-  </section>
-{% when 'sect2' %}
-  <section id="{{node.id}}" data-type="sect1">
-    <h2>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h2>
-    {{ node.content }}
-  </section>
-{% when 'sect3' %}
-  <section id="{{node.id}}" data-type="sect2">
-    <h3>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h3>
-    {{ node.content }}
-  </section>
-{% when 'sect4' %}
-  <section id="{{node.id}}" data-type="sect3">
-    <h4>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h4>
-    {{ node.content }}
-  </section>
-{% when 'sect5' %}
-  <section id="{{node.id}}" data-type="sect4">
-    <h5>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h5>
-    {{ node.content }}
-  </section>
-{% when 'sect6' %}
-  <section id="{{node.id}}" data-type="sect5">
-    <h6>{% if node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h6>
-    {{ node.content }}
-  </section>
-{% else %}
-  <section id="{{node.id}}" data-type="{{ node.sectname }}">
-    <h1>{{ node.caption }}{{ node.title }}</h1>
-    {{ node.content }}
-  </section>
-{% endcase %}
+<section class="{{ node.sectname }}" {% if node.id %}id="{{ node.id }}"{% endif %}>
+  <h{{ node.level | at_least: 1 }}>{% if node.caption %}{{ node.caption }} {% elsif node.numbered %}{{ node.sectnum }} {% endif %}{{ node.title }}</h{{ node.level | at_least: 1 }}>
+  {{ node.content }}
+</section>

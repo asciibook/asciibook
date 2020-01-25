@@ -15,15 +15,15 @@ class Asciibook::Builders::PdfBuilderTest < Asciibook::Test
 
     html = <<~EOF
       <p>
-        <span data-type='footnote' id='_footnoteref_1'>
+        <span class='footnote' id='_footnoteref_1'>
           <a href='#_footnotedef_1'>[1]</a>
         </span>
-        <span data-type='footnote'>
+        <span class='footnote'>
           <a href='#_footnotedef_1'>[1]</a>
         </span>
       </p>
       <p>
-        <span data-type='footnote' id='_footnoteref_2'>
+        <span class='footnote' id='_footnoteref_2'>
           <a href='#_footnotedef_2'>[2]</a>
         </span>
       </p>

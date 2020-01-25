@@ -9,7 +9,7 @@ class Asciibook::Converter::LiteralTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <pre>Text</pre>
+      <pre class="literal">Text</pre>
     EOF
 
     assert_convert_body html, doc

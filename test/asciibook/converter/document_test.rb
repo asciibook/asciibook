@@ -11,7 +11,7 @@ class Asciibook::Converter::DocumentTest < Asciibook::Test
         <head>
           <meta charset=\"utf-8\" />
         </head>
-        <body data-type="book">
+        <body>
         </body>
       </html>
     EOF
@@ -31,8 +31,10 @@ class Asciibook::Converter::DocumentTest < Asciibook::Test
           <meta charset=\"utf-8\" />
           <title>Doc Title</title>
         </head>
-        <body data-type="book">
-          <h1>Doc Title</h1>
+        <body>
+          <header>
+            <h1>Doc Title</h1>
+          </header>
         </body>
       </html>
     EOF
@@ -53,10 +55,10 @@ class Asciibook::Converter::DocumentTest < Asciibook::Test
           <meta charset=\"utf-8\" />
           <title>Doc Title</title>
         </head>
-        <body data-type="book">
+        <body>
           <header>
             <h1>Doc Title</h1>
-            <p data-type="author">Author</p>
+            <p class="author">Author</p>
           </header>
         </body>
       </html>
@@ -78,11 +80,11 @@ class Asciibook::Converter::DocumentTest < Asciibook::Test
           <meta charset=\"utf-8\" />
           <title>Doc Title</title>
         </head>
-        <body data-type="book">
+        <body>
           <header>
             <h1>Doc Title</h1>
-            <p data-type="subtitle">Subtitle</p>
-            <p data-type="author">Author</p>
+            <p class="subtitle">Subtitle</p>
+            <p class="author">Author</p>
           </header>
         </body>
       </html>

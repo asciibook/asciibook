@@ -9,7 +9,7 @@ class Asciibook::Converter::ExampleTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <div data-type="example">
+      <div class="example">
         <p>Example</p>
       </div>
     EOF
@@ -26,7 +26,7 @@ class Asciibook::Converter::ExampleTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <div data-type="example">
+      <div class="example">
         <h5>Example 1. Example Title</h5>
         <p>Example</p>
       </div>
@@ -46,7 +46,7 @@ class Asciibook::Converter::ExampleTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <div data-type="example">
+      <div class="example">
         <h5>Sample 1. Example Title</h5>
         <p>Example</p>
       </div>

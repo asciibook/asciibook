@@ -15,7 +15,7 @@ class Asciibook::Converter::TableTest < Asciibook::Test
     EOF
 
     html = <<-EOF
-      <table>
+      <table class="table">
         <tbody>
           <tr>
             <td>Cell in column 1, row 1</td>
@@ -53,7 +53,7 @@ class Asciibook::Converter::TableTest < Asciibook::Test
     EOF
 
     html = <<-EOF
-      <table>
+      <table class="table">
         <caption>Table 1. Table Title</caption>
         <thead>
           <tr>
@@ -99,7 +99,7 @@ class Asciibook::Converter::TableTest < Asciibook::Test
     EOF
 
     html = <<-EOF
-      <table>
+      <table class="table">
         <caption>Table 1. Table Title</caption>
         <thead>
           <tr>
@@ -138,7 +138,7 @@ class Asciibook::Converter::TableTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <table>
+      <table class="table">
         <caption>Data 1. Table Title</caption>
       </table>
     EOF

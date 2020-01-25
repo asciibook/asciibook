@@ -20,9 +20,11 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
           <meta charset='utf-8'/>
           <title>Book Title</title>
         </head>
-        <body data-type='book'>
-          <h1>Book Title</h1>
-          <nav data-type='toc'>
+        <body>
+          <header>
+            <h1>Book Title</h1>
+          </header>
+          <nav class='toc'>
             <h1>Table of Contents</h1>
             <ol>
               <li>
@@ -38,13 +40,13 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
               </li>
             </ol>
           </nav>
-          <section id='_chapter_one' data-type='chapter'>
+          <section class="section" id='_chapter_one'>
             <h1>Chapter One</h1>
-            <section id='_section_one' data-type='sect1'>
+            <section class="section" id='_section_one'>
               <h2>Section One</h2>
             </section>
           </section>
-          <section id='_chapter_two' data-type='chapter'>
+          <section class="section" id='_chapter_two'>
             <h1>Chapter Two</h1>
           </section>
         </body>
@@ -78,9 +80,11 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
           <meta charset='utf-8'/>
           <title>Book Title</title>
         </head>
-        <body data-type='book'>
-          <h1>Book Title</h1>
-          <nav data-type='toc'>
+        <body>
+          <header>
+            <h1>Book Title</h1>
+          </header>
+          <nav class='toc'>
             <h1>Table of Contents</h1>
             <ol>
               <li>
@@ -99,16 +103,16 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
               </li>
             </ol>
           </nav>
-          <section id='_preface' data-type='preface'>
+          <section class="preface" id='_preface'>
             <h1>Preface</h1>
           </section>
-          <section id='_chapter_one' data-type='chapter'>
+          <section class="section" id='_chapter_one'>
             <h1>1. Chapter One</h1>
-            <section id='_section_one' data-type='sect1'>
+            <section class="section" id='_section_one'>
               <h2>1.1. Section One</h2>
             </section>
           </section>
-          <section id='_chapter_two' data-type='chapter'>
+          <section class="section" id='_chapter_two'>
             <h1>2. Chapter Two</h1>
           </section>
         </body>
@@ -138,9 +142,11 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
           <meta charset='utf-8'/>
           <title>Book Title</title>
         </head>
-        <body data-type='book'>
-          <h1>Book Title</h1>
-          <nav data-type='toc'>
+        <body>
+          <header>
+            <h1>Book Title</h1>
+          </header>
+          <nav class="toc">
             <h1>Table of Contents</h1>
             <ol>
               <li>
@@ -151,13 +157,13 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
               </li>
             </ol>
           </nav>
-          <section id='_chapter_one' data-type='chapter'>
+          <section class="section" id='_chapter_one'>
             <h1>Chapter One</h1>
-            <section id='_section_one' data-type='sect1'>
+            <section class="section" id='_section_one'>
               <h2>Section One</h2>
             </section>
           </section>
-          <section id='_chapter_two' data-type='chapter'>
+          <section class="section" id='_chapter_two'>
             <h1>Chapter Two</h1>
           </section>
         </body>

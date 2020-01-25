@@ -12,7 +12,7 @@ class Asciibook::Converter::VerseTest < Asciibook::Test
 
     html = <<~EOF
 
-      <blockquote>
+      <blockquote class="verse">
         <pre>Line one
         Line two.</pre>
         <p data-type="attribution">attribution</p>

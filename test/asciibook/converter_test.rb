@@ -16,24 +16,26 @@ class Asciibook::ConvertererTest < Asciibook::Test
     EOF
 
     document_html = <<~EOF
-      <h1>Book Title</h1>
+      <header>
+        <h1>Book Title</h1>
+      </header>
     EOF
 
     section_1_html = <<~EOF
-      <section id='_chapter_1' data-type='chapter'>
+      <section class="section" id='_chapter_1'>
         <h1>Chapter 1</h1>
-        <section id='_chapter_1_1' data-type='sect1'>
+        <section class="section" id='_chapter_1_1'>
           <h2>Chapter 1.1</h2>
         </section>
       </section>
     EOF
 
     section_2_html = <<~EOF
-      <section id='_chapter_2' data-type='chapter'>
+      <section class="section" id='_chapter_2'>
         <h1>Chapter 2</h1>
         <p>
-          <a data-type='xref' href='_chapter_1.html'>Chapter 1</a>
-          <a data-type='xref' href='_chapter_1.html#_chapter_1_1'>Chapter 1.1</a>
+          <a class='xref' href='_chapter_1.html'>Chapter 1</a>
+          <a class='xref' href='_chapter_1.html#_chapter_1_1'>Chapter 1.1</a>
         </p>
       </section>
     EOF

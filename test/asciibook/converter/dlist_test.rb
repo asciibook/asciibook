@@ -9,7 +9,7 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <dl>
+      <dl class="dlist">
         <dt>Label One</dt>
         <dd>Content one.</dd>
         <dt>Label Two</dt>
@@ -35,23 +35,23 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <dl>
+      <dl class="dlist">
         <dt>Dairy</dt>
         <dd>
-          <ul>
+          <ul class="ulist">
             <li><p>Milk</p></li>
             <li><p>Eggs</p></li>
           </ul>
         </dd>
         <dt>Bakery</dt>
         <dd>
-          <ul>
+          <ul class="ulist">
             <li><p>Bread</p></li>
           </ul>
         </dd>
         <dt>Produce</dt>
         <dd>
-          <ul>
+          <ul class="ulist">
             <li><p>Bananas</p></li>
           </ul>
         </dd>
@@ -84,22 +84,22 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <dl>
+      <dl class="dlist">
         <dt>Operating Systems</dt>
         <dd>
-          <dl>
+          <dl class="dlist">
             <dt>Linux</dt>
             <dd>
-              <ol>
+              <ol class="olist">
                 <li>
                   <p>Fedora</p>
-                  <ul>
+                  <ul class="ulist">
                     <li><p>Desktop</p></li>
                   </ul>
                 </li>
                 <li>
                   <p>Ubuntu</p>
-                  <ul>
+                  <ul class="ulist">
                     <li><p>Desktop</p></li>
                     <li><p>Server</p></li>
                   </ul>
@@ -108,7 +108,7 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
             </dd>
             <dt>BSD</dt>
             <dd>
-              <ol>
+              <ol class="olist">
                 <li>
                   <p>FreeBSD</p>
                 </li>
@@ -121,10 +121,10 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
         </dd>
         <dt>Cloud Providers</dt>
         <dd>
-          <dl>
+          <dl class="dlist">
             <dt>PaaS</dt>
             <dd>
-              <ol>
+              <ol class="olist">
                 <li>
                   <p>OpenShift</p>
                 </li>
@@ -135,7 +135,7 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
             </dd>
             <dt>IaaS</dt>
             <dd>
-              <ol>
+              <ol class="olist">
                 <li>
                   <p>Amazon EC2</p>
                 </li>

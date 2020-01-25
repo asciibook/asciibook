@@ -7,7 +7,7 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>Content.<span data-type="footnote">Footnote content.</span></p>
+      <p>Content.<span class="footnote">Footnote content.</span></p>
     EOF
 
     assert_convert_body html, doc
@@ -21,9 +21,9 @@ class Asciibook::Converter::InlineFootnoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p>Content one.<span data-type="footnote">Footnote content.</span></p>
+      <p>Content one.<span class="footnote">Footnote content.</span></p>
 
-      <p>Content two.<span data-type="footnote">Footnote content.</span></p>
+      <p>Content two.<span class="footnote">Footnote content.</span></p>
     EOF
 
     assert_convert_body html, doc

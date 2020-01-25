@@ -7,7 +7,7 @@ class Asciibook::Converter::PageBreakTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <div data-type="page-break" />
+      <div class="page-break" />
     EOF
 
     assert_convert_body html, doc

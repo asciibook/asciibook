@@ -7,7 +7,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a id="paragraph"></a>paragraph content</p>
+      <p><a class="ref" id="paragraph"></a>paragraph content</p>
     EOF
 
     assert_convert_body html, doc
@@ -19,7 +19,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a data-type="xref" href="#target">text</a></p>
+      <p><a class="xref" href="#target">text</a></p>
     EOF
 
     assert_convert_body html, doc
@@ -34,8 +34,8 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a data-type="xref" href="#target">Section</a></p>
-      <section id="target" data-type="chapter">
+      <p><a class="xref" href="#target">Section</a></p>
+      <section class="section" id="target">
         <h1>Section</h1>
       </section>
     EOF
@@ -49,7 +49,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a data-type='xref' href='#Section'>[Section]</a></p>
+      <p><a class='xref' href='#Section'>[Section]</a></p>
     EOF
 
     assert_convert_body html, doc
@@ -62,7 +62,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a id="target"></a> Content</p>
+      <p><a class="ref" id="target"></a> Content</p>
     EOF
 
     assert_convert_body html, doc
@@ -74,7 +74,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a href="http://example.com/">text</a></p>
+      <p><a class="link" href="http://example.com/">text</a></p>
     EOF
 
     assert_convert_body html, doc
@@ -88,7 +88,7 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <p><a href="http://example.com/" title="title" target="_blank">text</a></p>
+      <p><a class="link" href="http://example.com/" title="title" target="_blank">text</a></p>
     EOF
 
     assert_convert_body html, doc
@@ -104,17 +104,17 @@ class Asciibook::Converter::InlineAnchorTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <section id='_references' data-type='bibliography'>
+      <section class="bibliography" id='_references'>
        <h1>References</h1>
-       <ul>
+       <ul class="ulist">
          <li>
            <p>
-             <a id='target'/>[target] Content
+             <a class="bibref" id='target'/>[target] Content
            </p>
          </li>
          <li>
            <p>
-             <a id='target2'/>[2] Content
+             <a class="bibref" id='target2'/>[2] Content
            </p>
          </li>
        </ul>

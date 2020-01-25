@@ -1,4 +1,4 @@
-<div {% if node.id %}id="{{ node.id }}"{% endif %} data-type="equation">
+<div class="stem" {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
   {% case node.style %}
   {% when 'latexmath' %}

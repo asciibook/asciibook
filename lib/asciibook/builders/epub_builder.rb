@@ -64,7 +64,7 @@ module Asciibook
         doc = Nokogiri::XML.fragment(xhtml)
 
         footnotes = []
-        doc.css('span[data-type="footnote"]').each do |node|
+        doc.css('span[class="footnote"]').each do |node|
           footnote = node.text
 
           if footnotes.include?(footnote)

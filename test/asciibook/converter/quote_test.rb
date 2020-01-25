@@ -9,7 +9,7 @@ class Asciibook::Converter::QuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <blockquote>
+      <blockquote class="quote">
         <p>Quote content.</p>
       </blockquote>
     EOF
@@ -26,7 +26,7 @@ class Asciibook::Converter::QuoteTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <blockquote>
+      <blockquote class="quote">
         <p>Quote content.</p>
         <p data-type="attribution">attribution</p>
         <p data-type="citetitle">citetitle</p>

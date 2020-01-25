@@ -12,7 +12,7 @@ class Asciibook::Converter::ListingTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure class="listing">
         <pre>def hello
           puts "hello world!"
         end</pre>
@@ -35,7 +35,7 @@ class Asciibook::Converter::ListingTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure id="id">
+      <figure class="listing" id="id">
         <figcaption>Title</figcaption>
         <pre>def hello
           puts "hello world!"
@@ -61,7 +61,7 @@ class Asciibook::Converter::ListingTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure id="id">
+      <figure class="listing" id="id">
         <figcaption>Title</figcaption>
         <pre class='rouge highlight'><code data-lang='ruby'><span class='k'>def</span> <span class='nf'>hello</span>
         <span class='nb'>puts</span> <span class='s2'>\"hello world!\"</span>

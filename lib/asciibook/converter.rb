@@ -111,7 +111,7 @@ module Asciibook
       abstract_block_to_hash(node).merge!({
         'index' => node.index,
         'number' => node.number,
-        'sectname' => (node.sectname == 'section' ? "sect#{node.level}" : node.sectname),
+        'sectname' => node.sectname,
         'special' => node.special,
         'numbered' => node.numbered,
         'sectnum' => node.sectnum

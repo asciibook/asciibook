@@ -1,4 +1,4 @@
-<figure {% if node.id %}id="{{ node.id }}"{% endif %}>
+<figure class="image" {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% if node.attributes.link %}<a href="{{ node.attributes.link }}">{% endif %}
     <img src="{{ node.attributes.target }}"
          {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %}

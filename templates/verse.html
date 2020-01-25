@@ -1,4 +1,4 @@
-<blockquote {% if node.id %}id="{{ node.id }}"{% endif %}>
+<blockquote class="verse" {% if node.id %}id="{{ node.id }}"{% endif %}>
   <pre>{{ node.content }}</pre>
   {% if node.attributes.attribution %}
     <p data-type="attribution">{{ node.attributes.attribution }}</p>

@@ -1,4 +1,4 @@
-<ol {% if node.id %}id="{{ node.id }}"{% endif %}>
+<ol class="olist" {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% for item in node.items %}
     <li>
       <p>{{ item.text }}</p>

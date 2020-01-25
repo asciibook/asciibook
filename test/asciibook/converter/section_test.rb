@@ -20,14 +20,16 @@ class Asciibook::Converter::SectionTest < Asciibook::Test
           <meta charset=\"utf-8\" />
           <title>Book</title>
         </head>
-        <body data-type="book">
-          <h1>Book</h1>
-          <div id="part" data-type="part">
+        <body>
+          <header>
+            <h1>Book</h1>
+          </header>
+          <section class="part" id="part">
             <h1>Part Title</h1>
-            <section id="chapter" data-type="chapter">
+            <section class="chapter" id="chapter">
               <h1>Chapter Title</h1>
             </section>
-          </div>
+          </section>
         </body>
       </html>
     EOF
@@ -35,30 +37,15 @@ class Asciibook::Converter::SectionTest < Asciibook::Test
     assert_convert_html html, doc
   end
 
-  def test_convert_section_chapter
+  def test_convert_section_sect1
     doc = <<~EOF
       [[chapter]]
       == Chapter Title
     EOF
 
     html = <<~EOF
-      <section id="chapter" data-type="chapter">
+      <section class="section" id="chapter">
         <h1>Chapter Title</h1>
-      </section>
-    EOF
-
-    assert_convert_body html, doc
-  end
-
-  def test_convert_section_sect1
-    doc = <<~EOF
-      [[section]]
-      === Section Title
-    EOF
-
-    html = <<~EOF
-      <section id="section" data-type="sect1">
-        <h2>Section Title</h2>
       </section>
     EOF
 
@@ -68,11 +55,26 @@ class Asciibook::Converter::SectionTest < Asciibook::Test
   def test_convert_section_sect2
     doc = <<~EOF
       [[section]]
+      === Section Title
+    EOF
+
+    html = <<~EOF
+      <section class="section" id="section">
+        <h2>Section Title</h2>
+      </section>
+    EOF
+
+    assert_convert_body html, doc
+  end
+
+  def test_convert_section_sect3
+    doc = <<~EOF
+      [[section]]
       ==== Section Title
     EOF
 
     html = <<~EOF
-      <section id="section" data-type="sect2">
+      <section class="section" id="section">
         <h3>Section Title</h3>
       </section>
     EOF
@@ -88,7 +90,7 @@ class Asciibook::Converter::SectionTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <section id="preface" data-type="preface">
+      <section class="preface" id="preface">
         <h1>Preface Title</h1>
       </section>
     EOF
@@ -119,22 +121,22 @@ class Asciibook::Converter::SectionTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <section id='_preface' data-type='preface'>
+      <section class="preface" id='_preface'>
         <h1>Preface</h1>
       </section>
-      <section id='_chapter_one' data-type='chapter'>
+      <section class="section" id='_chapter_one'>
         <h1>1. Chapter One</h1>
-        <section id='_section_one' data-type='sect1'>
+        <section class="section" id='_section_one'>
           <h2>1.1. Section One</h2>
         </section>
       </section>
-      <section id='_chapter_two' data-type='chapter'>
+      <section class="section" id='_chapter_two'>
         <h1>2. Chapter Two</h1>
       </section>
-      <section id='_first_appendix' data-type='appendix'>
+      <section class="appendix" id='_first_appendix'>
         <h1>Appendix A: First Appendix</h1>
       </section>
-      <section id='_second_appendix' data-type='appendix'>
+      <section class="appendix" id='_second_appendix'>
         <h1>Appendix B: Second Appendix</h1>
       </section>
     EOF

@@ -10,7 +10,7 @@ class Asciibook::Converter::StemTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <div data-type="equation">
+      <div class="stem">
         \\[C = \alpha + \beta Y^{\gamma} + \epsilon\\]
       </div>
     EOF
@@ -27,7 +27,7 @@ class Asciibook::Converter::StemTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <div data-type="equation">
+      <div class="stem">
         \\$sqrt(4) = 2\\$
       </div>
     EOF
@@ -45,7 +45,7 @@ class Asciibook::Converter::StemTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <div data-type="equation">
+      <div class="stem">
         <h5>Math Title</h5>
         \\$sqrt(4) = 2\\$
       </div>

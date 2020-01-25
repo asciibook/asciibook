@@ -9,7 +9,7 @@ class Asciibook::Converter::UlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <ul>
+      <ul class="ulist">
         <li>
           <p>listitem</p>
         </li>
@@ -33,10 +33,10 @@ class Asciibook::Converter::UlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <ul>
+      <ul class="ulist">
         <li>
           <p>listitem</p>
-          <ul>
+          <ul class="ulist">
             <li>
               <p>listitem</p>
             </li>

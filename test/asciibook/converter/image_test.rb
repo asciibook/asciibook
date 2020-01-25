@@ -7,7 +7,7 @@ class Asciibook::Converter::ImageTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure class="image">
         <img src="http://example.com/logo.png" alt="logo" />
       </figure>
     EOF
@@ -22,7 +22,7 @@ class Asciibook::Converter::ImageTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure class="image">
         <img src="http://example.com/logo.png" alt="logo" />
         <figcaption>Figure 1. Image Title</figcaption>
       </figure>
@@ -40,7 +40,7 @@ class Asciibook::Converter::ImageTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure class="image">
         <img src="http://example.com/logo.png" alt="logo" />
         <figcaption>Image 1. Image Title</figcaption>
       </figure>
@@ -55,7 +55,7 @@ class Asciibook::Converter::ImageTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
+      <figure class="image">
         <a href="http://example.com/">
           <img src="http://example.com/logo.png" alt="logo" width="400" height="300" />
         </a>

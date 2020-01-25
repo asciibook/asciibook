@@ -17,12 +17,14 @@ class Asciibook::Converter::PreambleTest < Asciibook::Test
           <meta charset='utf-8' />
           <title>Doc Title</title>
         </head>
-        <body data-type='book'>
-          <h1>Doc Title</h1>
-          <section data-type='preamble'>
+        <body>
+          <header>
+            <h1>Doc Title</h1>
+          </header>
+          <section class='preamble'>
             <p>Preamble Text.</p>
           </section>
-          <section id='_chapter_title' data-type='chapter'>
+          <section class="section" id='_chapter_title'>
             <h1>Chapter Title</h1>
           </section>
         </body>

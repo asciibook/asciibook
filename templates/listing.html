@@ -1,4 +1,4 @@
-<figure {% if node.id %}id="{{ node.id }}"{% endif %}>
+<figure class="listing" {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% if node.title %}<figcaption>{{ node.title }}</figcaption>{% endif %}
   {{ node.content }}
 </figure>

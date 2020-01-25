@@ -11,7 +11,7 @@ class Asciibook::Converter::SidebarTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <aside data-type="sidebar" id="sidebar">
+      <aside class="sidebar" id="sidebar">
         <h5>Sidebar Title</h5>
         <p>Sidebar content.</p>
       </aside>

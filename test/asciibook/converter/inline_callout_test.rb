@@ -17,23 +17,22 @@ class Asciibook::Converter::InlineCalloutTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
-        <pre>require "sinatra" <a data-type="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
+      <figure class="listing">
+        <pre>require "sinatra" <a class="callout" id="callout-CO1-1" href="#colist-CO1-1">1</a>
 
-           get "/hi" do <a data-type="callout" id="callout-CO1-2" href="#colist-CO1-2">2</a> <a data-type="callout" id="callout-CO1-3" href="#colist-CO1-3">3</a>
-             "Hello World!"
-           end
-        </pre>
+get "/hi" do <a class="callout" id="callout-CO1-2" href="#colist-CO1-2">2</a> <a class="callout" id="callout-CO1-3" href="#colist-CO1-3">3</a>
+ "Hello World!"
+end</pre>
       </figure>
-      <ul data-type="colist">
+      <ul class="colist">
         <li>
-          <a data-type="callout" id="colist-CO1-1" href="#callout-CO1-1">1</a> Library import
+          <a class="callout" id="colist-CO1-1" href="#callout-CO1-1">1</a> Library import
         </li>
         <li>
-          <a data-type="callout" id="colist-CO1-2" href="#callout-CO1-2">2</a> URL mapping
+          <a class="callout" id="colist-CO1-2" href="#callout-CO1-2">2</a> URL mapping
         </li>
         <li>
-          <a data-type="callout" id="colist-CO1-3" href="#callout-CO1-3">3</a> Response block
+          <a class="callout" id="colist-CO1-3" href="#callout-CO1-3">3</a> Response block
         </li>
       </ul>
     EOF
