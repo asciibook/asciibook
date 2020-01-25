@@ -1,1 +1,1 @@
-<span class="footnote">{{ node.text }}</span>
+<sup class="footnote" {% if node.type != 'xref' %} id="_footnoteref_{{ node.index }}" {% endif %}><a href="_footnotedef_{{ node.index }}">[{{ node.index }}]</a></sup>

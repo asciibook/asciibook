@@ -171,6 +171,7 @@ module Asciibook
 
     def inline_to_hash(node)
       text = node.text || node.document.references[:refs][node.attributes['refid']]&.xreftext || "[#{node.attributes['refid']}]"
+
       target = if (node.type == :xref) && (target_node = node.document.references[:refs][node.attributes['refid']])
         if target_node.page
           target_node.page.path
@@ -181,12 +182,25 @@ module Asciibook
         node.target
       end
 
-      abstract_node_to_hash(node).merge!({
+      data = abstract_node_to_hash(node).merge!({
         'text' => text,
         'type' => node.type.to_s,
         'target' => target,
         'xreftext' => node.xreftext
       })
+
+      if node.node_name == 'inline_footnote'
+        if page = find_page_node(node).page
+          if !page.footnotes.include?(node.text)
+            page.footnotes.push node.text
+          end
+          data['index'] = page.footnotes.index(node.text) + 1
+        else
+          data['index'] = node.attr 'index'
+        end
+      end
+
+      data
     end
 
     def find_page_node(node)

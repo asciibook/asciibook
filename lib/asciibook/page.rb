@@ -1,10 +1,12 @@
 module Asciibook
   class Page
-    attr_accessor :path, :node, :prev_page, :next_page
+    attr_accessor :path, :node, :prev_page, :next_page, :footnotes
 
     def initialize(path:, node:)
       @path = path
       @node = node
+
+      @footnotes = []
     end
 
     def title
