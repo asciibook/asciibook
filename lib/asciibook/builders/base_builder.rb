@@ -4,6 +4,9 @@ module Asciibook
       def initialize(book)
         @book = book
         @theme_share_dir = File.join(@book.theme_dir, 'share')
+
+        # reset book doc
+        @book.process
       end
 
       def build

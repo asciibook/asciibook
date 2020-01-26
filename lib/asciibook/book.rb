@@ -79,8 +79,6 @@ module Asciibook
     end
 
     def build
-      process
-
       if @formats.include?('html')
         Builders::HtmlBuilder.new(self).build
       end
