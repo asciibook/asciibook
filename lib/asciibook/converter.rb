@@ -81,7 +81,13 @@ module Asciibook
         if node.node_name == 'section' && node.sectname == 'toc'
           outline(node.document)
         else
-          node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
+          content = node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
+
+          if node.page && node.page.footnotes.any?
+            content += get_template('footnotes').render('footnotes' => node.page.footnotes)
+          end
+
+          content
         end
       else
         case node.node_name
@@ -191,12 +197,28 @@ module Asciibook
 
       if node.node_name == 'inline_footnote'
         if page = find_page_node(node).page
-          if !page.footnotes.include?(node.text)
-            page.footnotes.push node.text
+          if index = page.footnotes.find_index { |footnote| footnote['text'] == node.text }
+            footnote = page.footnotes[index]
+            data['id'] = nil
+            data['index'] = footnote['index']
+            data['target'] = "#_footnotedef_#{footnote['index']}"
+          else
+            index = page.footnotes.count + 1
+            page.footnotes.push({
+              'index' => index,
+              'text' => node.text,
+              'refid' => "_footnoteref_#{index}",
+              'id' => "_footnotedef_#{index}"
+            })
+            data['id'] = "_footnoteref_#{index}"
+            data['index'] = index
+            data['target'] = "#_footnotedef_#{index}"
           end
-          data['index'] = page.footnotes.index(node.text) + 1
         else
-          data['index'] = node.attr 'index'
+          index = node.attr 'index'
+          data['id'] = (node.type == :xref ? nil : "_footnoteref_#{index}")
+          data['index'] = index
+          data['target'] = "#_footnotedef_#{index}"
         end
       end
 

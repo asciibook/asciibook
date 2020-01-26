@@ -1,0 +1,7 @@
+<footer>
+  {%- for footnote in footnotes -%}
+    <aside epub:type="footnote" id="{{ footnote.id }}">
+      <a href="#{{ footnote.refid }}">{{ footnote.index }}</a>. {{ footnote.text }}
+    </aside>
+  {%- endfor -%}
+</footer>

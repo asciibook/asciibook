@@ -47,4 +47,48 @@ class Asciibook::ConvertererTest < Asciibook::Test
     assert_equal_html section_1_html, book.doc.sections[0].convert
     assert_equal_html section_2_html, book.doc.sections[1].convert
   end
+
+  def test_convert_footnote_in_multi_page
+    doc = <<~EOF
+      == Section One
+
+      Content.footnote:[Footnote content.]
+
+      == Section Two
+
+      Content.footnote:refid[Footnote content.]
+
+      Content.footnote:refid[]
+    EOF
+
+    page_1_html = <<~EOF
+      <section class='section' id='_section_one'>
+        <h1>Section One</h1>
+        <p>Content. <sup class='footnote' id='_footnoteref_1'><a epub:type='noteref' href='#_footnotedef_1'>[1]</a></sup></p>
+        <footer>
+          <aside epub:type='footnote' id='_footnotedef_1'>
+            <a href='#_footnoteref_1'>1</a>. Footnote content.
+          </aside>
+        </footer>
+      </section>
+    EOF
+
+    page_2_html = <<~EOF
+      <section class='section' id='_section_two'>
+        <h1>Section Two</h1>
+        <p>Content. <sup class='footnote' id='_footnoteref_1'><a epub:type='noteref' href='#_footnotedef_1'>[1]</a></sup></p>
+        <p>Content. <sup class='footnote'><a epub:type='noteref' href='#_footnotedef_1'>[1]</a></sup></p>
+        <footer>
+          <aside epub:type='footnote' id='_footnotedef_1'>
+            <a href='#_footnoteref_1'>1</a>. Footnote content.
+          </aside>
+        </footer>
+      </section>
+    EOF
+
+    book = Asciibook::Book.new doc
+    book.process
+    assert_equal_html page_1_html, book.pages[1].content
+    assert_equal_html page_2_html, book.pages[2].content
+  end
 end

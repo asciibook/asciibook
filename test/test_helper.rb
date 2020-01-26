@@ -10,15 +10,15 @@ class Asciibook::Test < Minitest::Test
 
   def assert_convert_body(html, doc, options = {})
     except_html = <<~EOF
-      <body data-type="book">
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
         #{html}
-      </body>
+      </html>
     EOF
 
     actual_html = <<~EOF
-      <body data-type="book">
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
         #{Asciidoctor.convert doc, options.merge(backend: 'asciibook', safe: :unsafe)}
-      </body>
+      </html>
     EOF
 
     assert_equal pretty_format(except_html), pretty_format(actual_html)

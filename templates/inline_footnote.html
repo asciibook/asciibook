@@ -1,1 +1,1 @@
-<sup class="footnote" {% if node.type != 'xref' %} id="_footnoteref_{{ node.index }}" {% endif %}><a href="_footnotedef_{{ node.index }}">[{{ node.index }}]</a></sup>
+<sup class="footnote" {% if node.id %} id="{{ node.id }}" {% endif %}><a epub:type="noteref" href="{{ node.target }}">[{{ node.index }}]</a></sup>
