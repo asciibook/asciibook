@@ -14,7 +14,7 @@ module Asciibook
     end
 
     def content
-      node.convert
+      @content ||= node.convert
     end
 
     def to_hash
