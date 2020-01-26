@@ -80,6 +80,8 @@ module Asciibook
       when Asciidoctor::Document, Asciidoctor::Section
         if node.node_name == 'section' && node.sectname == 'toc'
           outline(node.document)
+        elsif node.node_name == 'section' && node.sectname == 'index'
+          get_template('index').render('indexterms' => node.document.references[:indexterms])
         else
           content = node.blocks.select { |b| b.page.nil? }.map {|b| b.convert }.join("\n")
 
@@ -219,9 +221,50 @@ module Asciibook
           data['index'] = index
           data['target'] = "#_footnotedef_#{index}"
         end
+      when 'inline_indexterm'
+        node.document.references[:indexterms] ||= []
+        node.document.references[:indexcount] ||= 0
+        indexterms = node.document.references[:indexterms]
+        indexcount = node.document.references[:indexcount] += 1
+        id = "_indexterm_#{indexcount}"
+        target = "#{find_page_node(node).page&.path}#_indexterm_#{indexcount}"
+        if node.type == :visible
+          register_term(indexterms, [node.text], target)
+        else
+          register_term(indexterms, node.attributes['terms'], target)
+        end
+
+        data['id'] = id
       end
 
       data
+    end
+
+    def register_term(indexterms, terms, target)
+      items = indexterms
+      item = nil
+      terms.each_with_index do |term, index|
+        term_index = items.find_index { |item| item['term'] == term }
+        if term_index
+          item = items[term_index]
+        else
+          item = {
+            'term' => term,
+            'targets' => [],
+            'items' => []
+          }
+          items.push item
+          items.sort_by! { |item| item['term'] }
+        end
+
+        if index == terms.size - 1
+          # save targe now
+          item['targets'].push target
+        else
+          # go deeper
+          items = item['items']
+        end
+      end
     end
 
     def find_page_node(node)

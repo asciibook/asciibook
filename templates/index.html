@@ -1,0 +1,40 @@
+<ul class="index">
+  {%- for item in indexterms -%}
+    <li>
+      <p>
+        {{ item.term }}
+        {%- for target in item.targets -%}
+          <a href="{{ target }}">[{{ forloop.index }}]</a>
+        {%- endfor -%}
+      </p>
+      {%- if item.items[0] -%}
+        <ul>
+          {%- for item in item.items -%}
+            <li>
+              <p>
+                {{ item.term }}
+                {%- for target in item.targets -%}
+                  <a href="{{ target }}">[{{ forloop.index }}]</a>
+                {%- endfor -%}
+              </p>
+              {%- if item.items[0] -%}
+                <ul>
+                  {%- for item in item.items -%}
+                    <li>
+                      <p>
+                        {{ item.term }}
+                        {%- for target in item.targets -%}
+                          <a href="{{ target }}">[{{ forloop.index }}]</a>
+                        {%- endfor -%}
+                      </p>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </li>
+  {%- endfor -%}
+</ul>

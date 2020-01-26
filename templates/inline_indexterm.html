@@ -1,10 +1,5 @@
 {%- if node.type == 'visible' -%}
-  <a class="indexterm">{{ node.text }}</a>
+  <a class="indexterm" id="{{ node.id }}">{{ node.text }}</a>
 {%- else -%}
-  {%- assign terms = node.attributes.terms -%}
-  <a class="indexterm"
-     {% for term in node.attributes.terms %}
-       data-{% cycle 'primary', 'secondary', 'tertiary' %}="{{ term }}"
-     {% endfor %}
-     >&#8203;</a>
+  <a class="indexterm" id="{{ node.id }}">&#8203;</a>
 {%- endif -%}

@@ -91,4 +91,40 @@ class Asciibook::ConvertererTest < Asciibook::Test
     assert_equal_html page_1_html, book.pages[1].content
     assert_equal_html page_2_html, book.pages[2].content
   end
+
+  def test_register_terms
+    doc = <<~EOF
+      == Section one
+
+      ((one))
+
+      == Section two
+
+      (((one, two, three)))
+    EOF
+
+    book = Asciibook::Book.new doc
+    book.process
+    # trigger convert
+    book.pages.each(&:content)
+    assert_equal [
+      {
+        "term" => "one",
+        "targets" => ["_section_one.html#_indexterm_1"],
+        "items" => [
+          {
+            "term" => "two",
+            "targets" => [],
+            "items" => [
+              {
+                "term" => "three",
+                "targets" => ["_section_two.html#_indexterm_2"],
+                "items"=>[]
+              }
+            ]
+          }
+        ]
+      }
+    ], book.doc.references[:indexterms]
+  end
 end

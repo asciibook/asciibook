@@ -8,7 +8,7 @@ class Asciibook::Converter::InlineIndextermTest < Asciibook::Test
 
     html = <<~EOF
       <p>
-        <a class="indexterm">term</a>
+        <a class="indexterm" id="_indexterm_1">term</a>
       </p>
     EOF
 
@@ -22,7 +22,7 @@ class Asciibook::Converter::InlineIndextermTest < Asciibook::Test
 
     html = <<~EOF
       <p>
-        <a class="indexterm" data-primary="primary" data-secondary="secondary" data-tertiary="tertiary">&#8203;</a>
+        <a class="indexterm" id="_indexterm_1">&#8203;</a>
       </p>
     EOF
 
