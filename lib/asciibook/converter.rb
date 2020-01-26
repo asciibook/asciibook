@@ -176,26 +176,25 @@ module Asciibook
     end
 
     def inline_to_hash(node)
-      text = node.text || node.document.references[:refs][node.attributes['refid']]&.xreftext || "[#{node.attributes['refid']}]"
-
-      target = if (node.type == :xref) && (target_node = node.document.references[:refs][node.attributes['refid']])
-        if target_node.page
-          target_node.page.path
-        else
-          "#{find_page_node(target_node).page&.path}#{node.target}"
-        end
-      else
-        node.target
-      end
-
       data = abstract_node_to_hash(node).merge!({
-        'text' => text,
+        'text' => node.text,
         'type' => node.type.to_s,
-        'target' => target,
+        'target' => node.target,
         'xreftext' => node.xreftext
       })
 
-      if node.node_name == 'inline_footnote'
+      case node.node_name
+      when 'inline_anchor'
+        data['text'] ||= node.document.references[:refs][node.attributes['refid']]&.xreftext || "[#{node.attributes['refid']}]"
+
+        if (node.type == :xref) && (target_node = node.document.references[:refs][node.attributes['refid']])
+          data['target'] = if target_node.page
+            target_node.page.path
+          else
+            "#{find_page_node(target_node).page&.path}#{node.target}"
+          end
+        end
+      when 'inline_footnote'
         if page = find_page_node(node).page
           if index = page.footnotes.find_index { |footnote| footnote['text'] == node.text }
             footnote = page.footnotes[index]
