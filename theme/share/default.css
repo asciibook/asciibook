@@ -3,7 +3,7 @@ html {
 
 body {
   line-height: 1.5;
-  font-size: 16px;
+  font-size: 1em;
   color: #333;
 }
 
@@ -46,21 +46,24 @@ img {
 }
 
 pre {
-  line-height: 1;
+  line-height: 1.2;
   margin: 1em 0;
+  background-color: #f8f8f8;
+  padding: 1em;
+  white-space: pre-wrap;
 }
 
-section[data-type="toc"] ol {
+.toc ol {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-section[data-type="toc"] ol ol {
+.toc ol ol {
   padding-left: 1em;
 }
 
-section[data-type="toc"] a {
+.toc a {
   display: block;
   padding: 0.5em 0;
 }
@@ -68,19 +71,19 @@ section[data-type="toc"] a {
 ul, ol {
 }
 
-a[data-type="callout"] {
+a.callout {
   display: inline-block;
   background: #333;
   color: white;
   border-radius: 50%;
-  font-size: 12px;
-  line-height: 20px;
-  width: 20px;
+  font-size: 0.75em;
+  line-height: 1.5em;
+  width: 1.5em;
   text-decoration: none;
   text-align: center;
 }
 
-ul[data-type="colist"] {
+ul.colist {
   list-style: none;
   padding: 0;
   margin: 1em 0;
@@ -90,40 +93,39 @@ figure {
   margin: 1em 0;
 }
 
+figure.image {
+  text-align: center;
+}
+
 figcaption {
   font-style: italic;
 }
 
-span[data-type="footnote"] a {
-  font-size: 0.75em;
-  vertical-align: super;
-}
-
-div[data-type="example"] {
+.example {
   margin: 1em 0;
   padding: 1em;
   background: #eee;
 }
 
-div[data-type="example"] > *:first-child {
+.example > *:first-child {
   margin-top: 0;
 }
 
-aside[data-type="example"] > *:last-child {
+.example > *:last-child {
   margin-bottom: 0;
 }
 
-aside[data-type="sidebar"] {
+.sidebar {
   margin: 1em 0;
   padding: 1em;
   background: #eee;
 }
 
-aside[data-type="sidebar"] > *:first-child {
+.sidebar > *:first-child {
   margin-top: 0;
 }
 
-aside[data-type="sidebar"] > *:last-child {
+.sidebar > *:last-child {
   margin-bottom: 0;
 }
 

@@ -19,6 +19,7 @@
 
           ol ol {
             padding-left: 1em;
+            font-size: 100%;
           }
 
           ol ol ol {
