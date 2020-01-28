@@ -1,65 +1,27 @@
-.drawer {
-}
-
-.drawer-content {
+.toolbar {
   position: fixed;
   top: 0;
-  left: -240px;
-  bottom: 0;
-  width: 240px;
-  background: rgba(0, 0, 0, 0.05);
-  padding: 0;
-  margin: 0;
-}
-
-.drawer.active .drawer-content {
   left: 0;
+  right: 0;
+  padding: 4px;
+  display: flex;
+  background: white;
+  z-index: 100;
 }
 
-.drawer.active + .main {
-  margin-left: 240px;
-}
-
-.drawer .heading {
-  padding: 16px;
-  font-size: 16px;
-  line-height: 1;
+.toolbar-title {
+  padding: 12px;
+  flex-grow: 1;
   font-weight: bold;
 }
 
-.drawer .nav {
-}
-
-.drawer .nav ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.drawer .nav-item a {
-  display: block;
-  padding: 16px;
-  line-height: 1;
-  color: #333;
+.toolbar-title a {
+  color: #999;
   text-decoration: none;
 }
 
-.drawer .nav-item a:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.drawer .nav-item a.active {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.drawer .nav-item .nav-item a {
-  padding-left: 32px;
-}
-
-.main {
-}
-
-.toolbar {
+.toolbar-title a:hover {
+  color: #555;
 }
 
 .toolbar-action {
@@ -85,7 +47,61 @@
   padding: 6px;
 }
 
-.button-icon:hover {
+.button-icon svg {
+  fill: #999;
+}
+
+.button-icon:hover svg {
+  fill: #555;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  min-width: 320px;
+  max-width: 90%;
+  max-height: 480px;
+  top: 100%;
+  right: 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  z-index: 10;
+  overflow-y: auto;
+  background: white;
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu-item {
+  display: block;
+  padding: 12px;
+  text-decoration: none;
+  color: #555;
+}
+
+.dropdown-menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
+.dropdown-menu-item.active {
+  color: #3f51b5;
+}
+
+.dropdown-menu ol ol .dropdown-menu-item {
+  padding-left: 24px;
 }
 
 .content {
@@ -95,40 +111,66 @@
 }
 
 .paginator {
-  padding: 16px;
-  max-width: 768px;
-  margin: 0 auto 32px;
-  display: flex;
-  justify-content: space-between;
 }
 
 .paginator a {
-  display: inline-flex;
-  color: #555;
-  text-decoration: none;
+  padding: 32px;
 }
 
-.paginator a:hover {
-  color: #333;
+.paginator a svg {
+  fill: #ccc;
+  width: 48px;
+  height: 48px;
 }
 
-@media (max-width: 1040px) {
-  .drawer-content {
-    background: white;
-    z-index: 32;
+.paginator a:hover svg {
+  fill: #999;
+}
+
+.paginator a.disabled {
+  visibility: hidden;
+}
+
+.paginator-prev {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 48px;
+  bottom: 0;
+  left: 0;
+}
+
+.paginator-next {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 48px;
+  bottom: 0;
+  right: 0;
+}
+
+.main {
+  margin-top: 56px;
+}
+
+@media (max-width: 992px) {
+  .paginator {
+    display: flex;
   }
 
-  .drawer.active .drawer-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 16;
+  .paginator a {
+    padding: 16px;
   }
 
-  .drawer.active + .main {
-    margin-left: 0;
+  .paginator-prev {
+    position: static;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .paginator-next {
+    position: static;
+    flex-grow: 1;
+    justify-content: center;
   }
 }

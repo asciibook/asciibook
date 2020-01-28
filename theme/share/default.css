@@ -66,6 +66,7 @@ pre {
 .toc a {
   display: block;
   padding: 0.5em 0;
+  text-decoration: none;
 }
 
 ul, ol {

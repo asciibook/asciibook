@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>{{ page.title }} - {{ book.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="default.css" />
     <link rel="stylesheet" href="highlight.css" />
@@ -10,10 +11,10 @@
     <script src="html.js" defer></script>
   </head>
   <body>
-    <div id="drawer" class="drawer">
+    <div id="drawer" class="drawer" style="display: none;">
       <div class="drawer-content">
         <div class="heading">
-          {{ book.title }}
+          Table of Contents
         </div>
         <div class="nav">
           {% if book.toc[0] %}
@@ -39,30 +40,51 @@
       <div id="drawer-backdrop" class="drawer-backdrop">
       </div>
     </div>
-    <div class="main">
-      <div class="toolbar">
-        <div class="toolbar-action">
-          <button id="drawer-button" type="button" class="button button-icon">
-            <img src="icons/menu-24px.svg">
+    <div class="toolbar">
+      <div class="toolbar-title">
+        <a href="index.html">
+          {{ book.title }}
+        </a>
+      </div>
+      <div class="toolbar-action">
+        <div class="dropdown">
+          <button id="drawer-button" type="button" class="dropdown-toggle button button-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
           </button>
+          <div id="toolbar-toc" class="dropdown-menu">
+            {% if book.toc[0] %}
+              <ol>
+                {% for item in book.toc %}
+                  <li>
+                    <a class="dropdown-menu-item" href="{{ item.path }}">{{ item.title }}</a>
+                    {% if item.items %}
+                      <ol>
+                        {% for subitem in item.items %}
+                          <li>
+                            <a class="dropdown-menu-item" href="{{ subitem.path }}">{{ subitem.title }}</a>
+                          </li>
+                        {% endfor %}
+                      </ol>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ol>
+            {% endif %}
+          </div>
         </div>
       </div>
+    </div>
+    <div class="main">
       <div class="content">
         {{ page.content }}
       </div>
       <div class="paginator">
-        {% if page.prev_page %}
-          <a href="{{ page.prev_page.path }}">
-            <img src="icons/navigate_before-24px.svg">
-            <span>{{ page.prev_page.title }}</span>
-          </a>
-        {% endif %}
-        {% if page.next_page %}
-          <a href="{{ page.next_page.path }}">
-            <span>{{ page.next_page.title }}</span>
-            <img src="icons/navigate_next-24px.svg">
-          </a>
-        {% endif %}
+        <a href="{{ page.prev_page.path }}" class="paginator-prev {% if page.prev_page == nil %} disabled {% endif %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+        </a>
+        <a href="{{ page.next_page.path }}" class="paginator-next {% if page.next_page == nil %} disabled {% endif %}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+        </a>
       </div>
     </div>
   </body>

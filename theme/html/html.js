@@ -1,36 +1,29 @@
 (function() {
-  var drawerEnabled = localStorage.getItem('drawerEnabled');
-  var drawer = document.getElementById('drawer')
+  document.querySelectorAll('.dropdown-toggle').forEach(function(element){
+    var dropdown = element.closest('.dropdown')
 
-  var isDesktop = function() {
-    return window.innerWidth > 1040;
-  };
-
-  var initDrawer = function() {
-    if (isDesktop() && drawerEnabled != 'false') {
-      drawer.classList.add('active');
+    function openMenu() {
+      dropdown.classList.add('open')
+      document.addEventListener('click', closeMenuOutside);
     }
-  }
 
-  initDrawer();
-  window.addEventListener('resize', initDrawer);
-
-  document.getElementById('drawer-button').addEventListener('click', function() {
-    drawer.classList.toggle('active');
-
-    if (isDesktop()) {
-      localStorage.setItem('drawerEnabled', drawer.classList.contains('active'));
+    function closeMenu() {
+      dropdown.classList.remove('open');
+      document.removeEventListener('click', closeMenuOutside);
     }
-  })
 
-  document.getElementById('drawer-backdrop').addEventListener('click', function() {
-    drawer.classList.toggle('active');
-  });
-
-  document.querySelectorAll('#drawer a').forEach(function(element) {
-    var url = new URL(element.href, document.baseURI).href;
-    if (url == document.URL) {
-      element.classList.add('active');
+    function closeMenuOutside(event) {
+      if (!dropdown.contains(event.target)) {
+        closeMenu();
+      }
     }
+
+    element.addEventListener('click', function() {
+      if (dropdown.classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
   })
 })();
