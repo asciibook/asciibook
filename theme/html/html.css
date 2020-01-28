@@ -3,14 +3,14 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 4px;
+  padding: 0.25em 1.25em;
   display: flex;
   background: white;
   z-index: 100;
 }
 
 .toolbar-title {
-  padding: 12px;
+  padding: 0.75em;
   flex-grow: 1;
   font-weight: bold;
 }
@@ -25,7 +25,7 @@
 }
 
 .toolbar-action {
-  padding: 6px;
+  padding: 0.25em;
 }
 
 .button {
@@ -44,7 +44,7 @@
 }
 
 .button-icon {
-  padding: 6px;
+  padding: 0.5em;
 }
 
 .button-icon svg {
@@ -105,7 +105,7 @@
 }
 
 .content {
-  padding: 16px;
+  padding: 2em;
   max-width: 768px;
   margin: 0 auto;
 }
@@ -159,7 +159,7 @@
   }
 
   .paginator a {
-    padding: 16px;
+    padding: 1em;
   }
 
   .paginator-prev {
@@ -172,5 +172,19 @@
     position: static;
     flex-grow: 1;
     justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .toolbar {
+    padding: 0.25em;
+  }
+
+  .content {
+    padding: 1em;
+  }
+
+  .paginator a {
+    padding: 0.25em;
   }
 }
