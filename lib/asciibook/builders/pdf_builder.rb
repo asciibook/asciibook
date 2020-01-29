@@ -112,6 +112,11 @@ module Asciibook
         command << '--header-spacing' << @theme_config.fetch('header_spacing', 0).to_s
         command << '--footer-spacing' << @theme_config.fetch('footer_spacing', 0).to_s
 
+        if @book.cover_image_path
+          prepare_cover
+          command << 'cover' << 'cover.html'
+        end
+
         @book.pages.each do |page|
           if page.node.is_a?(Asciidoctor::Section) && page.node.sectname == 'toc'
             prepare_toc_xsl(page)
@@ -126,6 +131,14 @@ module Asciibook
         system(*command)
 
         FileUtils.cp File.join(@tmp_dir, filename), @dest_dir
+      end
+
+      def prepare_cover
+        File.open(File.join(@tmp_dir, 'cover.html'), 'w') do |file|
+          file.write <<~EOF
+            <img src="#{@book.cover_image_path}" />
+          EOF
+        end
       end
 
       def prepare_toc_xsl(page)

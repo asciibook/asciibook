@@ -41,6 +41,10 @@ module Asciibook
       doc.attributes['doctitle']
     end
 
+    def cover_image_path
+      doc.attributes['cover-image']
+    end
+
     def toc
       @toc ||= outline(doc)
     end
