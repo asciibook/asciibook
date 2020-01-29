@@ -10,14 +10,20 @@ module Asciibook
       end
 
       def build
-        FileUtils.mkdir_p @tmp_dir
-        FileUtils.rm_r Dir.glob("#{@tmp_dir}/*")
-
+        prepare_workdir
         generate_pages
         copy_assets
         generate_header_footer
         generate_pdf
+        #clean_workdir
+      end
 
+      def prepare_workdir
+        FileUtils.mkdir_p @tmp_dir
+        FileUtils.rm_r Dir.glob("#{@tmp_dir}/*")
+      end
+
+      def clean_workdir
         FileUtils.rm_r @tmp_dir
       end
 
@@ -108,7 +114,8 @@ module Asciibook
 
         @book.pages.each do |page|
           if page.node.is_a?(Asciidoctor::Section) && page.node.sectname == 'toc'
-            command << 'toc' << '--xsl-style-sheet' << File.join(@theme_dir, 'toc.xsl')
+            prepare_toc_xsl(page)
+            command << 'toc' << '--xsl-style-sheet' << 'toc.xsl'
           else
             command << page.path
           end
@@ -119,6 +126,15 @@ module Asciibook
         system(*command)
 
         FileUtils.cp File.join(@tmp_dir, filename), @dest_dir
+      end
+
+      def prepare_toc_xsl(page)
+        File.open(File.join(@tmp_dir, 'toc.xsl'), 'w') do |file|
+          file.write Liquid::Template.parse(File.read(File.join(@theme_dir, 'toc.xsl'))).render({
+            'book' => @book.to_hash,
+            'page' => page.to_hash
+          })
+        end
       end
     end
   end

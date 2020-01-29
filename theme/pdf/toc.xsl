@@ -9,7 +9,7 @@
   <xsl:template match="outline:outline">
     <html>
       <head>
-        <title>Table of Contents</title>
+        <title>{{ page.title }} - {{ book.title }}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
           ol {
@@ -52,7 +52,7 @@
         </style>
       </head>
       <body>
-        <h1>Table of Contents</h1>
+        <h1>{{ page.title }}</h1>
         <ol><xsl:apply-templates select="outline:item/outline:item"/></ol>
       </body>
     </html>
