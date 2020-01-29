@@ -1,6 +1,6 @@
-margin_top: 16
-margin_left: 16
-margin_right: 16
-margin_bottom: 16
+margin_top: 20
+margin_left: 20
+margin_right: 20
+margin_bottom: 20
 header_spacing: 0
-footer_spacing: 0
+footer_spacing: 8

@@ -9,7 +9,7 @@
   <xsl:template match="outline:outline">
     <html>
       <head>
-        <title>{{ page.title }} - {{ book.title }}</title>
+        <title>{{ book.title }}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <style>
           ol {
