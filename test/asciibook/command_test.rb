@@ -61,4 +61,12 @@ class Asciibook::CommandTest < Asciibook::Test
       EOF
     end
   end
+
+  def test_new_book
+    Dir.mktmpdir do |dir|
+      Asciibook::Command.execute %W(new #{dir})
+      assert File.exists?(File.join(dir, 'book.adoc'))
+      assert File.exists?(File.join(dir, 'asciibook.yml'))
+    end
+  end
 end

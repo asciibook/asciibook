@@ -14,7 +14,16 @@ module Asciibook
         c.description 'Create a new book scaffold in PATH'
         c.syntax 'new PATH'
         c.action do |args, options|
-          puts 'TODO'
+          path = args[0]
+          if path
+            FileUtils.mkdir_p path
+            template_dir = File.expand_path('../../../book_template', __FILE__)
+            files = Dir.glob('*', base: template_dir).map { |file| File.join(template_dir, file) }
+            # TODO: confirm if file exists
+            FileUtils.cp_r files, path
+          else
+            abort "Please specify PATH to create book"
+          end
         end
       end
 
@@ -42,7 +51,7 @@ module Asciibook
       end
 
       p.command(:build) do |c|
-        c.description 'Build book by SOURCE'
+        c.description 'Build book'
         c.syntax 'build [FILE|DIR]'
         c.option :formats, '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub,mobi, default is all.'
         c.option :theme_dir, '--theme-dir DIR', 'Theme dir.'
