@@ -2,39 +2,6 @@
 
 $LOAD_PATH.unshift File.expand_path '../../lib', __FILE__
 
-require "mercenary"
-require "asciibook"
+require "asciibook/command"
 
-Mercenary.program(:asciibook) do |p|
-  p.version Asciibook::VERSION
-  p.description 'Asciibook is a ebook generator from Asciidoc to html/pdf/epub/mobi'
-  p.syntax 'asciibook <command> [options]'
-
-  p.command(:new) do |c|
-    c.description 'Create a new book scaffold in PATH'
-    c.syntax 'new PATH'
-    c.action do |args, options|
-      puts 'TODO'
-    end
-  end
-
-  p.command(:build) do |c|
-    c.description 'Build book by SOURCE'
-    c.syntax 'build [SOURCE]'
-    c.option 'formats', '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub,mobi, default is all.'
-    c.option 'theme_dir', '--theme-dir DIR', 'Theme dir'
-    c.option 'dest_dir', '--dest-dir DIR', 'Destination dir'
-    c.action do |args, options|
-      source = args[0]
-      Asciibook::Book.load_file(source, {
-        formats: options['formats'],
-        theme_dir: options['theme_dir'],
-        dest_dir: options['dest_dir']
-      }).build
-    end
-  end
-
-  p.action do |args, _|
-    puts p
-  end
-end
+Asciibook::Command.execute(ARGV)
