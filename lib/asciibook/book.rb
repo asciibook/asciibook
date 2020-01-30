@@ -33,7 +33,7 @@ module Asciibook
     end
 
     def process
-      @doc = Asciidoctor.load(@data, backend: 'asciibook', logger: @logger, safe: :unsafe, template_dirs: [@template_dir].compact)
+      @doc = Asciidoctor.load(@data, base_dir: @base_dir, backend: 'asciibook', logger: @logger, safe: :unsafe, template_dirs: [@template_dir].compact)
       @toc = nil
       process_pages
     end

@@ -31,4 +31,34 @@ class Asciibook::CommandTest < Asciibook::Test
     Asciibook::Command.execute %W(build #{fixture_path('example/source.adoc')} --format html --page-level 0)
     assert_equal 1, Dir.glob('*.html', base: fixture_path('example/build/html')).count
   end
+
+  def test_build_with_config_file
+    Dir.mktmpdir do |dir|
+      FileUtils.touch File.join(dir, 'test.adoc')
+      File.open(File.join(dir, 'asciibook.yml'), 'w') do |file|
+        file.write <<~EOF
+          source: test.adoc
+          formats: ['html']
+        EOF
+      end
+      Asciibook::Command.execute %W(build #{dir})
+      assert Dir.exist?(File.join(dir, 'build/html'))
+      assert !Dir.exist?(File.join(dir, 'build/pdf'))
+    end
+  end
+
+  def test_init_config
+    Dir.mktmpdir do |dir|
+      FileUtils.touch File.join(dir, 'test.adoc')
+      Asciibook::Command.execute %W(init #{File.join(dir, 'test.adoc')})
+      assert File.exist?(File.join(dir, 'asciibook.yml'))
+      assert_equal <<~EOF, File.read(File.join(dir, 'asciibook.yml'))
+        source: test.adoc
+        #formats: ['html', 'pdf', 'epub', 'mobi']
+        #theme_dir:
+        #template_dir:
+        #page_level: 1
+      EOF
+    end
+  end
 end
