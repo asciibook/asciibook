@@ -23,6 +23,7 @@ module Asciibook
         c.syntax 'build [SOURCE]'
         c.option :formats, '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub,mobi, default is all.'
         c.option :theme_dir, '--theme-dir DIR', 'Theme dir.'
+        c.option :template_dir, '--template-dir DIR', 'Template dir.'
         c.option :dest_dir, '--dest-dir DIR', 'Destination dir.'
         c.option :page_level, '--page-level NUM', Integer, 'Page split base on section level, default is 1.'
         c.action do |args, options|

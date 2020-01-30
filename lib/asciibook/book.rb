@@ -1,6 +1,6 @@
 module Asciibook
   class Book
-    attr_reader :data, :options, :doc, :pages, :basename, :base_dir, :dest_dir, :theme_dir
+    attr_reader :data, :options, :doc, :pages, :basename, :base_dir, :dest_dir, :theme_dir, :template_dir
 
     def initialize(data, options = {})
       @data = data
@@ -10,6 +10,7 @@ module Asciibook
       @dest_dir = options[:dest_dir] || File.join(@base_dir, 'build')
       @theme_dir = options[:theme_dir] || File.expand_path('../../../theme', __FILE__)
       @formats = options[:formats] || %w(html pdf epub mobi)
+      @template_dir = options[:template_dir]
 
       @page_level = @options[:page_level] || 1
 
@@ -32,7 +33,7 @@ module Asciibook
     end
 
     def process
-      @doc = Asciidoctor.load(@data, options.merge(backend: 'asciibook', logger: @logger, safe: :unsafe))
+      @doc = Asciidoctor.load(@data, backend: 'asciibook', logger: @logger, safe: :unsafe, template_dirs: [@template_dir].compact)
       @toc = nil
       process_pages
     end

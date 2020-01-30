@@ -31,6 +31,12 @@ class Asciibook::BookTest < Asciibook::Test
     assert File.read(fixture_path('example/build/html/index.html')).include?('Custom Theme')
   end
 
+  def test_build_with_custom_template
+    FileUtils.rm_rf fixture_path('example/build')
+    Asciibook::Book.load_file(fixture_path('example/source.adoc'), formats: ['html'], template_dir: fixture_path('templates')).build
+    assert File.read(fixture_path('example/build/html/index.html')).include?('overwrite')
+  end
+
   def test_build_with_custom_dest
     FileUtils.rm_rf fixture_path('example/tmp/build')
     Asciibook::Book.load_file(fixture_path('example/source.adoc'), formats: ['html'], dest_dir: fixture_path('example/tmp/build')).build

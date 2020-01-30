@@ -14,8 +14,12 @@ class Asciibook::CommandTest < Asciibook::Test
 
   def test_build_with_custom_theme
     Asciibook::Command.execute %W(build #{fixture_path('example/source.adoc')} --format html --theme-dir #{fixture_path('theme')})
-    assert Dir.exist?(fixture_path('example/build'))
     assert File.read(fixture_path('example/build/html/index.html')).include?('Custom Theme')
+  end
+
+  def test_build_with_custom_template
+    Asciibook::Command.execute %W(build #{fixture_path('example/source.adoc')} --format html --template-dir #{fixture_path('templates')})
+    assert File.read(fixture_path('example/build/html/index.html')).include?('overwrite')
   end
 
   def test_build_with_custom_dest
