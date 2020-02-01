@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = ""
   spec.license       = "MIT"
 
-  spec.files         = Dir.glob('{bin,exe,lib,templates,theme}/**/*') + %w(LICENSE.txt README.adoc)
+  spec.files         = Dir.glob('{bin,exe,lib,templates,theme,book_template}/**/*') + %w(LICENSE.txt README.adoc)
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
