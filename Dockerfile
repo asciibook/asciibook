@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 AS base
 
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
@@ -23,6 +23,11 @@ RUN gem install bundler -v 2.0.2
 
 WORKDIR /asciibook
 
-COPY . /asciibook
+FROM base AS testing
 
-RUN bundler install
+COPY . /asciibook
+RUN bundle install
+
+FROM base AS release
+
+RUN gem install asciibook

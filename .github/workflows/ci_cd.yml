@@ -1,0 +1,44 @@
+name: CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  testing:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          docker-compose --file docker-compose.test.yml build
+          docker-compose --file docker-compose.test.yml run sut
+
+  release:
+    needs: testing
+    if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - name: Publish to RubyGems
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
+          gem build asciibook.gemspec
+          gem push asciibook-*.gem
+        env:
+          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}
+
+      - name: Publish to Docker Hub
+        run: |
+          VERSION=$(echo $GITHUB_REF | sed 's/refs\/tags\/v\(.*\)/\1/')
+          docker build . --target release --tag asciibook/asciibook:$VERSION
+          echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
+          docker push asciibook/asciibook:$VERSION
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
