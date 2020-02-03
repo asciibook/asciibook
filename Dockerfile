@@ -1,12 +1,9 @@
 FROM ubuntu:18.04 AS base
 
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US.UTF-8
-ENV LC_ALL=C.UTF-8
+ENV LANG=C.UTF-8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
-  fonts-noto-cjk \
   ruby \
   ruby-nokogiri
 
@@ -39,3 +36,15 @@ FROM base AS release
 
 COPY --from=builder /asciibook/asciibook-*.gem /tmp
 RUN gem install /tmp/asciibook-*.gem
+
+FROM release AS cjk
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  fonts-noto-cjk \
+  locales
+
+ARG locale=zh_CN.UTF-8
+
+RUN locale-gen $locale
+
+ENV LANG=$locale
