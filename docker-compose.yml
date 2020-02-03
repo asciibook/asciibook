@@ -4,7 +4,14 @@ services:
   console:
     build:
       context: .
-      target: base
+      target: dev
     command: bash
+    volumes:
+      - .:/asciibook
+  sut:
+    build:
+      context: .
+      target: dev
+    command: bundle exec rake test
     volumes:
       - .:/asciibook

@@ -23,11 +23,19 @@ RUN gem install bundler -v 2.0.2
 
 WORKDIR /asciibook
 
-FROM base AS testing
+FROM base AS dev
+
+COPY asciibook.gemspec /asciibook/asciibook.gemspec
+COPY Gemfile /asciibook/Gemfile
+COPY lib/asciibook/version.rb /asciibook/lib/asciibook/version.rb
+RUN bundle install
+
+FROM base AS builder
 
 COPY . /asciibook
-RUN bundle install
+RUN gem build asciibook.gemspec
 
 FROM base AS release
 
-RUN gem install asciibook
+COPY --from=builder /asciibook/asciibook-*.gem /tmp
+RUN gem install /tmp/asciibook-*.gem
