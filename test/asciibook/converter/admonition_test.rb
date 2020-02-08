@@ -8,7 +8,11 @@ class Asciibook::Converter::AdmonitionTest < Asciibook::Test
 
     html = <<~EOF
       <div class="admonition admonition-note">
-        Text
+        <div class='admonition-icon'>
+        </div>
+        <div class='admonition-content'>
+          Text
+        </div>
       </div>
     EOF
 
@@ -26,8 +30,12 @@ class Asciibook::Converter::AdmonitionTest < Asciibook::Test
 
     html = <<~EOF
       <div class="admonition admonition-note">
-        <h5>Title</h5>
-        <p>Text</p>
+        <div class='admonition-icon'>
+        </div>
+        <div class='admonition-content'>
+          <h5>Title</h5>
+          <p>Text</p>
+        </div>
       </div>
     EOF
 
