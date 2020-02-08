@@ -32,11 +32,11 @@ module Asciibook
             book.add_item(@book.cover_image_path, content: File.open(File.join(@book.base_dir, @book.cover_image_path)), id: 'cover_image').cover_image
           end
 
-          Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_share_dir).each do |path|
+          Dir.glob('**/*.{jpb,png,gif,svg,css,js,eot,ttf,woff,woff2}', File::FNM_CASEFOLD, base: @theme_share_dir).each do |path|
             book.add_item path, content: File.open(File.join(@theme_share_dir, path)), id: id_pool.generate_key(prefix: 'theme_asset_')
           end
 
-          Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
+          Dir.glob('**/*.{jpb,png,gif,svg,css,js,eot,ttf,woff,woff2}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
             book.add_item path, content: File.open(File.join(@theme_dir, path)), id: id_pool.generate_key(prefix: 'theme_asset_')
           end
 

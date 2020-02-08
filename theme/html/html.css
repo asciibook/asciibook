@@ -47,12 +47,19 @@
   padding: 0.5em;
 }
 
-.button-icon svg {
-  fill: #999;
+.button-icon {
+  color: #999;
 }
 
-.button-icon:hover svg {
-  fill: #555;
+.button-icon:hover {
+  color: #555;
+}
+
+.button-icon .fas {
+  font-size: 1.25em;
+  width: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
 }
 
 .dropdown {
@@ -115,16 +122,19 @@
 
 .paginator a {
   padding: 32px;
+  color: #999;
+  text-decoration: none;
 }
 
-.paginator a svg {
-  fill: #ccc;
-  width: 48px;
-  height: 48px;
+.paginator a .fas {
+  font-size: 1.25em;
+  width: 1.2em;
+  line-height: 1.2em;
+  text-align: center;
 }
 
-.paginator a:hover svg {
-  fill: #999;
+.paginator a:hover {
+  color: #555;
 }
 
 .paginator a.disabled {
@@ -133,7 +143,8 @@
 
 .paginator-prev {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
   top: 48px;
   bottom: 0;
@@ -142,7 +153,8 @@
 
 .paginator-next {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   position: fixed;
   top: 48px;
   bottom: 0;

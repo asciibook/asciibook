@@ -32,11 +32,11 @@ module Asciibook
           copy_file(path, @book.base_dir, @dest_dir)
         end
 
-        Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_share_dir).each do |path|
+        Dir.glob('**/*.{jpb,png,gif,svg,css,js,eot,ttf,woff,woff2}', File::FNM_CASEFOLD, base: @theme_share_dir).each do |path|
           copy_file(path, @theme_share_dir, @dest_dir)
         end
 
-        Dir.glob('**/*.{jpb,png,gif,svg,css,js}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
+        Dir.glob('**/*.{jpb,png,gif,svg,css,js,eot,ttf,woff,woff2}', File::FNM_CASEFOLD, base: @theme_dir).each do |path|
           copy_file(path, @theme_dir, @dest_dir)
         end
       end

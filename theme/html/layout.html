@@ -11,35 +11,6 @@
     <script src="html.js" defer></script>
   </head>
   <body>
-    <div id="drawer" class="drawer" style="display: none;">
-      <div class="drawer-content">
-        <div class="heading">
-          Table of Contents
-        </div>
-        <div class="nav">
-          {% if book.toc[0] %}
-            <ol>
-              {% for item in book.toc %}
-                <li class="nav-item">
-                  <a href="{{ item.path }}">{{ item.title }}</a>
-                  {% if item.items %}
-                    <ol>
-                      {% for subitem in item.items %}
-                        <li class="nav-item">
-                          <a href="{{ subitem.path }}">{{ subitem.title }}</a>
-                        </li>
-                      {% endfor %}
-                    </ol>
-                  {% endif %}
-                </li>
-              {% endfor %}
-            </ol>
-          {% endif %}
-        </div>
-      </div>
-      <div id="drawer-backdrop" class="drawer-backdrop">
-      </div>
-    </div>
     <div class="toolbar">
       <div class="toolbar-title">
         <a href="index.html">
@@ -49,7 +20,7 @@
       <div class="toolbar-action">
         <div class="dropdown">
           <button id="drawer-button" type="button" class="dropdown-toggle button button-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+            <i class="fas fa-bars"></i>
           </button>
           <div id="toolbar-toc" class="dropdown-menu">
             {% if book.toc[0] %}
@@ -80,10 +51,10 @@
       </div>
       <div class="paginator">
         <a href="{{ page.prev_page.path }}" class="paginator-prev {% if page.prev_page == nil %} disabled {% endif %}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          <i class="fas fa-chevron-left"></i>
         </a>
         <a href="{{ page.next_page.path }}" class="paginator-next {% if page.next_page == nil %} disabled {% endif %}">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          <i class="fas fa-chevron-right"></i>
         </a>
       </div>
     </div>
