@@ -1,4 +1,8 @@
 <div class="admonition admonition-{{ node.attributes.name }}" {% if node.id %}id="{{ node.id }}"{% endif %}>
-  {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
-  {{ node.content }}
+  <div class="admonition-icon">
+  </div>
+  <div class="admonition-content">
+    {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
+    {{ node.content }}
+  </div>
 </div>

@@ -175,3 +175,70 @@ footer {
   margin-top: 1.5em;
   padding-top: 1em;
 }
+
+.admonition {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 1em 0;
+}
+
+.admonition-icon {
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-family: 'Font Awesome 5 Free';
+  padding: 0.5em;
+  font-size: 2em;
+  width: 1em;
+  text-align: center;
+}
+
+.admonition-content {
+  padding: 0.5em 0 0.5em 1em;
+  border-left: 1px solid #ccc;
+}
+
+.admonition-content > *:first-child {
+  margin-top: 0;
+}
+
+.admonition-content > *:last-child {
+  margin-bottom: 0;
+}
+
+
+.admonition-important .admonition-icon::before {
+  content: "\f06a";
+  color: #bf0000;
+}
+
+.admonition-note .admonition-icon::before {
+  content: "\f05a";
+  color: #19407c;
+}
+
+.admonition-tip .admonition-icon::before {
+  content: "\f0eb";
+  text-shadow: 1px 1px 2px rgba(155,155,0,.8);
+  color: #111;
+}
+
+.admonition-caution .admonition-icon::before {
+  content: "\f06d";
+  color: #bf3400;
+}
+
+.admonition-warning .admonition-icon::before {
+  content: "\f071";
+  color: #bf6900;
+}
