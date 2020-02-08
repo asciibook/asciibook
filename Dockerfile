@@ -48,3 +48,20 @@ ARG locale=zh_CN.UTF-8
 RUN locale-gen $locale
 
 ENV LANG=$locale
+
+FROM dev AS mathematical
+
+RUN apt-get install -y --no-install-recommends \
+  ruby-dev \
+  build-essential \
+  bison \
+  flex \
+  libffi-dev \
+  libxml2-dev \
+  libgdk-pixbuf2.0-dev \
+  libcairo2-dev \
+  libpango1.0-dev \
+  fonts-lyx \
+  cmake
+
+RUN gem install asciidoctor-mathematical

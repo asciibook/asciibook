@@ -1,4 +1,5 @@
 require "asciidoctor"
+require "asciidoctor-mathematical"
 require "rexml/document"
 require "nokogiri"
 require "fileutils"

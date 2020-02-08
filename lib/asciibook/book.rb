@@ -143,7 +143,7 @@ module Asciibook
     end
 
     def assets
-      Dir.glob('**/*.{jpg,png,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).reject do |path|
+      Dir.glob('**/*.{jpg,png,svg,gif,mp3,mp4,ogg,wav}', File::FNM_CASEFOLD, base: @base_dir).reject do |path|
         @exclude_patterns.any? do |pattern|
           File.fnmatch?(pattern, path)
         end
