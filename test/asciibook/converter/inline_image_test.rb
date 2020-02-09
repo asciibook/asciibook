@@ -38,4 +38,17 @@ class Asciibook::Converter::InlineImageTest < Asciibook::Test
 
     assert_convert_body html, doc
   end
+
+  def test_convert_image_with_size_and_link
+    doc = <<~EOF
+      image:http://example.com/logo.png[logo, 400, 300]
+    EOF
+
+    html = <<~EOF
+      <p><img src="http://example.com/logo.png" alt="logo" width="400" height="300" /></p>
+    EOF
+
+    assert_convert_body html, doc
+  end
+
 end

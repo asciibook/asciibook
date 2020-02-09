@@ -1,3 +1,5 @@
 <img src="{{ node.target }}"
      {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %}
-     {% if node.attributes.title %}title="{{ node.attributes.title }}"{% endif %} />
+     {% if node.attributes.title %}title="{{ node.attributes.title }}"{% endif %}
+     {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
+     {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %} />
