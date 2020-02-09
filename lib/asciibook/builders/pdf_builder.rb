@@ -15,7 +15,7 @@ module Asciibook
         copy_assets
         generate_header_footer
         generate_pdf
-        #clean_workdir
+        clean_workdir
       end
 
       def prepare_workdir
