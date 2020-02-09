@@ -64,4 +64,21 @@ class Asciibook::Converter::ImageTest < Asciibook::Test
 
     assert_convert_body html, doc
   end
+
+  def test_convert_image_with_imagesdir
+    doc = <<~EOF
+      :imagesdir: images
+
+      image::logo.png[]
+    EOF
+
+    html = <<~EOF
+      <figure class="image">
+        <img src="images/logo.png" alt="logo" />
+      </figure>
+    EOF
+
+    assert_convert_body html, doc
+  end
+
 end

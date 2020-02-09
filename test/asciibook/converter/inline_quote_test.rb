@@ -117,7 +117,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <p><img src='stem-c52c89c3d9346f959a8be919d739b71a.png' alt='stem c52c89c3d9346f959a8be919d739b71a'/></p>
+      <p><img src='tmp/stem-c52c89c3d9346f959a8be919d739b71a.png' alt='stem c52c89c3d9346f959a8be919d739b71a'/></p>
     EOF
 
     assert_convert_body html, doc

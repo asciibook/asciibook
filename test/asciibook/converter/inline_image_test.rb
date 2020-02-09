@@ -24,4 +24,18 @@ class Asciibook::Converter::InlineImageTest < Asciibook::Test
 
     assert_convert_body html, doc
   end
+
+  def test_convert_inline_image_with_imagesdir
+    doc = <<~EOF
+      :imagesdir: images
+
+      image:logo.png[alt, title="title"]
+    EOF
+
+    html = <<~EOF
+      <p><img src="images/logo.png" alt="alt" title="title" /></p>
+    EOF
+
+    assert_convert_body html, doc
+  end
 end

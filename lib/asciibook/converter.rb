@@ -127,9 +127,15 @@ module Asciibook
     end
 
     def block_to_hash(node)
-      abstract_block_to_hash(node).merge!({
+      data = abstract_block_to_hash(node).merge!({
         'blockname' => node.blockname
       })
+
+      if node.node_name == 'image'
+        data['target'] = node.image_uri(node.attributes['target'])
+      end
+
+      data
     end
 
     def list_to_hash(node)
@@ -235,6 +241,8 @@ module Asciibook
         end
 
         data['id'] = id
+      when 'inline_image'
+        data['target'] = node.image_uri(node.target)
       end
 
       data

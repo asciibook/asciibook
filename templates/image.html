@@ -1,6 +1,6 @@
 <figure class="image" {% if node.id %}id="{{ node.id }}"{% endif %}>
   {% if node.attributes.link %}<a href="{{ node.attributes.link }}">{% endif %}
-    <img src="{{ node.attributes.target }}"
+    <img src="{{ node.target }}"
          {% if node.attributes.alt %}alt="{{ node.attributes.alt }}"{% endif %}
          {% if node.attributes.width %}width="{{ node.attributes.width }}"{% endif %}
          {% if node.attributes.height %}height="{{ node.attributes.height }}"{% endif %} />
