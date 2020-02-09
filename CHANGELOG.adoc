@@ -2,6 +2,11 @@
 
 == Master
 
+== v0.0.2
+
+- Add latexmath support
+- Add Admonition Style
+
 == v0.0.1
 
 First Release!
