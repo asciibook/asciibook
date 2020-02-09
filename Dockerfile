@@ -3,13 +3,23 @@ FROM ubuntu:18.04 AS base
 ENV LANG=C.UTF-8
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+  bison \
+  build-essential \
+  cmake \
   curl \
+  flex \
+  fonts-lyx \
+  libcairo2-dev \
+  libffi-dev \
+  libgdk-pixbuf2.0-dev \
+  libpango1.0-dev \
+  libxml2-dev \
   ruby \
-  ruby-nokogiri
+  ruby-dev \
+  zlib1g-dev
 
 RUN curl -L https://builds.wkhtmltopdf.org/0.12.6-dev/wkhtmltox_0.12.6-0.20180618.3.dev.e6d6f54.bionic_amd64.deb -o /tmp/wkhtmltox.deb && \
-  apt-get install -y /tmp/wkhtmltox.deb && \
-  rm /tmp/wkhtmltox.deb
+  apt-get install -y /tmp/wkhtmltox.deb
 
 RUN curl http://kindlegen.s3.amazonaws.com/kindlegen_linux_2.6_i386_v2_9.tar.gz -o /tmp/kindlegen_linux_2.6_i386_v2_9.tar.gz && \
   tar -xzf /tmp/kindlegen_linux_2.6_i386_v2_9.tar.gz -C /tmp && \
@@ -32,7 +42,25 @@ FROM base AS builder
 COPY . /asciibook
 RUN gem build asciibook.gemspec
 
-FROM base AS release
+FROM ubuntu:18.04 AS release
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  bison \
+  flex \
+  fonts-lyx \
+  libcairo2 \
+  libffi6 \
+  libgdk-pixbuf2.0 \
+  libpango1.0 \
+  libxml2 \
+  ruby
+
+COPY --from=base /tmp/wkhtmltox.deb /tmp/wkhtmltox.deb
+RUN apt-get install -y /tmp/wkhtmltox.deb
+
+COPY --from=base /usr/bin/kindlegen /usr/bin/kindlegen
+
+COPY --from=dev /var/lib/gems /var/lib/gems
 
 COPY --from=builder /asciibook/asciibook-*.gem /tmp
 RUN gem install /tmp/asciibook-*.gem
@@ -48,20 +76,3 @@ ARG locale=zh_CN.UTF-8
 RUN locale-gen $locale
 
 ENV LANG=$locale
-
-FROM dev AS mathematical
-
-RUN apt-get install -y --no-install-recommends \
-  ruby-dev \
-  build-essential \
-  bison \
-  flex \
-  libffi-dev \
-  libxml2-dev \
-  libgdk-pixbuf2.0-dev \
-  libcairo2-dev \
-  libpango1.0-dev \
-  fonts-lyx \
-  cmake
-
-RUN gem install asciidoctor-mathematical

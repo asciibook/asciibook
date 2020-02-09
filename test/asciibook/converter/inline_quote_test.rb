@@ -111,11 +111,13 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
 
   def test_convert_inline_quoted_latexmath
     doc = <<~EOF
+      :imagesdir: tmp
+
       latexmath:[math]
     EOF
 
     html = <<~'EOF'
-      <p>\\(math\\)</p>
+      <p><img src='stem-c52c89c3d9346f959a8be919d739b71a.png' alt='stem c52c89c3d9346f959a8be919d739b71a'/></p>
     EOF
 
     assert_convert_body html, doc

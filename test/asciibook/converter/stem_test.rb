@@ -3,6 +3,8 @@ require 'test_helper'
 class Asciibook::Converter::StemTest < Asciibook::Test
   def test_convert_stem_latexmath
     doc = <<~'EOF'
+      :imagesdir: tmp
+
       [latexmath]
       ++++
       C = \alpha + \beta Y^{\gamma} + \epsilon
@@ -10,9 +12,9 @@ class Asciibook::Converter::StemTest < Asciibook::Test
     EOF
 
     html = <<~'EOF'
-      <div class="stem">
-        \\[C = \alpha + \beta Y^{\gamma} + \epsilon\\]
-      </div>
+      <figure class='image'>
+        <img src='stem-85bf4fca8fed5e01907287200263ca82.png' alt='$$C = \alpha + \beta Y^{\gamma} + \epsilon$$' width='95' height='12'/>
+      </figure>
     EOF
 
     assert_convert_body html, doc
