@@ -12,6 +12,8 @@ services:
     build:
       context: .
       target: dev
+      cache_from:
+        - asciibook_sut
     command: bundle exec rake test
     volumes:
       - .:/asciibook

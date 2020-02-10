@@ -7,9 +7,23 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          key: cache-${{ hashFiles('Dockerfile') }}-${{ hashFiles('asciibook.gemspec') }}
+          path: tmp/cache
+          restore-keys: |
+            cache-
+      - name: load docker cache
+        run: |
+          (test -f tmp/cache/asciibook_sut.tar && docker load --input tmp/cache/asciibook_sut.tar) || echo 'docker cache no exists, skipping step.'
+      - name: docker build
+        run: |
+          docker-compose build sut
+          mkdir -p tmp/cache
+          docker save --output tmp/cache/asciibook_sut.tar asciibook_sut
       - name: Run tests
         run: |
-          docker-compose build
           docker-compose run sut
 
   push_to_rubygems:
