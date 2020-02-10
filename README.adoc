@@ -5,88 +5,58 @@ Asciibook is an Ebook generator for converting AsciiDoc to HTML, PDF, EPUB and M
 
 == Installation
 
-If you are familiar with Ruby, you can use <<manual-installation>>.
+Asciibook uses docker as distribution tool. Docker helps deal with dependencies, keeps the local environment clean, and works well with CI / CD tools.
 
-If your are familiar with Docker, you can use <<docker-installation>>.
+You can download and install docker in https://www.docker.com/products/docker-desktop .
 
-[[manual-installation]]
-=== Manual installation
-
-Install by rubygems:
-
-[source, console]
-----
-$ gem install asciibook
-----
-
-For PDF generate, download and install wkhtmltopdf in https://wkhtmltopdf.org/downloads.html .
-
-For Mobi generate, download and install kindlegen in https://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000765211 .
-
-
-[[docker-installation]]
-=== Docker Installation
-
-Pull docker image:
+After installed docker, Pull the docker image:
 
 [source, consle]
 ----
 $ docker pull asciibook/asciibook
 ----
 
-Then use asciibook CLI in this way:
-
-[source, console]
-----
-$ docker run -v $(pwd):/asciibook asciibook/asciibook asciibook build mybook.adoc
-----
-
-Or enter the container environment to avoid repeating lengthy commands:
-
-[source, console]
-----
-$ docker run -v $(pwd):/asciibook asciibook/asciibook bash
-/asciibook $ asciibook build mybook.adoc
-----
-
 == Usage
 
-For a existing AsciiDoc file, run this command to build all format books:
+First, enter container enviroment in your AsciiDoc file diretory:
 
 [source, console]
 ----
-$ ascibook build mybook.adoc
+$ docker run -it -v $(pwd):/asciibook asciibook/asciibook bash
+/asciibook #
 ----
 
-Generated books will put in `build` directory.
+Following command is executed inside the container environment.
 
-Or generate only partial format:
+For a existing AsciiDoc file, run this command to build all formats:
 
 [source, console]
 ----
-$ asciibook build mybook.adoc --format html
-$ asciibook build mybook.adoc --format pdf,mobi
+/asciibook # ascibook build mybook.adoc
 ----
 
-If you don't want to enter the parameters repeatedly, you can create a configuration file for the document:
+Generated results will be placed in the `build` folder.
 
-[source, console]
-----
-$ asciibook init mybook.adoc
-----
-
-It will create a config file `asciibook.yml` in the same directory, edit config for your need, then use this command to build next time:
+Or generate partial formats:
 
 [source, console]
 ----
-$ asciibook build
+/asciibook # asciibook build mybook.adoc --format html
+/asciibook # asciibook build mybook.adoc --format pdf,mobi
 ----
 
-Use this command to create a empty AsciiDoc and config file:
+If you don't want to type the parameters repeatedly, you can create a configuration file for the document:
 
 [source, console]
 ----
-$ asciibook new mybook
+/asciibook # asciibook init mybook.adoc
+----
+
+It will create a config file named `asciibook.yml` in the same directory, edit config for your need, then use this command to build next time:
+
+[source, console]
+----
+/asciibook # asciibook build
 ----
 
 == Development
