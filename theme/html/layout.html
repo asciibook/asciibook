@@ -8,46 +8,50 @@
     <link rel="stylesheet" href="default.css" />
     <link rel="stylesheet" href="highlight.css" />
     <link rel="stylesheet" href="html.css" />
-    <script src="html.js" defer></script>
+    <script src="html.js"></script>
   </head>
   <body>
-    <div class="toolbar">
-      <div class="toolbar-title">
-        <a href="index.html">
-          {{ book.title }}
-        </a>
-      </div>
-      <div class="toolbar-action">
-        <div class="dropdown">
-          <button id="drawer-button" type="button" class="dropdown-toggle button button-icon">
-            <i class="fas fa-bars"></i>
-          </button>
-          <div id="toolbar-toc" class="dropdown-menu">
-            {% if book.toc[0] %}
-              <ol>
-                {% for item in book.toc %}
-                  <li>
-                    <a class="dropdown-menu-item" href="{{ item.path }}">{{ item.title }}</a>
-                    {% if item.items %}
-                      <ol>
-                        {% for subitem in item.items %}
-                          <li>
-                            <a class="dropdown-menu-item" href="{{ subitem.path }}">{{ subitem.title }}</a>
-                          </li>
-                        {% endfor %}
-                      </ol>
-                    {% endif %}
-                  </li>
-                {% endfor %}
-              </ol>
-            {% endif %}
-          </div>
+    <div id="drawer" class="drawer">
+      <div class="drawer-content">
+        <div class="drawer-menu">
+          {% if book.toc[0] %}
+            <ol>
+              {% for item in book.toc %}
+                <li>
+                  <a class="drawer-menu-item" href="{{ item.path }}">{{ item.title }}</a>
+                  {% if item.items %}
+                    <ol>
+                      {% for subitem in item.items %}
+                        <li>
+                          <a class="drawer-menu-item level-2" href="{{ subitem.path }}">{{ subitem.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ol>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ol>
+          {% endif %}
         </div>
       </div>
     </div>
     <div class="main">
+      <div class="toolbar">
+        <div class="toolbar-action">
+          <button id="drawer-toggle" type="button" class="button button-icon">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+        <div class="toolbar-title">
+          <a href="index.html">
+            {{ book.title }}
+          </a>
+        </div>
+      </div>
       <div class="content">
-        {{ page.content }}
+        <div class="content-inner">
+          {{ page.content }}
+        </div>
       </div>
       <div class="paginator">
         <a href="{{ page.prev_page.path }}" class="paginator-prev {% if page.prev_page == nil %} disabled {% endif %}">

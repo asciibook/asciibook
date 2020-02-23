@@ -1,12 +1,75 @@
-.toolbar {
-  position: fixed;
+html,
+body {
+  height: 100%;
+}
+
+.drawer {
+  width: 240px;
+  position: absolute;
   top: 0;
+  left: -240px;
+  bottom: 0;
+  overflow-y: auto;
+  transition: left 0.15s;
+}
+
+.drawer.open {
+  left: 0;
+}
+
+.drawer-content {
+  background: #fafafa;
+  border-right: 1px solid #eee;
+}
+
+.drawer-menu ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.drawer-menu-item {
+  padding: 0.5em 1em;
+  display: block;
+  text-decoration: none;
+  color: #555;
+}
+
+.drawer-menu-item.level-2 {
+  padding-left: 2em;
+}
+
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  transition: left 0.15s;
+}
+
+.drawer.open + .main {
+  left: 240px;
+}
+
+.content {
+  position: absolute;
+  top: 56px;
   left: 0;
   right: 0;
-  padding: 0.25em 1.25em;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.content-inner {
+  padding: 2em;
+  max-width: 768px;
+  margin: 0 auto;
+}
+
+.toolbar {
+  padding: 0.25em;
   display: flex;
-  background: white;
-  z-index: 100;
 }
 
 .toolbar-title {
@@ -111,12 +174,6 @@
   padding-left: 24px;
 }
 
-.content {
-  padding: 2em;
-  max-width: 768px;
-  margin: 0 auto;
-}
-
 .paginator {
 }
 
@@ -145,7 +202,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   top: 48px;
   bottom: 0;
   left: 0;
@@ -155,14 +212,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   top: 48px;
   bottom: 0;
   right: 0;
-}
-
-.main {
-  margin-top: 56px;
 }
 
 @media (max-width: 992px) {
