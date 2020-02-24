@@ -3,7 +3,14 @@ body {
   height: 100%;
 }
 
-.drawer {
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
+.drawer .drawer-content {
   width: 240px;
   position: absolute;
   top: 0;
@@ -11,15 +18,12 @@ body {
   bottom: 0;
   overflow-y: auto;
   transition: left 0.15s;
-}
-
-.drawer.open {
-  left: 0;
-}
-
-.drawer-content {
   background: #fafafa;
   border-right: 1px solid #eee;
+}
+
+.drawer.open .drawer-content {
+  left: 0;
 }
 
 .drawer-menu ol {
@@ -29,14 +33,16 @@ body {
 }
 
 .drawer-menu-item {
-  padding: 0.5em 1em;
+  padding: 8px 16px;
   display: block;
   text-decoration: none;
   color: #555;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .drawer-menu-item.level-2 {
-  padding-left: 2em;
+  padding-left: 32px;
 }
 
 .main {
@@ -52,28 +58,28 @@ body {
   left: 240px;
 }
 
-.content {
+.main-content {
   position: absolute;
   top: 56px;
   left: 0;
   right: 0;
   bottom: 0;
   overflow-y: auto;
+  padding: 32px;
 }
 
-.content-inner {
-  padding: 2em;
+.container {
   max-width: 768px;
   margin: 0 auto;
 }
 
 .toolbar {
-  padding: 0.25em;
+  padding: 4px;
   display: flex;
 }
 
 .toolbar-title {
-  padding: 0.75em;
+  padding: 12px;
   flex-grow: 1;
   font-weight: bold;
 }
@@ -88,7 +94,7 @@ body {
 }
 
 .toolbar-action {
-  padding: 0.25em;
+  padding: 4px;
 }
 
 .button {
@@ -107,7 +113,7 @@ body {
 }
 
 .button-icon {
-  padding: 0.5em;
+  padding: 8px;
 }
 
 .button-icon {
@@ -119,9 +125,9 @@ body {
 }
 
 .button-icon .fas {
-  font-size: 1.25em;
-  width: 1.2em;
-  line-height: 1.2em;
+  font-size: 20px;
+  width: 24px;
+  line-height: 24px;
   text-align: center;
 }
 
@@ -202,8 +208,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 48px;
+  top: 56px;
   bottom: 0;
   left: 0;
 }
@@ -212,19 +219,47 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 48px;
+  top: 56px;
   bottom: 0;
   right: 0;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1280px) {
+  .drawer.open .drawer-content {
+    z-index: 20;
+    background: white;
+  }
+
+  .drawer.open .drawer-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .drawer.open + .main {
+    left: 0;
+  }
+
+  .main-content {
+    bottom: 56px;
+  }
+
   .paginator {
     display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   .paginator a {
-    padding: 1em;
+    padding: 16px;
   }
 
   .paginator-prev {
@@ -241,15 +276,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .toolbar {
-    padding: 0.25em;
-  }
-
-  .content {
-    padding: 1em;
-  }
-
-  .paginator a {
-    padding: 0.25em;
+  .main-content {
+    padding: 16px;
   }
 }

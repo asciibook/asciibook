@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="html.css" />
     <script src="html.js"></script>
   </head>
-  <body>
+  <body class="preload">
     <div id="drawer" class="drawer">
       <div class="drawer-content">
         <div class="drawer-menu">
@@ -34,6 +34,8 @@
           {% endif %}
         </div>
       </div>
+      <div class="drawer-backdrop">
+      </div>
     </div>
     <div class="main">
       <div class="toolbar">
@@ -48,8 +50,8 @@
           </a>
         </div>
       </div>
-      <div class="content">
-        <div class="content-inner">
+      <div class="main-content">
+        <div class="container">
           {{ page.content }}
         </div>
       </div>

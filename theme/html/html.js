@@ -1,34 +1,45 @@
+function isDesktop() {
+  return window.innerWidth > 1280;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Drawer
-  var drawer = document.querySelector('#drawer')
-  var drawerToggle = document.querySelector('#drawer-toggle')
+  var drawer = document.querySelector('#drawer');
+  var drawerToggle = document.querySelector('#drawer-toggle');
+  var drawerBackdrop = drawer.querySelector('.drawer-backdrop');
 
   drawerToggle.addEventListener('click', function() {
-    drawer.classList.toggle('open')
-    localStorage.setItem('drawerOpened', drawer.classList.contains('open'))
+    drawer.classList.toggle('open');
+    if (isDesktop()) {
+      localStorage.setItem('drawerOpened', drawer.classList.contains('open'));
+    }
+  })
+
+  drawerBackdrop.addEventListener('click', function() {
+    drawer.classList.remove('open');
   })
 
   // restore drawer state
-  if (localStorage.getItem('drawerOpened') == 'true') {
-    drawer.classList.add('open')
+  if (isDesktop() && localStorage.getItem('drawerOpened') == 'true') {
+    drawer.classList.add('open');
   }
 
   // store drawer offset
   window.addEventListener('beforeunload', function() {
-    localStorage.setItem('drawerScrollTop', drawer.scrollTop);
+    localStorage.setItem('drawerScrollTop', drawer.querySelector('.drawer-content').scrollTop);
   });
 
   // restore drawer offset
   if (localStorage.getItem('drawerScrollTop')) {
-    drawer.scrollTop = parseInt(localStorage.getItem('drawerScrollTop'));
+    drawer.querySelector('.drawer-content').scrollTop = parseInt(localStorage.getItem('drawerScrollTop'));
   }
 
   // Dropdown
   document.querySelectorAll('.dropdown-toggle').forEach(function(element){
-    var dropdown = element.closest('.dropdown')
+    var dropdown = element.closest('.dropdown');
 
     function openMenu() {
-      dropdown.classList.add('open')
+      dropdown.classList.add('open');
       document.addEventListener('click', closeMenuOutside);
     }
 
@@ -51,4 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   })
+
+  document.body.classList.remove('preload');
 });
