@@ -41,6 +41,10 @@ body {
   line-height: 20px;
 }
 
+.drawer-menu-item.active {
+  color: #303f9f;
+}
+
 .drawer-menu-item.level-2 {
   padding-left: 32px;
 }

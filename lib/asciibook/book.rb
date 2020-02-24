@@ -46,21 +46,24 @@ module Asciibook
       doc.attributes['cover-image']
     end
 
-    def toc
-      @toc ||= outline(doc)
+    def outline
+      outline_node(doc)
     end
 
-    def outline(node)
+    # book outline only list sections that split as page
+    def outline_node(node)
       data = []
       node.sections.each do |section|
-        section_data = {
-          'title' => section.xreftext,
-          'path' => section.page ? section.page.path : "#{find_page_node(section).page.path}##{section.id}"
-        }
-        if section.sections.count > 0 and section.level < (doc.attributes['toclevels'] || 2).to_i
-          section_data['items'] = outline(section)
+        if section.page
+          section_data = {
+            'title' => section.xreftext,
+            'path' => section.page.path
+          }
+          if section.sections.count > 0 and section.level < @page_level
+            section_data['items'] = outline_node(section)
+          end
+          data << section_data
         end
-        data << section_data
       end
       data
     end
@@ -79,7 +82,7 @@ module Asciibook
       {
         'title' => doc.attributes['doctitle'],
         'attributes' => doc.attributes,
-        'toc' => toc
+        'outline' => outline
       }
     end
 

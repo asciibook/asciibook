@@ -14,16 +14,16 @@
     <div id="drawer" class="drawer">
       <div class="drawer-content">
         <div class="drawer-menu">
-          {% if book.toc[0] %}
+          {% if book.outline[0] %}
             <ol>
-              {% for item in book.toc %}
+              {% for item in book.outline %}
                 <li>
-                  <a class="drawer-menu-item" href="{{ item.path }}">{{ item.title }}</a>
+                  <a class="drawer-menu-item {% if item.path == page.path %} active {% endif %}" href="{{ item.path }}">{{ item.title }}</a>
                   {% if item.items %}
                     <ol>
                       {% for subitem in item.items %}
                         <li>
-                          <a class="drawer-menu-item level-2" href="{{ subitem.path }}">{{ subitem.title }}</a>
+                          <a class="drawer-menu-item level-2 {% if item.path == page.path %} active {% endif %}" href="{{ subitem.path }}">{{ subitem.title }}</a>
                         </li>
                       {% endfor %}
                     </ol>

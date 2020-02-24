@@ -86,7 +86,7 @@ class Asciibook::BookTest < Asciibook::Test
     assert_equal 'Chapter 2', book.pages[3].title
   end
 
-  def test_toc
+  def test_outline
     adoc = <<~EOF
       = Book Name
 
@@ -94,10 +94,12 @@ class Asciibook::BookTest < Asciibook::Test
 
       === Chapter 1.1
 
+      ==== Chapter 1.1.1
+
       == Chapter 2
     EOF
 
-    book = Asciibook::Book.new(adoc)
+    book = Asciibook::Book.new(adoc, page_level: 2)
     book.process
     assert_equal [
       {
@@ -106,7 +108,7 @@ class Asciibook::BookTest < Asciibook::Test
         "items" => [
           {
             "title" => "Chapter 1.1",
-            "path"=>"_chapter_1.html#_chapter_1_1"
+            "path"=>"_chapter_1_1.html"
           }
         ]
       },
@@ -114,7 +116,7 @@ class Asciibook::BookTest < Asciibook::Test
         "title" => "Chapter 2",
         "path" => "_chapter_2.html",
       }
-    ], book.toc
+    ], book.outline
   end
 
   def test_page_path
