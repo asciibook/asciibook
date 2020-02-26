@@ -121,17 +121,16 @@ body {
 }
 
 .button-icon {
-  color: #999;
+  fill: #999;
 }
 
 .button-icon:hover {
-  color: #555;
+  fill: #555;
 }
 
-.button-icon .fas {
-  font-size: 20px;
-  width: 24px;
-  line-height: 24px;
+.button-icon {
+  width: 40px;
+  height: 40px;
   text-align: center;
 }
 
@@ -189,19 +188,15 @@ body {
 
 .paginator a {
   padding: 32px;
-  color: #999;
+  fill: #999;
   text-decoration: none;
 }
 
-.paginator a .fas {
-  font-size: 1.25em;
-  width: 1.2em;
-  line-height: 1.2em;
-  text-align: center;
+.paginator a svg {
 }
 
 .paginator a:hover {
-  color: #555;
+  fill: #555;
 }
 
 .paginator a.disabled {

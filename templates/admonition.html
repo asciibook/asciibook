@@ -1,5 +1,6 @@
 <div class="admonition admonition-{{ node.attributes.name }}" {% if node.id %}id="{{ node.id }}"{% endif %}>
   <div class="admonition-icon">
+    <b>{{ node.attributes.name | upcase }}</b>
   </div>
   <div class="admonition-content">
     {% if node.title %}<h5>{{ node.title }}</h5>{% endif %}
