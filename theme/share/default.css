@@ -7,6 +7,7 @@ html {
 body {
   line-height: 1.5;
   font-size: 1em;
+  font-family: sans-serif;
   color: #333;
 }
 
@@ -51,9 +52,14 @@ img {
 pre {
   line-height: 1.2;
   margin: 1em 0;
-  background-color: #f8f8f8;
+  background: #f8f8f8;
   padding: 1em;
   white-space: pre-wrap;
+}
+
+*:not(pre) code {
+  background: #f8f8f8;
+  padding: 0 4px;
 }
 
 .toc ol {
@@ -103,6 +109,10 @@ figure.image {
 
 figcaption {
   font-style: italic;
+}
+
+figure pre {
+  margin: 0;
 }
 
 .example {
@@ -204,6 +214,9 @@ footer {
 }
 
 .admonition-content {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   padding: 0.5em 0 0.5em 1em;
   border-left: 1px solid #ccc;
 }
