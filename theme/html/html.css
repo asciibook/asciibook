@@ -231,7 +231,12 @@ body {
     background: white;
   }
 
+  .drawer .drawer-backdrop {
+    display: none;
+  }
+
   .drawer.open .drawer-backdrop {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -243,6 +248,11 @@ body {
 
   .drawer.open + .main {
     left: 0;
+  }
+
+  .drawer.open .drawer-content {
+    border: none;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   }
 
   .main-content {

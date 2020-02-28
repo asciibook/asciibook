@@ -3,6 +3,7 @@ body {
 }
 
 div,
-figure {
+figure,
+blockquote {
   page-break-inside: avoid;
 }
