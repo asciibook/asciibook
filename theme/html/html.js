@@ -63,5 +63,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   })
 
+  // Hot keys
+  document.addEventListener('keyup', function(event) {
+    switch (event.which) {
+      case 37:
+        document.querySelector('.paginator-prev').click();
+        break;
+      case 39:
+        document.querySelector('.paginator-next').click();
+        break;
+    }
+  })
+
+  // set default scroll element
+  document.querySelector('.main-content').focus();
+
   document.body.classList.remove('preload');
 });
