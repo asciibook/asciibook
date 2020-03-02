@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>{{ page.title }} - {{ book.title }}</title>
-    <link rel="icon" href="icon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    {% if book.attributes.base-url %}
+      <meta name="twitter:card" content="summary" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="{{ book.attributes.base-url }}{{ page.path }}" />
+      <meta property="og:title" content="{{ page.title }} - {{ book.title }}" />
+      <meta property="og:description" content="{{ page.description }}" />
+      {% if page.image_url %}
+        {% if page.image_url contains 'http://' or page.image_url contains 'https://' %}
+          <meta property="og:image" content="{{ page.image_url }}" />
+        {% else %}
+          <meta property="og:image" content="{{ book.attributes.base-url }}{{ page.image_url }}" />
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
     <link rel="stylesheet" href="normalize.css" />
     <link rel="stylesheet" href="default.css" />
     <link rel="stylesheet" href="highlight.css" />

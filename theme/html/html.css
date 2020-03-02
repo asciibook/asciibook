@@ -142,7 +142,7 @@ body {
 .dropdown-menu {
   display: none;
   position: absolute;
-  min-width: 320px;
+  min-width: 240px;
   max-width: 90%;
   max-height: 480px;
   top: 100%;
