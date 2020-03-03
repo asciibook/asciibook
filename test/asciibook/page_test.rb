@@ -18,4 +18,23 @@ class Asciibook::PageTest < Asciibook::Test
     page = Asciibook::Page.new path: 'test.html', node: doc
     assert_equal 'text description', page.description
   end
+
+  def test_outline
+    book = Asciibook::Book.new <<~EOF
+      = Book Title
+
+      == Section 1
+
+      === Seciton 1.1
+
+      === Seciton 1.2
+    EOF
+    book.process
+
+    assert_equal [], book.pages[0].outline
+    assert_equal [
+      {"title" => "Seciton 1.1", "path" => "#_seciton_1_1"},
+      {"title" => "Seciton 1.2", "path"=>"#_seciton_1_2"}
+    ], book.pages[1].outline
+  end
 end

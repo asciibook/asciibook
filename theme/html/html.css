@@ -45,7 +45,7 @@ body {
   color: #303f9f;
 }
 
-.drawer-menu-item.level-2 {
+.drawer-menu ol ol .drawer-menu-item {
   padding-left: 32px;
 }
 
@@ -152,6 +152,7 @@ body {
   z-index: 10;
   overflow-y: auto;
   background: white;
+  font-size: 14px;
 }
 
 .dropdown.open .dropdown-menu {
