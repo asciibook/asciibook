@@ -40,7 +40,7 @@
                     <ol>
                       {% for subitem in item.items %}
                         <li>
-                          <a class="drawer-menu-item level-2 {% if item.path == page.path %} active {% endif %}" href="{{ subitem.path }}">{{ subitem.title }}</a>
+                          <a class="drawer-menu-item level-2 {% if subitem.path == page.path %} active {% endif %}" href="{{ subitem.path }}">{{ subitem.title }}</a>
                         </li>
                       {% endfor %}
                     </ol>
