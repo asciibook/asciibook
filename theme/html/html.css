@@ -115,10 +115,25 @@ body {
   line-height: 1;
   border: none;
   padding: 0;
+  color: #999;
+}
+
+.button:hover {
+  color: #555;
+}
+
+.button:active,
+.button.active {
+  color: #333;
+}
+
+.button-text {
+  padding: 8px 16px;
 }
 
 .button-icon {
   padding: 8px;
+  border-radius: 50%;
 }
 
 .button-icon {
@@ -183,6 +198,56 @@ body {
 
 .dropdown-menu ol ol .dropdown-menu-item {
   padding-left: 24px;
+}
+
+.dropdown-group {
+  margin: 16px;
+}
+
+.dropdown-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #777;
+}
+
+.dropdown-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.font-family-options .button {
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.background-options .button {
+  border: 1px solid #ccc;
+}
+
+.background-options .button svg {
+  display: none;
+}
+
+.background-options .button.active svg {
+  display: block;
+}
+
+.background-options .button[data-background="white"] {
+  background: white;
+}
+
+.background-options .button[data-background="warm"] {
+  background: #fff8e1;
+}
+
+.background-options .button[data-background="dim"] {
+  background: #616161;
+}
+
+.background-options .button[data-background="black"] {
+  background: black;
 }
 
 .paginator {
