@@ -20,6 +20,7 @@ body {
   transition: left 0.15s;
   background: #fafafa;
   border-right: 1px solid #eee;
+  box-sizing: border-box;
 }
 
 .drawer.open .drawer-content {
@@ -234,19 +235,19 @@ body {
   display: block;
 }
 
-.background-options .button[data-background="white"] {
+.background-options .button[data-value="white"] {
   background: white;
 }
 
-.background-options .button[data-background="warm"] {
+.background-options .button[data-value="warm"] {
   background: #fff8e1;
 }
 
-.background-options .button[data-background="dim"] {
-  background: #616161;
+.background-options .button[data-value="dim"] {
+  background: #424242;
 }
 
-.background-options .button[data-background="black"] {
+.background-options .button[data-value="black"] {
   background: black;
 }
 
@@ -291,6 +292,137 @@ body {
   bottom: 0;
   right: 0;
 }
+
+/* Theme */
+
+body[data-font-size="50"] .main-content {
+  font-size: 50%;
+}
+
+body[data-font-size="67"] .main-content {
+  font-size: 67%;
+}
+
+body[data-font-size="75"] .main-content {
+  font-size: 75%;
+}
+
+body[data-font-size="80"] .main-content {
+  font-size: 80%;
+}
+
+body[data-font-size="90"] .main-content {
+  font-size: 90%;
+}
+
+body[data-font-size="100"] .main-content {
+  font-size: 100%;
+}
+
+body[data-font-size="110"] .main-content {
+  font-size: 110%;
+}
+
+body[data-font-size="125"] .main-content {
+  font-size: 125%;
+}
+
+body[data-font-size="150"] .main-content {
+  font-size: 150%;
+}
+
+body[data-font-size="175"] .main-content {
+  font-size: 175%;
+}
+
+body[data-font-size="200"] .main-content {
+  font-size: 200%;
+}
+
+body[data-font-family="serif"] .main-content {
+  font-family: serif;
+}
+
+body[data-font-family="sans-serif"] .main-content {
+  font-family: sans-serif;
+}
+
+body[data-background="white"] {
+  background: white;
+}
+
+body[data-background="warm"] {
+  background: #fff8e1;
+}
+
+body[data-background="dim"] {
+  background: #424242;
+}
+
+body[data-background="dim"] .main-content,
+body[data-background="dim"] .main-content h1,
+body[data-background="dim"] .main-content h2,
+body[data-background="dim"] .main-content h3,
+body[data-background="dim"] .main-content h4,
+body[data-background="dim"] .main-content h5,
+body[data-background="dim"] .main-content h6 {
+  color: #ddd;
+}
+
+body[data-background="dim"] .main-content pre,
+body[data-background="dim"] .main-content *:not(pre) code,
+body[data-background="dim"] .main-content .example,
+body[data-background="dim"] .main-content .sidebar,
+body[data-background="dim"] .main-content blockquote {
+  background: transparent;
+}
+
+body[data-background="dim"] .main-content pre span {
+  color: #ddd;
+}
+
+body[data-background="dim"] .main-content a {
+  color: #81d4fa;
+}
+
+body[data-background="dim"] .main-content a.callout {
+  color: #ddd;
+}
+
+body[data-background="black"] {
+  background: black;
+}
+
+body[data-background="black"] .main-content,
+body[data-background="black"] .main-content h1,
+body[data-background="black"] .main-content h2,
+body[data-background="black"] .main-content h3,
+body[data-background="black"] .main-content h4,
+body[data-background="black"] .main-content h5,
+body[data-background="black"] .main-content h6 {
+  color: #ddd;
+}
+
+body[data-background="black"] .main-content pre,
+body[data-background="black"] .main-content *:not(pre) code,
+body[data-background="black"] .main-content .example,
+body[data-background="black"] .main-content .sidebar,
+body[data-background="black"] .main-content blockquote {
+  background: transparent;
+}
+
+body[data-background="black"] .main-content pre span {
+  color: #ddd;
+}
+
+body[data-background="black"] .main-content a {
+  color: #81d4fa;
+}
+
+body[data-background="black"] .main-content a.callout {
+  color: #ddd;
+}
+/* responsive */
 
 @media (max-width: 1280px) {
   .drawer.open .drawer-content {

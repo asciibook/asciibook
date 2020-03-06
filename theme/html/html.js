@@ -75,6 +75,83 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   })
 
+  // Custom style
+  document.body.dataset.fontSize = localStorage.getItem('fontSize') || '100';
+  document.body.dataset.fontFamily = localStorage.getItem('fontFamily') || 'sans-serif';
+  document.body.dataset.background = localStorage.getItem('background') || 'white';
+
+  function updataFonsSizeText() {
+    document.querySelector('#font-size-text').textContent = document.body.dataset.fontSize + '%';
+  }
+  updataFonsSizeText();
+
+  function updateFontFamilyButton() {
+    document.querySelectorAll('.font-family-options .button').forEach(function(button){
+      if (button.dataset.value == document.body.dataset.fontFamily) {
+        button.classList.add('active')
+      } else {
+        button.classList.remove('active')
+      }
+    });
+  }
+  updateFontFamilyButton();
+
+  function updateBackgroundButton() {
+    document.querySelectorAll('.background-options .button').forEach(function(button){
+      if (button.dataset.value == document.body.dataset.background) {
+        button.classList.add('active')
+      } else {
+        button.classList.remove('active')
+      }
+    });
+  }
+  updateBackgroundButton();
+
+  function updateStyle(key, value) {
+    localStorage.setItem(key, value);
+    document.body.dataset[key] = value;
+  }
+
+  var fontSizeList = [50, 67, 75, 80, 90, 100, 110, 125, 150, 175, 200];
+  document.querySelectorAll('.font-size-options .button').forEach(function(element){
+    element.addEventListener('click', function() {
+      var index = fontSizeList.indexOf(parseInt(document.body.dataset.fontSize));
+
+      if (index == -1) {
+        index = 5;
+      }
+
+      switch (this.dataset.action) {
+        case 'add':
+          index += 1
+          break;
+        case 'reduce':
+          index -= 1
+          break;
+        default:
+      }
+
+      if (value = fontSizeList[index]) {
+        updateStyle('fontSize', value);
+        updataFonsSizeText();
+      }
+    });
+  });
+
+  document.querySelectorAll('.font-family-options .button').forEach(function(element) {
+    element.addEventListener('click', function() {
+      updateStyle('fontFamily', this.dataset.value);
+      updateFontFamilyButton();
+    });
+  });
+
+  document.querySelectorAll('.background-options .button').forEach(function(element) {
+    element.addEventListener('click', function() {
+      updateStyle('background', this.dataset.value);
+      updateBackgroundButton();
+    });
+  });
+
   // set default scroll element
   document.querySelector('.main-content').focus();
 
