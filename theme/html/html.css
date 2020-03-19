@@ -34,7 +34,7 @@ body {
 }
 
 .drawer-menu-item {
-  padding: 8px 16px;
+  padding: 10px 16px;
   display: block;
   text-decoration: none;
   color: #555;
@@ -42,8 +42,14 @@ body {
   line-height: 20px;
 }
 
+.drawer-menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #333;
+}
+
 .drawer-menu-item.active {
-  color: #303f9f;
+  background: rgba(0, 0, 0, 0.05);
+  color: #3f51b5;
 }
 
 .drawer-menu ol ol .drawer-menu-item {
@@ -189,9 +195,10 @@ body {
 
 .dropdown-menu-item {
   display: block;
-  padding: 12px;
+  padding: 10px 12px;
   text-decoration: none;
   color: #555;
+  line-height: 20px;
 }
 
 .dropdown-menu-item:hover {
