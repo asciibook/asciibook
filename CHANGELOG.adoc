@@ -1,6 +1,24 @@
+:experimental:
+
 = Chagnelog
 
 == Master
+
+== v0.0.3
+
+Default html theme updated:
+
+- Add drawer for page navigate.
+- Add style settings: font size, font familiy, background.
+- Add shortcut kbd:[<-] and kbd:[->] for page navigate.
+
+Theme variable changed:
+
+- Split `book.toc` to `book.outline` and `page.outline`.
+
+Bug fixed:
+
+- Add missing inline_break template.
 
 == v0.0.2
 
