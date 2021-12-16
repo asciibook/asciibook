@@ -38,10 +38,18 @@ module Asciibook
             File.open(File.join(dir, 'asciibook.yml'), 'w') do |file|
               file.write <<~EOF
                 source: #{filename}
-                #formats: ['html', 'pdf', 'epub', 'mobi']
-                #theme_dir:
-                #template_dir:
-                #page_level: 1
+                # formats:
+                #   - html
+                #   - pdf
+                #   - epub
+                #   - mobi
+                #
+                # theme_dir:
+                # template_dir:
+                # page_level: 1
+                #
+                # plugins:
+                #   - asciidoctor-diagram
               EOF
             end
           else
@@ -58,6 +66,7 @@ module Asciibook
         c.option :template_dir, '--template-dir DIR', 'Template dir.'
         c.option :dest_dir, '--dest-dir DIR', 'Destination dir.'
         c.option :page_level, '--page-level NUM', Integer, 'Page split base on section level, default is 1.'
+        c.option :plugins, '-r', '--require PLUGIN1[,PLUGIN2[,PLUGIN3...]]', Array, 'Require plugins'
         c.action do |args, options|
           source = args[0] || '.'
           if File.directory?(source)
@@ -66,8 +75,10 @@ module Asciibook
               hash
             end
             options = config_options.merge(options)
+            load_plugins(options[:plugins])
             Asciibook::Book.load_file(options.delete(:source), options).build
           elsif File.file?(source)
+            load_plugins(options[:plugins])
             Asciibook::Book.load_file(source, options).build
           else
             abort "Build target '#{source}' neither a folder nor a file"
@@ -80,6 +91,14 @@ module Asciibook
       end
 
       p.go(argv)
+    end
+
+    def self.load_plugins(plugins)
+      if plugins
+        plugins.each do |plugin|
+          require plugin
+        end
+      end
     end
   end
 end

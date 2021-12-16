@@ -1,5 +1,13 @@
 source: book.adoc
-#formats: ['html', 'pdf', 'epub', 'mobi']
-#theme_dir:
-#template_dir:
-#page_level: 1
+# formats:
+#   - html
+#   - pdf
+#   - epub
+#   - mobi
+#
+# theme_dir:
+# template_dir:
+# page_level: 1
+#
+# plugins:
+#   - asciidoctor-diagram

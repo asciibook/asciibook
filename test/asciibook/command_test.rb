@@ -52,13 +52,6 @@ class Asciibook::CommandTest < Asciibook::Test
       FileUtils.touch File.join(dir, 'test.adoc')
       Asciibook::Command.execute %W(init #{File.join(dir, 'test.adoc')})
       assert File.exist?(File.join(dir, 'asciibook.yml'))
-      assert_equal <<~EOF, File.read(File.join(dir, 'asciibook.yml'))
-        source: test.adoc
-        #formats: ['html', 'pdf', 'epub', 'mobi']
-        #theme_dir:
-        #template_dir:
-        #page_level: 1
-      EOF
     end
   end
 
