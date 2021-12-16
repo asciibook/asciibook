@@ -24,7 +24,7 @@ module Asciibook
       end
 
       def clean_workdir
-        FileUtils.rm_r @tmp_dir
+        # FileUtils.rm_r @tmp_dir
       end
 
       def generate_pages
@@ -123,6 +123,7 @@ module Asciibook
             command << 'toc' << '--xsl-style-sheet' << 'toc.xsl'
           else
             command << page.path
+            command << '--allow' << File.expand_path(@tmp_dir)
           end
         end
         filename = "#{@book.basename}.pdf"

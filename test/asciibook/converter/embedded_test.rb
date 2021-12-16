@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Asciibook::Converter::DocumentTest < Asciibook::Test
+class Asciibook::Converter::EmbeddedTest < Asciibook::Test
   def test_convert_document
     doc = <<~EOF
     EOF

@@ -111,6 +111,7 @@ class Asciibook::Converter::InlineQuoteTest < Asciibook::Test
 
   def test_convert_inline_quoted_latexmath
     doc = <<~EOF
+      :stem:
       :imagesdir: tmp
 
       latexmath:[math]

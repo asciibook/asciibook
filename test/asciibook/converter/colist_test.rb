@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class Asciibook::Converter::DlistTest < Asciibook::Test
-  def test_convert_dlist
+class Asciibook::Converter::ColistTest < Asciibook::Test
+  def test_convert_colist
     doc = <<~EOF
       [source,ruby]
       ----
@@ -17,9 +17,9 @@ class Asciibook::Converter::DlistTest < Asciibook::Test
     EOF
 
     html = <<~EOF
-      <figure>
-        <pre>require 'sinatra' <a data-type='callout' id='callout-CO1-1' href='#colist-CO1-1'>1</a>
-get '/hi' do <a data-type='callout' id='callout-CO1-2' href='#colist-CO1-2'>2</a> <a data-type='callout' id='callout-CO1-3' href='#colist-CO1-3'>3</a>
+      <figure class="listing">
+        <pre>require 'sinatra' <a class='callout' id='callout-CO1-1' href='#colist-CO1-1'>1</a>
+get '/hi' do <a class='callout' id='callout-CO1-2' href='#colist-CO1-2'>2</a> <a class='callout' id='callout-CO1-3' href='#colist-CO1-3'>3</a>
 \"Hello World!\"
 end</pre>
       </figure>

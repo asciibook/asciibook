@@ -3,6 +3,7 @@ require 'test_helper'
 class Asciibook::Converter::StemTest < Asciibook::Test
   def test_convert_stem_latexmath
     doc = <<~'EOF'
+      :stem:
       :imagesdir: tmp
 
       [latexmath]
