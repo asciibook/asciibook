@@ -29,7 +29,7 @@ jobs:
   push_to_rubygems:
     needs: testing
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
@@ -48,7 +48,7 @@ jobs:
   push_to_docker:
     needs: testing
     if: success() && github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - run: |
