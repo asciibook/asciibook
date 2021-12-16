@@ -25,4 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "mercenary", "~> 0.4"
   spec.add_runtime_dependency "rouge", "~> 3.0"
   spec.add_runtime_dependency "nokogiri", "~> 1.0"
+
+  spec.add_development_dependency "rake"
 end
