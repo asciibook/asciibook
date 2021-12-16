@@ -8,12 +8,3 @@ services:
     command: bash
     volumes:
       - .:/asciibook
-  sut:
-    build:
-      context: .
-      target: dev
-      cache_from:
-        - asciibook_sut
-    command: bundle exec rake test
-    volumes:
-      - .:/asciibook

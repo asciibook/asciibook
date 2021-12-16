@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  test:
+    image: asciibook/asciibook:dev
+    command: rake test
+    volumes:
+      - .:/asciibook
