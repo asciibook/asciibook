@@ -1,4 +1,4 @@
-FROM ubuntu:20.04 AS base
+FROM ubuntu:20.04 AS dev
 
 ENV LANG=C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
@@ -31,40 +31,15 @@ RUN gem install bundler -v 2.0.2
 
 WORKDIR /asciibook
 
-FROM base AS dev
-
 COPY asciibook.gemspec /asciibook/asciibook.gemspec
 COPY Gemfile /asciibook/Gemfile
 COPY lib/asciibook/version.rb /asciibook/lib/asciibook/version.rb
 RUN bundle install
 
-FROM base AS builder
+FROM dev AS release
 
 COPY . /asciibook
-RUN gem build asciibook.gemspec
-
-FROM ubuntu:20.04 AS release
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  bison \
-  flex \
-  fonts-lyx \
-  libcairo2 \
-  libffi6 \
-  libgdk-pixbuf2.0 \
-  libpango1.0 \
-  libxml2 \
-  ruby
-
-COPY --from=base /tmp/wkhtmltox.deb /tmp/wkhtmltox.deb
-RUN apt-get install -y /tmp/wkhtmltox.deb
-
-COPY --from=base /usr/bin/kindlegen /usr/bin/kindlegen
-
-COPY --from=dev /var/lib/gems /var/lib/gems
-
-COPY --from=builder /asciibook/asciibook-*.gem /tmp
-RUN gem install /tmp/asciibook-*.gem
+RUN gem build asciibook.gemspec && gem install asciibook-*.gem && rm -r /asciibook/*
 
 FROM release AS cjk
 
