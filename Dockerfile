@@ -39,7 +39,7 @@ RUN bundle install
 FROM dev AS release
 
 COPY . /asciibook
-RUN gem build asciibook.gemspec && gem install asciibook-*.gem && rm -r /asciibook/*
+RUN rake install && rm -r /asciibook/*
 
 FROM release AS cjk
 
