@@ -24,7 +24,7 @@ module Asciibook
       end
 
       def clean_workdir
-        # FileUtils.rm_r @tmp_dir
+        FileUtils.rm_r @tmp_dir
       end
 
       def generate_pages
