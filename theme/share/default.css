@@ -54,9 +54,14 @@ pre {
   white-space: pre-wrap;
 }
 
-*:not(pre) code {
+code {
   background: #f8f8f8;
   padding: 0 4px;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
 }
 
 .toc ol {
