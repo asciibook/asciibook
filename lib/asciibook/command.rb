@@ -38,6 +38,7 @@ module Asciibook
             File.open(File.join(dir, 'asciibook.yml'), 'w') do |file|
               file.write <<~EOF
                 source: #{filename}
+
                 # formats:
                 #   - html
                 #   - pdf
@@ -66,7 +67,7 @@ module Asciibook
         c.option :template_dir, '--template-dir DIR', 'Template dir.'
         c.option :dest_dir, '--dest-dir DIR', 'Destination dir.'
         c.option :page_level, '--page-level NUM', Integer, 'Page split base on section level, default is 1.'
-        c.option :plugins, '-r', '--require PLUGIN1[,PLUGIN2[,PLUGIN3...]]', Array, 'Require plugins'
+        c.option :plugins, '--plugin PLUGIN1[,PLUGIN2[,PLUGIN3...]]', Array, 'Require ruby gem or ruby script plugin.'
         c.action do |args, options|
           source = args[0] || '.'
           if File.directory?(source)
