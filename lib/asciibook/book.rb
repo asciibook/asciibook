@@ -9,7 +9,7 @@ module Asciibook
       @base_dir = options[:base_dir] || '.'
       @dest_dir = options[:dest_dir] || File.join(@base_dir, 'build')
       @theme_dir = options[:theme_dir] || File.expand_path('../../../theme', __FILE__)
-      @formats = options[:formats] || %w(html pdf epub mobi)
+      @formats = options[:formats] || %w(html pdf epub)
       @template_dir = options[:template_dir]
 
       @page_level = @options[:page_level] || 1
@@ -97,10 +97,6 @@ module Asciibook
 
       if @formats.include?('epub')
         Builders::EpubBuilder.new(self).build
-      end
-
-      if @formats.include?('mobi')
-        Builders::MobiBuilder.new(self).build
       end
     end
 

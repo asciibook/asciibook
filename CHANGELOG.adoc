@@ -4,6 +4,8 @@
 
 == Master
 
+- Remove mobi support.
+
 == v0.0.3
 
 Default html theme updated:

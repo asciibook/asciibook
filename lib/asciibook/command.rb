@@ -7,7 +7,7 @@ module Asciibook
       p = Mercenary::Program.new(:asciibook)
 
       p.version Asciibook::VERSION
-      p.description 'Asciibook is a ebook generator from Asciidoc to html/pdf/epub/mobi'
+      p.description 'Asciibook is a ebook generator from Asciidoc to html/pdf/epub'
       p.syntax 'asciibook <command> [options]'
 
       p.command(:new) do |c|
@@ -43,7 +43,6 @@ module Asciibook
                 #   - html
                 #   - pdf
                 #   - epub
-                #   - mobi
                 #
                 # theme_dir:
                 # template_dir:
@@ -62,7 +61,7 @@ module Asciibook
       p.command(:build) do |c|
         c.description 'Build book'
         c.syntax 'build [FILE|DIR]'
-        c.option :formats, '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub,mobi, default is all.'
+        c.option :formats, '--format FORMAT1[,FORMAT2[,FORMAT3...]]', Array, 'Formats you want to build, allow: html,pdf,epub, default is all.'
         c.option :theme_dir, '--theme-dir DIR', 'Theme dir.'
         c.option :template_dir, '--template-dir DIR', 'Template dir.'
         c.option :dest_dir, '--dest-dir DIR', 'Destination dir.'

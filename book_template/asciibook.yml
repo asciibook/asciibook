@@ -4,7 +4,6 @@ source: book.adoc
 #   - html
 #   - pdf
 #   - epub
-#   - mobi
 #
 # theme_dir:
 # template_dir:

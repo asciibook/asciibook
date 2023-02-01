@@ -1,7 +1,7 @@
 = Asciibook
 :toc:
 
-Asciibook is an Ebook generator for converting AsciiDoc to HTML, PDF, EPUB and MOBI.
+Asciibook is an Ebook generator for converting AsciiDoc to HTML, PDF and EPUB.
 
 == Installation
 
@@ -41,8 +41,7 @@ Or generate partial formats:
 
 [source, console]
 ----
-/asciibook # asciibook build mybook.adoc --format html
-/asciibook # asciibook build mybook.adoc --format pdf,mobi
+/asciibook # asciibook build mybook.adoc --format html,pdf,epub
 ----
 
 If you don't want to type the parameters repeatedly, you can create a configuration file for the document:
