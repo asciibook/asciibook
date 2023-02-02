@@ -1,0 +1,28 @@
+name: Publish Ruby gem
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push_to_rubygem:
+    name: Push Ruby gem
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Push ruby gem
+        run: |
+          mkdir -p $HOME/.gem
+          touch $HOME/.gem/credentials
+          chmod 0600 $HOME/.gem/credentials
+          printf -- "---\n:rubygems_api_key: ${RUBYGEMS_API_KEY}\n" > $HOME/.gem/credentials
+          gem build asciibook.gemspec
+          gem push asciibook-*.gem
+        env:
+          RUBYGEMS_API_KEY: ${{secrets.RUBYGEMS_API_KEY}}

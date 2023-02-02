@@ -14,7 +14,7 @@ class Asciibook::Converter::StemTest < Asciibook::Test
 
     html = <<~'EOF'
       <figure class='image'>
-        <img src='tmp/stem-85bf4fca8fed5e01907287200263ca82.png' alt='$$C = \alpha + \beta Y^{\gamma} + \epsilon$$' width='95' height='12'/>
+        <img src='tmp/stem-85bf4fca8fed5e01907287200263ca82.png' alt='$$C = \alpha + \beta Y^{\gamma} + \epsilon$$' width='89' height='13'/>
       </figure>
     EOF
 
