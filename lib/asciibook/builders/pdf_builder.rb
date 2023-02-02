@@ -115,6 +115,7 @@ module Asciibook
         if @book.cover_image_path
           prepare_cover
           command << 'cover' << 'cover.html'
+          command << '--allow' << File.expand_path(@tmp_dir)
         end
 
         @book.pages.each do |page|
