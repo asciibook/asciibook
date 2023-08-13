@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency "asciidoctor", "~> 2.0"
   spec.add_runtime_dependency "asciidoctor-mathematical", "~> 0.3"
+  spec.add_runtime_dependency "mathematical", "1.6.14"
   spec.add_runtime_dependency "liquid", "~> 5.0"
   spec.add_runtime_dependency "gepub", "~> 1.0"
   spec.add_runtime_dependency "mercenary", "~> 0.4"

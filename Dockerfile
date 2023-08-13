@@ -1,4 +1,4 @@
-FROM ruby:3.2.0 AS dev
+FROM --platform=linux/amd64 ruby:3.2.0 AS dev
 
 ENV DEBIAN_FRONTEND=noninteractive
 
